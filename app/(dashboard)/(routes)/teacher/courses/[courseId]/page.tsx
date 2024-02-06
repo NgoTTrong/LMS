@@ -74,14 +74,14 @@ const CourseIdPage = async ({
               <IconBadge icon={ListChecks} />
               <h2 className="text-xl">Course chapters</h2>
             </div>
-            <div>TODO: Chapters</div>
+            <ChaptersForm initialData={course} courseId={courseId} />
           </div>
           <div>
             <div className="flex items-center gap-x-2">
               <IconBadge icon={CircleDollarSign} />
               <h2 className="text-xl">Sell your course</h2>
             </div>
-            <ChaptersForm initialData={course} courseId={courseId} />
+            <PriceForm initialData={course} courseId={courseId} />
           </div>
           <div>
             <div className="flex items-center gap-x-2">
