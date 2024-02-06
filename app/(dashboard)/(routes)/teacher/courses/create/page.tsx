@@ -15,6 +15,8 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
+import CourseService from "@/services/course/courseService";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   title: z.string().min(1, {
@@ -22,6 +24,7 @@ const formSchema = z.object({
   }),
 });
 const CreateCoursePage = () => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -29,9 +32,14 @@ const CreateCoursePage = () => {
     },
   });
   const { isSubmitting, isValid } = form.formState;
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-    toast.success(values.toString());
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const _course = await CourseService.createCourse(values);
+    if (_course) {
+      router.push(`/teacher/courses/${_course?.id}`);
+      toast.success("Course Created");
+    } else {
+      toast.error("Something went wrong!");
+    }
   };
   return (
     <main className="max-w-5xl mx-auto flex md:items-center md:justify-center h-full p-6">
