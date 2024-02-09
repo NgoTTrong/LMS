@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url("https://vjs.zencdn.net/8.10.0/video-js.css");
 html,
 body,
 :root {
@@ -80,3 +80,6 @@ body,
   }
 }
 @import "~@uploadthing/react/styles.css";
+.ql-container {
+  font-size: 1rem !important;
+}

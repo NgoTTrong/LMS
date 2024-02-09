@@ -1,6 +1,7 @@
 import {
   IAttachment,
   ICategoryCourse,
+  IChapter,
   ICourse,
 } from "@/interfaces/course/course-interface";
 import { apiEndpoint } from "../api/endpoint";
@@ -8,12 +9,106 @@ import RequestAPI from "../api/request-api";
 
 const courseRoutes = {
   createCourse: apiEndpoint + "/course",
+  getCourseByUser: apiEndpoint + "/course/by-user",
+  getDashboardCourses: apiEndpoint + "/course/get-all-of-user",
+  getCoursesByUser: apiEndpoint + "/course/all",
   getCategories: apiEndpoint + "/category-course",
   addAttachment: apiEndpoint,
   addChapter: apiEndpoint,
+  getChapterById: apiEndpoint + "/chapter",
+  getProgress: apiEndpoint + "/user-progress/all",
 };
 
 export default class CourseService {
+  static getDashboardCoursesByUser = async () => {
+    try {
+      const response = await RequestAPI.call<{
+        completedCourses: {
+          course: ICourse;
+          progress: number | null;
+        }[];
+        inCompletedCourses: {
+          course: ICourse;
+          progress: number | null;
+        }[];
+      }>(courseRoutes.getDashboardCourses, {
+        method: "GET",
+      });
+      if (response?.data) {
+        return response?.data;
+      }
+    } catch (error) {}
+    return { completedCourses: [], inCompletedCourses: [] };
+  };
+  static getCourseByUser = async (courseId: number, userId: number) => {
+    try {
+      const response = await RequestAPI.call<ICourse>(
+        courseRoutes.getCourseByUser + "/" + courseId,
+        {
+          method: "GET",
+          params: {
+            userId,
+          },
+        }
+      );
+      if (response?.data) {
+        return response?.data;
+      }
+    } catch (error) {}
+    return null;
+  };
+  static getProgress = async (courseId: number) => {
+    try {
+      const response = await RequestAPI.call<number | null>(
+        courseRoutes.getProgress + "/" + courseId,
+        {
+          method: "GET",
+        }
+      );
+      if (response?.data) {
+        return response?.data;
+      }
+    } catch (error) {}
+    return null;
+  };
+  static getAllCoursesByUser = async (
+    userId: number,
+    title?: string,
+    categoryId?: number
+  ) => {
+    try {
+      const response = await RequestAPI.call<
+        {
+          course: ICourse;
+          progress: number | null;
+        }[]
+      >(courseRoutes.getCoursesByUser + "/" + userId, {
+        method: "GET",
+        params: {
+          title,
+          categoryId,
+        },
+      });
+      if (response?.data) {
+        return response?.data;
+      }
+    } catch (error) {}
+    return [];
+  };
+  static getAllCourses = async () => {
+    try {
+      const response = await RequestAPI.call<ICourse[]>(
+        courseRoutes.createCourse,
+        {
+          method: "GET",
+        }
+      );
+      if (response?.data) {
+        return response?.data;
+      }
+    } catch (error) {}
+    return [];
+  };
   static createCourse = async ({ title }: { title: string }) => {
     try {
       const response = await RequestAPI.call<ICourse>(
@@ -52,6 +147,7 @@ export default class CourseService {
       categoryId?: number;
       price?: number;
       url?: string;
+      isPublished?: boolean;
     }
   ) => {
     try {
@@ -121,6 +217,41 @@ export default class CourseService {
         {
           method: "POST",
           data: chapterInfo,
+        }
+      );
+      if (response?.data) {
+        return response?.data;
+      }
+    } catch (error) {}
+    return null;
+  };
+  static reorderChapters = async (
+    courseId: number,
+    updateData: { id: number; position: number }[]
+  ) => {
+    try {
+      const response = await RequestAPI.call<IAttachment>(
+        courseRoutes.addAttachment +
+          "/course/" +
+          courseId +
+          "/chapters/reorder",
+        {
+          method: "POST",
+          data: { reorderData: updateData },
+        }
+      );
+      if (response?.data) {
+        return response?.data;
+      }
+    } catch (error) {}
+    return null;
+  };
+  static deleteCourse = async (courseId: number) => {
+    try {
+      const response = await RequestAPI.call(
+        courseRoutes.createCourse + "/" + courseId,
+        {
+          method: "DELETE",
         }
       );
       if (response?.data) {

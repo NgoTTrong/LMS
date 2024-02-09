@@ -1,5 +1,4 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next";
-import { UploadThingError } from "uploadthing/server";
 
 const f = createUploadthing();
 
@@ -15,7 +14,7 @@ export const ourFileRouter = {
   courseAttachment: f(["audio", "video", "image", "text", "pdf"])
     .middleware(() => handleAuth())
     .onUploadComplete(() => {}),
-  chapperVideo: f({ video: { maxFileSize: "512GB", maxFileCount: 1 } })
+  chapterVideo: f({ video: { maxFileSize: "512GB", maxFileCount: 1 } })
     .middleware(() => handleAuth())
     .onUploadComplete(() => {}),
 } satisfies FileRouter;

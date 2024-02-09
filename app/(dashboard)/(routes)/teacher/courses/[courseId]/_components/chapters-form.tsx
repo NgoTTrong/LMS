@@ -12,13 +12,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { ICourse } from "@/interfaces/course/course-interface";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Pencil, PlusCircle } from "lucide-react";
+import { Loader2, Pencil, PlusCircle } from "lucide-react";
 import * as z from "zod";
 import CourseService from "@/services/course/courseService";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Textarea } from "@/components/ui/textarea";
+import ChaptersList from "./chapters-list";
 
 type Props = {
   initialData: ICourse;
@@ -48,8 +48,33 @@ const ChaptersForm = ({ initialData, courseId }: Props) => {
     setIsCreating(false);
     router.refresh();
   };
+
+  const onReorder = async (updateData: { id: number; position: number }[]) => {
+    try {
+      setIsUpdating(true);
+      const _update = await CourseService.reorderChapters(courseId, updateData);
+      if (_update) {
+        toast.success("Chapter reordered");
+        router.refresh();
+      } else {
+        toast.error("Something went wrong!");
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+  const onEdit = (chapterId: number) => {
+    router.push(`/teacher/courses/${courseId}/chapters/${chapterId}`);
+  };
   return (
-    <section className="mt-6 bg-slate-100 rounded-md p-4">
+    <section className="mt-6 bg-slate-100 rounded-md p-4 relative">
+      {isUpdating && (
+        <div className="absolute top-0 right-0 rounded-md flex items-center w-full h-full justify-center bg-slate-500/20">
+          <Loader2 className="animate-spin w-6 h-6 text-sky-700 " />
+        </div>
+      )}
       <div className="font-medium flex items-center justify-between">
         Course chapters
         <Button
@@ -103,9 +128,12 @@ const ChaptersForm = ({ initialData, courseId }: Props) => {
             !initialData?.chapters?.length && "text-slate-500 italic"
           )}
         >
-          {initialData?.chapters?.length
-            ? initialData?.chapters?.length
-            : "No chapters"}
+          {initialData?.chapters?.length == 0 && "No chapters"}
+          <ChaptersList
+            onEdit={onEdit}
+            onReorder={onReorder}
+            items={initialData?.chapters ?? []}
+          />
         </div>
       )}
       {!isCreating && (

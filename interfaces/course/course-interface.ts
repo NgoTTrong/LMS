@@ -11,6 +11,7 @@ export interface ICourse {
   categoryId?: number;
   attachments: IAttachment[];
   chapters: IChapter[];
+  category?: ICategoryCourse;
 }
 export interface ICategoryCourse {
   id: number;
@@ -30,4 +31,10 @@ export interface IChapter {
   title: string;
   isPublished: boolean;
   isFree: boolean;
+  description?: string;
+  videoUrl?: string;
+  userProgress: {
+    id: number;
+    isCompleted: boolean;
+  }[];
 }
