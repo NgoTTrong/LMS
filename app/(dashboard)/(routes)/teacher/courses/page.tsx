@@ -5,13 +5,13 @@ import { columns } from "./_components/columns";
 import CourseService from "@/services/course/courseService";
 
 const CoursesPage = async () => {
-  const data = await CourseService.getAllCourses();
+	const data = await CourseService.getAllCourses();
 
-  return (
-    <main className="p-6">
-      <DataTable columns={columns} data={data} />
-    </main>
-  );
+	return (
+		<main className="p-6">
+			<DataTable columns={columns} data={data} />
+		</main>
+	);
 };
 
 export default CoursesPage;

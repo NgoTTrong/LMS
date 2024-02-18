@@ -1,40 +1,40 @@
 export interface ICourse {
-  id: number;
-  createdAt: Date;
-  updatedAt: Date;
-  userId?: number;
-  title: string;
-  description?: string;
-  imageUrl?: string;
-  price?: number;
-  isPublished: boolean;
-  categoryId?: number;
-  attachments: IAttachment[];
-  chapters: IChapter[];
-  category?: ICategoryCourse;
+	id: string;
+	createdAt: Date;
+	updatedAt: Date;
+	userId?: string;
+	title: string;
+	description?: string;
+	imageUrl?: string;
+	price?: number;
+	isPublished: boolean;
+	categoryId?: string;
+	attachments: IAttachment[];
+	chapters: IChapter[];
+	category?: ICategoryCourse;
 }
 export interface ICategoryCourse {
-  id: number;
-  name: string;
+	id: string;
+	name: string;
 }
 
 export interface IAttachment {
-  id: number;
-  name: string;
-  url: string;
-  courseId: number;
-  createdAt: Date;
-  updatedAt: Date;
+	id: string;
+	name: string;
+	url: string;
+	courseId: number;
+	createdAt: Date;
+	updatedAt: Date;
 }
 export interface IChapter {
-  id: number;
-  title: string;
-  isPublished: boolean;
-  isFree: boolean;
-  description?: string;
-  videoUrl?: string;
-  userProgress: {
-    id: number;
-    isCompleted: boolean;
-  }[];
+	id: string;
+	title: string;
+	isPublished: boolean;
+	isFree: boolean;
+	description?: string;
+	videoUrl?: string;
+	userProgress: {
+		id: string;
+		isCompleted: boolean;
+	}[];
 }

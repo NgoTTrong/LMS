@@ -6,14 +6,14 @@ import { useMemo } from "react";
 import "react-quill/dist/quill.snow.css";
 
 type Props = {
-  value: string;
+	value: string;
 };
 
 export const Preview = ({ value }: Props) => {
-  const ReactQuill = useMemo(
-    () => dynamic(() => import("react-quill"), { ssr: false }),
-    []
-  );
+	const ReactQuill = useMemo(
+		() => dynamic(() => import("react-quill"), { ssr: false }),
+		[]
+	);
 
-  return <ReactQuill theme="bubble" value={value} readOnly />;
+	return <ReactQuill theme="bubble" value={value} readOnly />;
 };

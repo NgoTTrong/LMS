@@ -2,19 +2,19 @@ import CourseService from "@/services/course/courseService";
 import { redirect } from "next/navigation";
 
 const CourseIdPage = async ({
-  params,
+	params,
 }: {
-  params: {
-    courseId: number;
-  };
+	params: {
+		courseId: string;
+	};
 }) => {
-  const course = await CourseService.getCourseByUser(params.courseId, 1);
-  if (!course) {
-    redirect("/");
-  }
-  return redirect(
-    `/courses/${course?.id}/chapters/${course?.chapters?.[0]?.id}`
-  );
+	const course = await CourseService.getCourseByUser(params.courseId);
+	if (!course) {
+		redirect("/");
+	}
+	return redirect(
+		`/courses/${course?.id}/chapters/${course?.chapters?.[0]?.id}`
+	);
 };
 
 export default CourseIdPage;
