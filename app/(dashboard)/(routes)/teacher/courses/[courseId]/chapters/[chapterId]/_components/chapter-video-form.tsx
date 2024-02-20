@@ -13,96 +13,96 @@ import { FileUpload } from "@/components/file-upload";
 import ReactPlayer from "react-player/file";
 
 type Props = {
-	initialData: IChapter;
-	chapterId: string;
+    initialData: IChapter;
+    chapterId: string;
 };
 
 const formSchema = z.object({
-	videoUrl: z.string().min(1),
+    videoUrl: z.string().min(1),
 });
 const ChapterVideoForm = ({ initialData, chapterId }: Props) => {
-	const [isEditting, setEditting] = useState<boolean>(false);
+    const [isEditting, setEditting] = useState<boolean>(false);
 
-	const router = useRouter();
-	const form = useForm<z.infer<typeof formSchema>>({
-		resolver: zodResolver(formSchema),
-		defaultValues: initialData,
-	});
-	const { isSubmitting, isValid } = form.formState;
-	const onSubmit = async (values: z.infer<typeof formSchema>) => {
-		const _course = await ChapterService.updateChapterId(chapterId, {
-			videoUrl: values?.videoUrl,
-		});
-		if (_course) {
-			toast.success("Chapter updated");
-		} else {
-			toast.error("Something went wrong!");
-		}
-		setEditting(false);
-		router.refresh();
-	};
-	return (
-		<section className="mt-6 bg-slate-100 rounded-md p-4 relative">
-			<div className="font-medium flex items-center justify-between">
-				Chapter video
-				<Button
-					variant={"ghost"}
-					onClick={() => setEditting((state) => !state)}
-				>
-					{isEditting ? (
-						"Cancel"
-					) : (
-						<>
-							<Pencil className="h-4 w-4 mr-2" />
-							Edit chapter video
-						</>
-					)}
-				</Button>
-			</div>
-			{!isEditting && (
-				<div>
-					{!initialData?.videoUrl && (
-						<p className="text-xs italic text-slate-700">
-							No video. Please upload video for this chapter.
-						</p>
-					)}
-					{initialData?.videoUrl && (
-						<video
-							src={initialData?.videoUrl}
-							className="w-full h-full rounded-lg"
-							controls
-							muted
-						></video>
-						// <div className="w-full h-full rounded-md overflow-hidden">
-						//   {/* <ReactPlayer
-						//     url={initialData?.videoUrl}
-						//     width="100%"
-						//     height="100%"
-						//     controls
-						//   /> */}
-						// </div>
-					)}
-				</div>
-			)}
+    const router = useRouter();
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: initialData,
+    });
+    const { isSubmitting, isValid } = form.formState;
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        const _course = await ChapterService.updateChapterId(chapterId, {
+            videoUrl: values?.videoUrl,
+        });
+        if (_course) {
+            toast.success("Chapter updated");
+        } else {
+            toast.error("Something went wrong!");
+        }
+        setEditting(false);
+        router.refresh();
+    };
+    return (
+        <section className="mt-6 bg-slate-100 rounded-md p-4 relative">
+            <div className="font-medium flex items-center justify-between">
+                Chapter video
+                <Button
+                    variant={"ghost"}
+                    onClick={() => setEditting((state) => !state)}
+                >
+                    {isEditting ? (
+                        "Cancel"
+                    ) : (
+                        <>
+                            <Pencil className="h-4 w-4 mr-2" />
+                            Edit chapter video
+                        </>
+                    )}
+                </Button>
+            </div>
+            {!isEditting && (
+                <div>
+                    {!initialData?.videoUrl && (
+                        <p className="text-xs italic text-slate-700">
+                            No video. Please upload video for this chapter.
+                        </p>
+                    )}
+                    {initialData?.videoUrl && (
+                        <video
+                            src={initialData?.videoUrl}
+                            className="w-full h-full rounded-lg"
+                            controls
+                            muted
+                        ></video>
+                        // <div className="w-full h-full rounded-md overflow-hidden">
+                        //   {/* <ReactPlayer
+                        //     url={initialData?.videoUrl}
+                        //     width="100%"
+                        //     height="100%"
+                        //     controls
+                        //   /> */}
+                        // </div>
+                    )}
+                </div>
+            )}
 
-			{isEditting && (
-				<div>
-					<FileUpload
-						endpoint="chapterVideo"
-						onChange={(url) => {
-							if (url) {
-								console.log(url);
-								onSubmit({ videoUrl: url });
-							}
-						}}
-					/>
-					<div className="text-xs text-muted-foreground mt-4">
-						Upload this chapter's video
-					</div>
-				</div>
-			)}
-		</section>
-	);
+            {isEditting && (
+                <div>
+                    <FileUpload
+                        endpoint="chapterVideo"
+                        onChange={(url) => {
+                            if (url) {
+                                console.log(url);
+                                onSubmit({ videoUrl: url });
+                            }
+                        }}
+                    />
+                    <div className="text-xs text-muted-foreground mt-4">
+                        Upload this chapter&apos;s video
+                    </div>
+                </div>
+            )}
+        </section>
+    );
 };
 
 export default ChapterVideoForm;
