@@ -1,26 +1,21 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { PlusCircle } from "lucide-react";
-import Link from "next/link";
 
-const Part1Page = () => {
+import { DataTable } from "./_components/data-table";
+import { useAuth } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
+import Part1Service from "@/services/part-1/part-1-service";
+import { columns } from "./_components/columns";
+
+const Part1Page = async () => {
+	const { userId } = await useAuth();
+	if (!userId) {
+		redirect("/");
+	}
+	const part1s = await Part1Service.getAllPart1(userId);
+
 	return (
 		<main className="p-6">
-			<div className="flex items-center py-4 justify-between">
-				<Input
-					placeholder="Filter courses..."
-					value={""}
-					onChange={(event) => {}}
-					className="max-w-sm"
-				/>
-				<Link href="/teacher/part-1/create">
-					<Button>
-						<PlusCircle className="w-4 h-4 mr-2" />
-						New part 1
-					</Button>
-				</Link>
-			</div>
+			<DataTable data={part1s} columns={columns} />
 		</main>
 	);
 };
