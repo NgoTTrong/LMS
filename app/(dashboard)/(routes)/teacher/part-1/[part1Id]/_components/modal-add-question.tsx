@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ComboBox } from "@/components/ui/combo-box";
 import {
 	Dialog,
+	DialogClose,
 	DialogContent,
 	DialogDescription,
 	DialogFooter,
@@ -14,12 +15,87 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ITopic } from "@/interfaces/topic/topic-interface";
+import Part1Service from "@/services/part-1/part-1-service";
+import TopicService from "@/services/topic/topic-service";
+import { Loader2, Pencil } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 type Props = {
 	children: React.ReactNode;
-	onConfirm: () => void;
+	part1Id: string;
 };
-export function ModalAddQuestion({ children, onConfirm }: Props) {
+export function ModalAddQuestion({ children, part1Id }: Props) {
+	const [topics, setTopics] = useState<ITopic[]>([]);
+	const [onEditImage, setOnEditImage] = useState<boolean>(false);
+	const [onEditAudio, setOnEditAudio] = useState<boolean>(false);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const router = useRouter();
+	useEffect(() => {
+		const fetchTopics = async () => {
+			const _topics = await TopicService.getAllTopics();
+			setTopics(_topics);
+		};
+		fetchTopics();
+	}, []);
+	const [form, setForm] = useState<{
+		content?: string;
+		optionA?: string;
+		optionB?: string;
+		optionC?: string;
+		optionD?: string;
+		correctAnswer?: "A" | "B" | "C" | "D";
+		topicId?: string;
+		explaination?: string;
+		imageUrl?: string;
+		audioUrl?: string;
+	}>({});
+	const disabled = () => {
+		return (
+			!form?.audioUrl ||
+			!form?.content ||
+			!form?.correctAnswer ||
+			!form?.explaination ||
+			!form?.imageUrl ||
+			!form?.optionA ||
+			!form?.optionB ||
+			!form?.optionC ||
+			!form?.optionD ||
+			!form?.topicId
+		);
+	};
+	console.log(form);
+	const handleAddQuestion = async () => {
+		try {
+			setIsLoading(true);
+			const _questionPart1 = await Part1Service.createQuestion(
+				part1Id,
+				{
+					content: form?.content!,
+					optionA: form?.optionA!,
+					optionB: form?.optionB!,
+					optionC: form?.optionC!,
+					optionD: form?.optionD,
+				},
+				form?.correctAnswer!,
+				form?.topicId!,
+				form?.explaination!,
+				form?.imageUrl!,
+				form?.audioUrl!
+			);
+			if (_questionPart1) {
+				toast.success("Added question");
+				router.refresh();
+			} else {
+				toast.error("Something went wrong");
+			}
+		} catch (error) {
+		} finally {
+			setIsLoading(false);
+		}
+	};
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
@@ -42,6 +118,12 @@ export function ModalAddQuestion({ children, onConfirm }: Props) {
 								id="content"
 								placeholder="eg. How old are you?"
 								className="w-full"
+								onChange={(event) => {
+									setForm({
+										...form,
+										content: event?.target?.value ?? "",
+									});
+								}}
 							/>
 						</div>
 						<hr />
@@ -53,41 +135,65 @@ export function ModalAddQuestion({ children, onConfirm }: Props) {
 								id="optionA"
 								placeholder="eg. A: 13"
 								className="w-full"
+								onChange={(event) => {
+									setForm({
+										...form,
+										optionA: event?.target?.value ?? "",
+									});
+								}}
 							/>
 						</div>
 						<hr />
 						<div className="flex flex-col gap-4 justify-start items-start">
-							<Label htmlFor="optionA" className="text-right">
+							<Label htmlFor="optionB" className="text-right">
 								Option B
 							</Label>
 							<Input
-								id="optionA"
+								id="optionB"
 								placeholder="eg. B: 14"
 								className="w-full"
+								onChange={(event) => {
+									setForm({
+										...form,
+										optionB: event?.target?.value ?? "",
+									});
+								}}
 							/>
 						</div>
 						<hr />
 
 						<div className="flex flex-col gap-4 justify-start items-start">
-							<Label htmlFor="optionA" className="text-right">
+							<Label htmlFor="optionC" className="text-right">
 								Option C
 							</Label>
 							<Input
-								id="optionA"
+								id="optionC"
 								placeholder="eg. C: 15"
 								className="w-full"
+								onChange={(event) => {
+									setForm({
+										...form,
+										optionC: event?.target?.value ?? "",
+									});
+								}}
 							/>
 						</div>
 						<hr />
 
 						<div className="flex flex-col gap-4 justify-start items-start">
-							<Label htmlFor="optionA" className="text-right">
+							<Label htmlFor="optionD" className="text-right">
 								Option D
 							</Label>
 							<Input
-								id="optionA"
+								id="optionD"
 								placeholder="eg. D: 16"
 								className="w-full"
+								onChange={(event) => {
+									setForm({
+										...form,
+										optionD: event?.target?.value ?? "",
+									});
+								}}
 							/>
 						</div>
 						<hr />
@@ -101,7 +207,17 @@ export function ModalAddQuestion({ children, onConfirm }: Props) {
 									{ label: "C", value: "C" },
 									{ label: "D", value: "D" },
 								]}
-								onChange={(option) => {}}
+								value={form?.correctAnswer}
+								onChange={(option) => {
+									setForm({
+										...form,
+										correctAnswer: option as
+											| "A"
+											| "B"
+											| "C"
+											| "D",
+									});
+								}}
 							/>
 						</div>
 						<hr />
@@ -109,13 +225,14 @@ export function ModalAddQuestion({ children, onConfirm }: Props) {
 						<div className="flex flex-col gap-4 justify-start items-start">
 							<Label className="text-right">Topic</Label>
 							<ComboBox
-								options={[
-									{ label: "A", value: "A" },
-									{ label: "B", value: "B" },
-									{ label: "C", value: "C" },
-									{ label: "D", value: "D" },
-								]}
-								onChange={(option) => {}}
+								value={form?.topicId}
+								options={topics.map((topic) => ({
+									label: topic.name,
+									value: topic.id,
+								}))}
+								onChange={(option) => {
+									setForm({ ...form, topicId: option });
+								}}
 							/>
 						</div>
 						<hr />
@@ -124,47 +241,115 @@ export function ModalAddQuestion({ children, onConfirm }: Props) {
 							<Label htmlFor="explain" className="text-right">
 								Explaination
 							</Label>
-							<Editor onChange={(value) => {}} value={""} />
+							<Editor
+								onChange={(value) => {
+									setForm({ ...form, explaination: value });
+								}}
+								value={form?.explaination ?? ""}
+							/>
 						</div>
 					</section>
 					<section className="flex flex-col gap-4 py-4 w-full">
 						<div className="flex flex-col gap-4 justify-start items-start">
-							<h1 className="text-right">Image</h1>
+							<h1 className="flex items-center justify-between w-full">
+								<h1>Image</h1>
+								{onEditImage ? (
+									<span
+										onClick={() => setOnEditImage(false)}
+										className="text-sm hover:cursor-pointer"
+									>
+										Cancel
+									</span>
+								) : (
+									<Pencil
+										className="h-4 w-4"
+										onClick={() => setOnEditImage(true)}
+									/>
+								)}
+							</h1>
 							<div>
-								<FileUpload
-									endpoint="courseImage"
-									onChange={(url) => {
-										if (url) {
-											console.log(url);
-											// onSubmit({ thumbnail: url });
-										}
-									}}
-								/>
+								{form?.imageUrl && !onEditImage ? (
+									<img
+										src={form?.imageUrl}
+										alt=""
+										className="w-full aspect-video rounded-lg"
+									/>
+								) : (
+									<FileUpload
+										endpoint="courseImage"
+										onChange={(url) => {
+											if (url) {
+												setForm({
+													...form,
+													imageUrl: url,
+												});
+											}
+										}}
+									/>
+								)}
+
 								<div className="text-xs text-muted-foreground mt-4">
 									16:9 aspect ratio recommended
 								</div>
 							</div>
 						</div>
 
-						<div className="flex flex-col gap-4 justify-start items-start">
-							<h1 className="text-right">Audio</h1>
-							<div>
-								<FileUpload
-									endpoint="audio"
-									onChange={(url) => {
-										if (url) {
-											console.log(url);
-											// onSubmit({ thumbnail: url });
-										}
-									}}
-								/>
+						<div className="flex flex-col gap-4 justify-start items-start w-full">
+							<h1 className="flex items-center justify-between w-full">
+								<h1>Audio</h1>
+								{onEditAudio ? (
+									<span
+										onClick={() => setOnEditAudio(false)}
+										className="text-sm hover:cursor-pointer"
+									>
+										Cancel
+									</span>
+								) : (
+									<Pencil
+										className="h-4 w-4"
+										onClick={() => setOnEditAudio(true)}
+									/>
+								)}
+							</h1>{" "}
+							<div className="w-full">
+								{form?.audioUrl && !onEditAudio ? (
+									<audio
+										src={form?.audioUrl}
+										controls
+										className="w-full"
+									></audio>
+								) : (
+									<FileUpload
+										endpoint="audio"
+										onChange={(url) => {
+											if (url) {
+												setForm({
+													...form,
+													audioUrl: url,
+												});
+											}
+										}}
+									/>
+								)}
 							</div>
 						</div>
 					</section>
 				</div>
 
 				<DialogFooter>
-					<Button type="submit">Add</Button>
+					<DialogClose>
+						<Button
+							type="submit"
+							disabled={disabled() || isLoading}
+							onClick={handleAddQuestion}
+						>
+							{isLoading ? (
+								<Loader2 className="w-6 h-6 animate-spin" />
+							) : (
+								"Add"
+							)}
+						</Button>
+					</DialogClose>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>

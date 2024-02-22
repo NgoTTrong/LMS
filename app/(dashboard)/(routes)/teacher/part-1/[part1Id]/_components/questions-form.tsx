@@ -86,7 +86,7 @@ const QuestionsForm = ({ initialData, part1Id }: Props) => {
 				{isCreating ? (
 					"Cancel"
 				) : (
-					<ModalAddQuestion onConfirm={() => {}}>
+					<ModalAddQuestion part1Id={part1Id}>
 						<>
 							<PlusCircle className="h-4 w-4 mr-2" />
 							Add a question

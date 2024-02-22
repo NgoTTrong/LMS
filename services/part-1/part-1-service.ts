@@ -5,6 +5,7 @@ import RequestAPI from "../api/request-api";
 const part1Routes = {
 	create: apiEndpoint + "/part1/create",
 	getOne: apiEndpoint + "/part1",
+	createQuestion: apiEndpoint + "/part1/create-question",
 };
 
 export default class Part1Service {
@@ -19,6 +20,43 @@ export default class Part1Service {
 					title: title,
 				},
 			});
+			if (response?.data) {
+				return response?.data;
+			}
+		} catch (error) {}
+		return null;
+	};
+	static createQuestion = async (
+		part1Id: string,
+		question: {
+			content: string;
+			optionA: string;
+			optionB: string;
+			optionC: string;
+			optionD?: string;
+		},
+		correctAnswer: "A" | "B" | "C" | "D",
+		topicId: string,
+		explaination: string,
+		imageUrl: string,
+		audioUrl: string
+	) => {
+		try {
+			const response = await RequestAPI.call(
+				part1Routes.createQuestion + "/" + part1Id,
+				{
+					method: "POST",
+					data: {
+						part1Id,
+						question,
+						correctAnswer,
+						topicId,
+						explaination,
+						imageUrl,
+						audioUrl,
+					},
+				}
+			);
 			if (response?.data) {
 				return response?.data;
 			}

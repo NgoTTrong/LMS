@@ -7,6 +7,7 @@ import TitleForm from "./_components/title-form";
 import IntroductionForm from "./_components/introduction-form";
 import ThumbnailForm from "./_components/thumbnail-form";
 import QuestionsForm from "./_components/questions-form";
+import TopicService from "@/services/topic/topic-service";
 
 type Props = {
 	params: {
@@ -20,6 +21,7 @@ const Part1IdPage = async ({ params }: Props) => {
 		redirect("/");
 	}
 	const part1 = await Part1Service.getOne(params.part1Id, user.id);
+
 	if (!part1) {
 		redirect("/");
 	}

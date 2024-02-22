@@ -50,7 +50,7 @@ export const ComboBox = ({ options, value, onChange }: Props) => {
 				<Command>
 					<CommandInput placeholder="Search framework..." />
 					<CommandEmpty>No framework found.</CommandEmpty>
-					<CommandGroup>
+					<CommandGroup className="!max-h-[40vh] !overflow-auto">
 						{options.map((option) => (
 							<CommandItem
 								key={option.value}

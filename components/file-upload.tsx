@@ -12,6 +12,7 @@ interface UploadProps {
 export const FileUpload = ({ onChange, endpoint }: UploadProps) => {
 	return (
 		<UploadDropzone
+			className="w-full aspect-video"
 			endpoint={endpoint}
 			onClientUploadComplete={(res) => {
 				onChange(res?.[0]?.url);
