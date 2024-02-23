@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { IPart1Question } from "@/interfaces/part-1/part-1-interface";
 import { ITopic } from "@/interfaces/topic/topic-interface";
 import Part1Service from "@/services/part-1/part-1-service";
 import TopicService from "@/services/topic/topic-service";
@@ -25,9 +26,9 @@ import toast from "react-hot-toast";
 
 type Props = {
     children: React.ReactNode;
-    part1Id: string;
+    question: IPart1Question;
 };
-export function ModalAddQuestion({ children, part1Id }: Props) {
+export function ModalEditQuestion({ question, children }: Props) {
     const [topics, setTopics] = useState<ITopic[]>([]);
     const [onEditImage, setOnEditImage] = useState<boolean>(false);
     const [onEditAudio, setOnEditAudio] = useState<boolean>(false);
@@ -66,23 +67,41 @@ export function ModalAddQuestion({ children, part1Id }: Props) {
             !form?.topicId
         );
     };
-    const handleAddQuestion = async () => {
+    useEffect(() => {
+        setForm({
+            content: question?.question?.content,
+            optionA: question?.question?.optionA,
+            optionB: question?.question?.optionB,
+            optionC: question?.question?.optionC,
+            optionD: question?.question?.optionD,
+            correctAnswer: question?.explain?.answer,
+            topicId: question?.topicId,
+            explaination: question?.explain?.explain,
+            imageUrl: question?.imageUrls?.[0],
+            audioUrl: question?.audioUrl,
+        });
+    }, [question]);
+    const handleEditQuestion = async () => {
         try {
             setIsLoading(true);
-            const _questionPart1 = await Part1Service.createQuestion(
-                part1Id,
+            const _questionPart1 = await Part1Service.updateQuestion(
+                question?.id,
                 {
-                    content: form?.content!,
-                    optionA: form?.optionA!,
-                    optionB: form?.optionB!,
-                    optionC: form?.optionC!,
+                    id: question?.questionId,
+                    optionA: form?.optionA,
+                    optionC: form?.optionB,
+                    optionB: form?.optionC,
                     optionD: form?.optionD,
+                    content: form?.content,
                 },
-                form?.correctAnswer!,
-                form?.topicId!,
-                form?.explaination!,
-                form?.imageUrl!,
-                form?.audioUrl!
+                {
+                    id: question?.explain?.id,
+                    explaination: form?.explaination,
+                    correctAnswer: form?.correctAnswer,
+                },
+                form?.topicId,
+                form?.imageUrl,
+                form?.audioUrl
             );
             if (_questionPart1) {
                 toast.success("Added question");
@@ -134,8 +153,8 @@ export function ModalAddQuestion({ children, part1Id }: Props) {
                             <Input
                                 id="optionA"
                                 placeholder="eg. A: 13"
-                                className="w-full"
                                 value={form?.optionA}
+                                className="w-full"
                                 onChange={(event) => {
                                     setForm({
                                         ...form,
@@ -190,8 +209,8 @@ export function ModalAddQuestion({ children, part1Id }: Props) {
                             <Input
                                 id="optionD"
                                 placeholder="eg. D: 16"
-                                className="w-full"
                                 value={form?.optionD}
+                                className="w-full"
                                 onChange={(event) => {
                                     setForm({
                                         ...form,
@@ -345,12 +364,12 @@ export function ModalAddQuestion({ children, part1Id }: Props) {
                         <Button
                             type="submit"
                             disabled={disabled() || isLoading}
-                            onClick={handleAddQuestion}
+                            onClick={handleEditQuestion}
                         >
                             {isLoading ? (
                                 <Loader2 className="w-6 h-6 animate-spin" />
                             ) : (
-                                "Add"
+                                "Save"
                             )}
                         </Button>
                     </DialogClose>
