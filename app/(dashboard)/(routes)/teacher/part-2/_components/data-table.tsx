@@ -57,7 +57,7 @@ export function DataTable<TData, TValue>({
 		<div>
 			<div className="flex items-center py-4 justify-between">
 				<Input
-					placeholder="Filter part 1..."
+					placeholder="Filter part 2..."
 					value={
 						(table
 							.getColumn("title")
@@ -73,7 +73,7 @@ export function DataTable<TData, TValue>({
 				<Link href="/teacher/courses/create">
 					<Button>
 						<PlusCircle className="w-4 h-4 mr-2" />
-						New part 1
+						New part 2
 					</Button>
 				</Link>
 			</div>

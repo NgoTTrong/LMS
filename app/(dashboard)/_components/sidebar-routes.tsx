@@ -31,6 +31,11 @@ const teacherRoutes = [
 		label: "Part 1",
 		href: "/teacher/part-1",
 	},
+	{
+		icon: BookText,
+		label: "Part 2",
+		href: "/teacher/part-2",
+	},
 ];
 const SidebarRoutes = () => {
 	const pathname = usePathname();
