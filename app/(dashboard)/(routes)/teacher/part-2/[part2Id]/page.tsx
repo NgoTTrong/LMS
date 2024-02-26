@@ -1,5 +1,5 @@
 import { IconBadge } from "@/components/icon-badge";
-import Part1Service from "@/services/part-1/part-1-service";
+import Part2Service from "@/services/part-2/part-2-service";
 import { currentUser } from "@clerk/nextjs";
 import { LayoutDashboard, ListChecks } from "lucide-react";
 import { redirect } from "next/navigation";
@@ -10,23 +10,23 @@ import QuestionsForm from "./_components/questions-form";
 
 type Props = {
     params: {
-        part1Id: string;
+        part2Id: string;
     };
 };
-const Part1IdPage = async ({ params }: Props) => {
+const part2IdPage = async ({ params }: Props) => {
     const user = await currentUser();
 
     if (!user) {
         redirect("/");
     }
-    const part1 = await Part1Service.getOne(params.part1Id, user.id);
-    if (!part1) {
+    const part2 = await Part2Service.getOne(params.part2Id, user.id);
+    if (!part2) {
         redirect("/");
     }
     const requiredFields = [
-        part1?.introduction,
-        part1?.title,
-        part1?.thumbnail,
+        part2?.introduction,
+        part2?.title,
+        part2?.thumbnail,
     ];
 
     const totalFields = requiredFields.length;
@@ -39,7 +39,7 @@ const Part1IdPage = async ({ params }: Props) => {
         <main className="p-6">
             <div className="flex items-center justify-between">
                 <div className="flex flex-col gap-y-2">
-                    <h1 className="text-2xl font-medium ">Part 1 setup</h1>
+                    <h1 className="text-2xl font-medium ">Part 2 setup</h1>
                     <span>Complete all fields ({completionText})</span>
                 </div>
             </div>
@@ -47,19 +47,19 @@ const Part1IdPage = async ({ params }: Props) => {
                 <section>
                     <div className="flex items-center gap-x-2">
                         <IconBadge icon={LayoutDashboard} />
-                        <h2 className="text-xl">Customize your part 1 </h2>
+                        <h2 className="text-xl">Customize your part 2 </h2>
                     </div>
-                    <TitleForm initialData={part1} part1Id={part1.id} />
-                    <IntroductionForm initialData={part1} part1Id={part1.id} />
-                    <ThumbnailForm initialData={part1} part1Id={part1.id} />
+                    <TitleForm initialData={part2} part2Id={part2.id} />
+                    <IntroductionForm initialData={part2} part2Id={part2.id} />
+                    <ThumbnailForm initialData={part2} part2Id={part2.id} />
                 </section>
                 <section className="space-y-6">
                     <div>
                         <div className="flex items-center gap-x-2">
                             <IconBadge icon={ListChecks} />
-                            <h2 className="text-xl">Part 1 questions</h2>
+                            <h2 className="text-xl">Part 2 questions</h2>
                         </div>
-                        <QuestionsForm initialData={part1} part1Id={part1.id} />
+                        <QuestionsForm initialData={part2} part2Id={part2.id} />
                     </div>
                 </section>
             </div>
@@ -67,4 +67,4 @@ const Part1IdPage = async ({ params }: Props) => {
     );
 };
 
-export default Part1IdPage;
+export default part2IdPage;

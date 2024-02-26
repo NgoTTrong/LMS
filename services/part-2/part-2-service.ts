@@ -39,7 +39,6 @@ export default class Part2Service {
 		correctAnswer: "A" | "B" | "C" | "D",
 		topicId: string,
 		explaination: string,
-		imageUrl: string,
 		audioUrl: string
 	) => {
 		try {
@@ -53,7 +52,6 @@ export default class Part2Service {
 						correctAnswer,
 						topicId,
 						explaination,
-						imageUrl,
 						audioUrl,
 					},
 				}
@@ -80,7 +78,6 @@ export default class Part2Service {
 			explaination?: string;
 		},
 		topicId?: string,
-		imageUrl?: string,
 		audioUrl?: string
 	) => {
 		try {
@@ -92,7 +89,6 @@ export default class Part2Service {
 						question,
 						explain,
 						topicId,
-						imageUrl,
 						audioUrl,
 					},
 				}

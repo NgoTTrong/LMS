@@ -15,9 +15,9 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { IPart1Question } from "@/interfaces/part-1/part-1-interface";
+import { IPart2Question } from "@/interfaces/part-2/part-2-interface";
 import { ITopic } from "@/interfaces/topic/topic-interface";
-import Part1Service from "@/services/part-1/part-1-service";
+import part2Service from "@/services/part-1/part-1-service";
 import TopicService from "@/services/topic/topic-service";
 import { Loader2, Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -26,7 +26,7 @@ import toast from "react-hot-toast";
 
 type Props = {
     children: React.ReactNode;
-    question: IPart1Question;
+    question: IPart2Question;
 };
 export function ModalEditQuestion({ question, children }: Props) {
     const [topics, setTopics] = useState<ITopic[]>([]);
@@ -77,14 +77,13 @@ export function ModalEditQuestion({ question, children }: Props) {
             correctAnswer: question?.explain?.answer,
             topicId: question?.topicId,
             explaination: question?.explain?.explain,
-            imageUrl: question?.imageUrls?.[0],
             audioUrl: question?.audioUrl,
         });
     }, [question]);
     const handleEditQuestion = async () => {
         try {
             setIsLoading(true);
-            const _questionPart1 = await Part1Service.updateQuestion(
+            const _questionpart2 = await part2Service.updateQuestion(
                 question?.id,
                 {
                     id: question?.questionId,
@@ -103,7 +102,7 @@ export function ModalEditQuestion({ question, children }: Props) {
                 form?.imageUrl,
                 form?.audioUrl
             );
-            if (_questionPart1) {
+            if (_questionpart2) {
                 toast.success("Added question");
                 router.refresh();
             } else {

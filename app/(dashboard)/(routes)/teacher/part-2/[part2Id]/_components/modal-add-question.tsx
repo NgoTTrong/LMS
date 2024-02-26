@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ITopic } from "@/interfaces/topic/topic-interface";
-import Part1Service from "@/services/part-1/part-1-service";
+import Part2Service from "@/services/part-2/part-2-service";
 import TopicService from "@/services/topic/topic-service";
 import { Loader2, Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -25,9 +25,9 @@ import toast from "react-hot-toast";
 
 type Props = {
     children: React.ReactNode;
-    part1Id: string;
+    part2Id: string;
 };
-export function ModalAddQuestion({ children, part1Id }: Props) {
+export function ModalAddQuestion({ children, part2Id }: Props) {
     const [topics, setTopics] = useState<ITopic[]>([]);
     const [onEditImage, setOnEditImage] = useState<boolean>(false);
     const [onEditAudio, setOnEditAudio] = useState<boolean>(false);
@@ -49,7 +49,6 @@ export function ModalAddQuestion({ children, part1Id }: Props) {
         correctAnswer?: "A" | "B" | "C" | "D";
         topicId?: string;
         explaination?: string;
-        imageUrl?: string;
         audioUrl?: string;
     }>({});
     const disabled = () => {
@@ -58,7 +57,6 @@ export function ModalAddQuestion({ children, part1Id }: Props) {
             !form?.content ||
             !form?.correctAnswer ||
             !form?.explaination ||
-            !form?.imageUrl ||
             !form?.optionA ||
             !form?.optionB ||
             !form?.optionC ||
@@ -69,8 +67,8 @@ export function ModalAddQuestion({ children, part1Id }: Props) {
     const handleAddQuestion = async () => {
         try {
             setIsLoading(true);
-            const _questionPart1 = await Part1Service.createQuestion(
-                part1Id,
+            const _questionPart2 = await Part2Service.createQuestion(
+                part2Id,
                 {
                     content: form?.content!,
                     optionA: form?.optionA!,
@@ -81,10 +79,9 @@ export function ModalAddQuestion({ children, part1Id }: Props) {
                 form?.correctAnswer!,
                 form?.topicId!,
                 form?.explaination!,
-                form?.imageUrl!,
                 form?.audioUrl!
             );
-            if (_questionPart1) {
+            if (_questionPart2) {
                 toast.success("Added question");
                 router.refresh();
             } else {
@@ -254,50 +251,6 @@ export function ModalAddQuestion({ children, part1Id }: Props) {
                         </div>
                     </section>
                     <section className="flex flex-col gap-4 py-4 w-full">
-                        <div className="flex flex-col gap-4 justify-start items-start">
-                            <h1 className="flex items-center justify-between w-full">
-                                <h1>Image</h1>
-                                {onEditImage ? (
-                                    <span
-                                        onClick={() => setOnEditImage(false)}
-                                        className="text-sm hover:cursor-pointer"
-                                    >
-                                        Cancel
-                                    </span>
-                                ) : (
-                                    <Pencil
-                                        className="h-4 w-4"
-                                        onClick={() => setOnEditImage(true)}
-                                    />
-                                )}
-                            </h1>
-                            <div>
-                                {form?.imageUrl && !onEditImage ? (
-                                    <img
-                                        src={form?.imageUrl}
-                                        alt=""
-                                        className="w-full aspect-video rounded-lg"
-                                    />
-                                ) : (
-                                    <FileUpload
-                                        endpoint="courseImage"
-                                        onChange={(url) => {
-                                            if (url) {
-                                                setForm({
-                                                    ...form,
-                                                    imageUrl: url,
-                                                });
-                                            }
-                                        }}
-                                    />
-                                )}
-
-                                <div className="text-xs text-muted-foreground mt-4">
-                                    16:9 aspect ratio recommended
-                                </div>
-                            </div>
-                        </div>
-
                         <div className="flex flex-col gap-4 justify-start items-start w-full">
                             <h1 className="flex items-center justify-between w-full">
                                 <h1>Audio</h1>
