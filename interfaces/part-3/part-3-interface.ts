@@ -1,6 +1,6 @@
 import { IQuestion } from "../question/question-interface";
 
-export interface IPart2 {
+export interface IPart3 {
 	id: string;
 	createdAt: Date;
 	title?: string;
@@ -9,14 +9,14 @@ export interface IPart2 {
 	creatorId?: string;
 	numOfQuestions?: number;
 	duration?: number;
-	part2Questions: IPart2Question[];
+	part3Questions: IPart3Question[];
 }
 
-export interface IPart2Question {
+export interface IPart3Question {
 	id: string;
 	audioUrl: string;
 	questionId: string;
-	part2Id: string;
+	part3Id: string;
 	position: number;
-	question: IQuestion;
+	groupPart3Questions: IQuestion[];
 }

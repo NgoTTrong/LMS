@@ -15,8 +15,9 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { IPart3Question } from "@/interfaces/part-3/part-3-interface";
 import { ITopic } from "@/interfaces/topic/topic-interface";
-import Part2Service from "@/services/part-2/part-2-service";
+import Part3Service from "@/services/part-3/part-3-service";
 import TopicService from "@/services/topic/topic-service";
 import { Loader2, Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -25,9 +26,9 @@ import toast from "react-hot-toast";
 
 type Props = {
 	children: React.ReactNode;
-	part2Id: string;
+	question: IPart3Question;
 };
-export function ModalAddQuestion({ children, part2Id }: Props) {
+export function ModalEditQuestion({ question, children }: Props) {
 	const [topics, setTopics] = useState<ITopic[]>([]);
 	const [onEditImage, setOnEditImage] = useState<boolean>(false);
 	const [onEditAudio, setOnEditAudio] = useState<boolean>(false);
@@ -49,6 +50,7 @@ export function ModalAddQuestion({ children, part2Id }: Props) {
 		answer?: "A" | "B" | "C" | "D";
 		topicId?: string;
 		explain?: string;
+		imageUrl?: string;
 		audioUrl?: string;
 	}>({});
 	const disabled = () => {
@@ -57,6 +59,7 @@ export function ModalAddQuestion({ children, part2Id }: Props) {
 			!form?.content ||
 			!form?.answer ||
 			!form?.explain ||
+			!form?.imageUrl ||
 			!form?.optionA ||
 			!form?.optionB ||
 			!form?.optionC ||
@@ -64,29 +67,43 @@ export function ModalAddQuestion({ children, part2Id }: Props) {
 			!form?.topicId
 		);
 	};
-	const handleAddQuestion = async () => {
+	useEffect(() => {
+		// setForm({
+		// 	content: question?.question?.content,
+		// 	optionA: question?.question?.optionA,
+		// 	optionB: question?.question?.optionB,
+		// 	optionC: question?.question?.optionC,
+		// 	optionD: question?.question?.optionD,
+		// 	answer: question?.question?.answer,
+		// 	topicId: question?.question?.topicId,
+		// 	explain: question?.question?.explain,
+		// 	audioUrl: question?.audioUrl,
+		// });
+	}, [question]);
+	const handleEditQuestion = async () => {
 		try {
 			setIsLoading(true);
-			const _questionPart2 = await Part2Service.createQuestion(
-				part2Id,
-				{
-					content: form?.content!,
-					optionA: form?.optionA!,
-					optionB: form?.optionB!,
-					optionC: form?.optionC!,
-					optionD: form?.optionD,
-					answer: form?.answer!,
-					topicId: form?.topicId!,
-					explain: form?.explain!,
-				},
-				form?.audioUrl!
-			);
-			if (_questionPart2) {
-				toast.success("Added question");
-				router.refresh();
-			} else {
-				toast.error("Something went wrong");
-			}
+			// const _questionpart2 = await Part3Service.updateQuestion(
+			// 	question?.id,
+			// 	{
+			// 		id: question?.questionId,
+			// 		optionA: form?.optionA,
+			// 		optionC: form?.optionB,
+			// 		optionB: form?.optionC,
+			// 		optionD: form?.optionD,
+			// 		content: form?.content,
+			// 		explain: form?.explain,
+			// 		answer: form?.answer,
+			// 		topicId: form?.topicId,
+			// 	},
+			// 	form?.audioUrl
+			// );
+			// if (_questionpart2) {
+			// 	toast.success("Added question");
+			// 	router.refresh();
+			// } else {
+			// 	toast.error("Something went wrong");
+			// }
 		} catch (error) {
 		} finally {
 			setIsLoading(false);
@@ -131,8 +148,8 @@ export function ModalAddQuestion({ children, part2Id }: Props) {
 							<Input
 								id="optionA"
 								placeholder="eg. A: 13"
-								className="w-full"
 								value={form?.optionA}
+								className="w-full"
 								onChange={(event) => {
 									setForm({
 										...form,
@@ -187,8 +204,8 @@ export function ModalAddQuestion({ children, part2Id }: Props) {
 							<Input
 								id="optionD"
 								placeholder="eg. D: 16"
-								className="w-full"
 								value={form?.optionD}
+								className="w-full"
 								onChange={(event) => {
 									setForm({
 										...form,
@@ -247,6 +264,50 @@ export function ModalAddQuestion({ children, part2Id }: Props) {
 						</div>
 					</section>
 					<section className="flex flex-col gap-4 py-4 w-full">
+						<div className="flex flex-col gap-4 justify-start items-start">
+							<h1 className="flex items-center justify-between w-full">
+								<h1>Image</h1>
+								{onEditImage ? (
+									<span
+										onClick={() => setOnEditImage(false)}
+										className="text-sm hover:cursor-pointer"
+									>
+										Cancel
+									</span>
+								) : (
+									<Pencil
+										className="h-4 w-4"
+										onClick={() => setOnEditImage(true)}
+									/>
+								)}
+							</h1>
+							<div>
+								{form?.imageUrl && !onEditImage ? (
+									<img
+										src={form?.imageUrl}
+										alt=""
+										className="w-full aspect-video rounded-lg"
+									/>
+								) : (
+									<FileUpload
+										endpoint="courseImage"
+										onChange={(url) => {
+											if (url) {
+												setForm({
+													...form,
+													imageUrl: url,
+												});
+											}
+										}}
+									/>
+								)}
+
+								<div className="text-xs text-muted-foreground mt-4">
+									16:9 aspect ratio recommended
+								</div>
+							</div>
+						</div>
+
 						<div className="flex flex-col gap-4 justify-start items-start w-full">
 							<h1 className="flex items-center justify-between w-full">
 								<h1>Audio</h1>
@@ -294,12 +355,12 @@ export function ModalAddQuestion({ children, part2Id }: Props) {
 						<Button
 							type="submit"
 							disabled={disabled() || isLoading}
-							onClick={handleAddQuestion}
+							onClick={handleEditQuestion}
 						>
 							{isLoading ? (
 								<Loader2 className="w-6 h-6 animate-spin" />
 							) : (
-								"Add"
+								"Save"
 							)}
 						</Button>
 					</DialogClose>

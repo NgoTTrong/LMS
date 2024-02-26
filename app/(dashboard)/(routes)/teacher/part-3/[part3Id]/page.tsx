@@ -1,5 +1,5 @@
 import { IconBadge } from "@/components/icon-badge";
-import Part2Service from "@/services/part-2/part-2-service";
+import Part3Service from "@/services/part-3/part-3-service";
 import { currentUser } from "@clerk/nextjs";
 import { LayoutDashboard, ListChecks } from "lucide-react";
 import { redirect } from "next/navigation";
@@ -10,23 +10,23 @@ import QuestionsForm from "./_components/questions-form";
 
 type Props = {
 	params: {
-		part2Id: string;
+		part3Id: string;
 	};
 };
-const Part2IdPage = async ({ params }: Props) => {
+const Part3IdPage = async ({ params }: Props) => {
 	const user = await currentUser();
 
 	if (!user) {
 		redirect("/");
 	}
-	const part2 = await Part2Service.getOne(params.part2Id, user.id);
-	if (!part2) {
+	const part3 = await Part3Service.getOne(params.part3Id, user.id);
+	if (!part3) {
 		redirect("/");
 	}
 	const requiredFields = [
-		part2?.introduction,
-		part2?.title,
-		part2?.thumbnail,
+		part3?.introduction,
+		part3?.title,
+		part3?.thumbnail,
 	];
 
 	const totalFields = requiredFields.length;
@@ -39,7 +39,7 @@ const Part2IdPage = async ({ params }: Props) => {
 		<main className="p-6">
 			<div className="flex items-center justify-between">
 				<div className="flex flex-col gap-y-2">
-					<h1 className="text-2xl font-medium ">Part 2 setup</h1>
+					<h1 className="text-2xl font-medium ">Part 3 setup</h1>
 					<span>Complete all fields ({completionText})</span>
 				</div>
 			</div>
@@ -47,19 +47,19 @@ const Part2IdPage = async ({ params }: Props) => {
 				<section>
 					<div className="flex items-center gap-x-2">
 						<IconBadge icon={LayoutDashboard} />
-						<h2 className="text-xl">Customize your part 2 </h2>
+						<h2 className="text-xl">Customize your part 3 </h2>
 					</div>
-					<TitleForm initialData={part2} part2Id={part2.id} />
-					<IntroductionForm initialData={part2} part2Id={part2.id} />
-					<ThumbnailForm initialData={part2} part2Id={part2.id} />
+					<TitleForm initialData={part3} part3Id={part3.id} />
+					<IntroductionForm initialData={part3} part3Id={part3.id} />
+					<ThumbnailForm initialData={part3} part3Id={part3.id} />
 				</section>
 				<section className="space-y-6">
 					<div>
 						<div className="flex items-center gap-x-2">
 							<IconBadge icon={ListChecks} />
-							<h2 className="text-xl">Part 2 questions</h2>
+							<h2 className="text-xl">Part 3 questions</h2>
 						</div>
-						<QuestionsForm initialData={part2} part2Id={part2.id} />
+						<QuestionsForm initialData={part3} part3Id={part3.id} />
 					</div>
 				</section>
 			</div>
@@ -67,4 +67,4 @@ const Part2IdPage = async ({ params }: Props) => {
 	);
 };
 
-export default Part2IdPage;
+export default Part3IdPage;

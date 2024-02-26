@@ -8,12 +8,12 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { FileUpload } from "@/components/file-upload";
-import { IPart1 } from "@/interfaces/part-1/part-1-interface";
-import Part1Service from "@/services/part-1/part-1-service";
+import { IPart3 } from "@/interfaces/part-3/part-3-interface";
+import Part3Service from "@/services/part-3/part-3-service";
 
 type Props = {
-	initialData: IPart1;
-	part1Id: string;
+	initialData: IPart3;
+	part3Id: string;
 };
 
 const formSchema = z.object({
@@ -21,16 +21,16 @@ const formSchema = z.object({
 		message: "Image is required",
 	}),
 });
-const ThumbnailForm = ({ initialData, part1Id }: Props) => {
+const ThumbnailForm = ({ initialData, part3Id }: Props) => {
 	const [isEditting, setEditting] = useState<boolean>(false);
 	const router = useRouter();
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
-		const _course = await Part1Service.updatePart1(part1Id, {
+		const _course = await Part3Service.updatePart3(part3Id, {
 			thumbnail: values?.thumbnail,
 		});
 		if (_course) {
-			toast.success("Part 1 updated");
+			toast.success("Part 3 updated");
 		} else {
 			toast.error("Something went wrong!");
 		}
@@ -40,7 +40,7 @@ const ThumbnailForm = ({ initialData, part1Id }: Props) => {
 	return (
 		<section className="mt-6 bg-slate-100 rounded-md p-4">
 			<div className="font-medium flex items-center justify-between">
-				Part 1 image
+				Course image
 				<Button
 					variant={"ghost"}
 					onClick={() => setEditting((state) => !state)}

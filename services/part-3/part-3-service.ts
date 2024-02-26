@@ -1,18 +1,18 @@
-import { IPart2, IPart2Question } from "@/interfaces/part-2/part-2-interface";
+import { IPart3, IPart3Question } from "@/interfaces/part-3/part-3-interface";
 import { apiEndpoint } from "../api/endpoint";
 import RequestAPI from "../api/request-api";
 
-const part2Routes = {
-	create: apiEndpoint + "/part2/create",
-	getOne: apiEndpoint + "/part2",
-	createQuestion: apiEndpoint + "/part2/create-question",
-	updateQuestion: apiEndpoint + "/part2/update-question",
+const part3Routes = {
+	create: apiEndpoint + "/part3/create",
+	getOne: apiEndpoint + "/part3",
+	createQuestion: apiEndpoint + "/part3/create-question",
+	updateQuestion: apiEndpoint + "/part3/update-question",
 };
 
-export default class Part2Service {
-	static createPart2 = async (title: string, userId: string) => {
+export default class Part3Service {
+	static createPart3 = async (title: string, userId: string) => {
 		try {
-			const response = await RequestAPI.call<IPart2>(part2Routes.create, {
+			const response = await RequestAPI.call<IPart3>(part3Routes.create, {
 				method: "POST",
 				headers: {
 					Authorization: userId,
@@ -28,7 +28,7 @@ export default class Part2Service {
 		return null;
 	};
 	static createQuestion = async (
-		part2Id: string,
+		part3Id: string,
 		question: {
 			content: string;
 			optionA: string;
@@ -39,18 +39,19 @@ export default class Part2Service {
 			topicId: string;
 			explain: string;
 		},
-
-		audioUrl: string
+		audioUrl: string,
+		imageUrl?: string
 	) => {
 		try {
 			const response = await RequestAPI.call(
-				part2Routes.createQuestion + "/" + part2Id,
+				part3Routes.createQuestion + "/" + part3Id,
 				{
 					method: "POST",
 					data: {
-						part2Id,
+						part3Id,
 						question,
 						audioUrl,
+						imageUrl,
 					},
 				}
 			);
@@ -61,8 +62,8 @@ export default class Part2Service {
 		return null;
 	};
 	static updateQuestion = async (
-		part2QuestionId?: string,
-		question?: {
+		part3QuestionId?: string,
+		questions?: {
 			id: string;
 			content?: string;
 			optionA?: string;
@@ -72,18 +73,19 @@ export default class Part2Service {
 			answer?: "A" | "B" | "C" | "D";
 			explain?: string;
 			topicId?: string;
-		},
-
+		}[],
+		imageUrl?: string,
 		audioUrl?: string
 	) => {
 		try {
-			const response = await RequestAPI.call<IPart2Question>(
-				part2Routes.updateQuestion + "/" + part2QuestionId,
+			const response = await RequestAPI.call<IPart3Question>(
+				part3Routes.updateQuestion + "/" + part3QuestionId,
 				{
 					method: "PATCH",
 					data: {
-						question,
+						questions,
 						audioUrl,
+						imageUrl,
 					},
 				}
 			);
@@ -93,10 +95,10 @@ export default class Part2Service {
 		} catch (error) {}
 		return null;
 	};
-	static getOne = async (part2Id: string, userId: string) => {
+	static getOne = async (part3Id: string, userId: string) => {
 		try {
-			const response = await RequestAPI.call<IPart2>(
-				part2Routes.getOne + "/" + part2Id,
+			const response = await RequestAPI.call<IPart3>(
+				part3Routes.getOne + "/" + part3Id,
 				{
 					method: "GET",
 					headers: {
@@ -110,10 +112,10 @@ export default class Part2Service {
 		} catch (error) {}
 		return null;
 	};
-	static getAllPart2 = async (userId: string) => {
+	static getAllPart3 = async (userId: string) => {
 		try {
-			const response = await RequestAPI.call<IPart2[]>(
-				part2Routes.getOne,
+			const response = await RequestAPI.call<IPart3[]>(
+				part3Routes.getOne,
 				{
 					method: "GET",
 					headers: {
@@ -128,8 +130,8 @@ export default class Part2Service {
 		return [];
 	};
 
-	static updatePart2 = async (
-		part2Id: string,
+	static updatePart3 = async (
+		part3Id: string,
 		updateData: {
 			title?: string;
 			introduction?: string;
@@ -138,7 +140,7 @@ export default class Part2Service {
 	) => {
 		try {
 			const response = await RequestAPI.call(
-				part2Routes.getOne + "/" + part2Id,
+				part3Routes.getOne + "/" + part3Id,
 				{
 					method: "PATCH",
 					data: updateData,
@@ -151,12 +153,12 @@ export default class Part2Service {
 		return null;
 	};
 	static reorderQuestions = async (
-		part2Id: string,
+		part3Id: string,
 		updateData: { id: string; position: number }[]
 	) => {
 		try {
 			const response = await RequestAPI.call(
-				apiEndpoint + "/part2/" + part2Id + "/questions/reorder",
+				apiEndpoint + "/part3/" + part3Id + "/questions/reorder",
 				{
 					method: "POST",
 					data: { reorderData: updateData },

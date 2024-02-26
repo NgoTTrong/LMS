@@ -1,23 +1,21 @@
-"use client";
-
 import { DataTable } from "./_components/data-table";
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-import Part1Service from "@/services/part-1/part-1-service";
+import Part3Service from "@/services/part-3/part-3-service";
 import { columns } from "./_components/columns";
 
-const Part1Page = async () => {
+const Part3Page = async () => {
 	const user = await currentUser();
 	if (!user) {
 		redirect("/");
 	}
-	const part1s = await Part1Service.getAllPart1(user?.id);
+	const part3s = await Part3Service.getAllPart3(user?.id);
 
 	return (
 		<main className="p-6">
-			<DataTable data={part1s} columns={columns} />
+			<DataTable data={part3s} columns={columns} />
 		</main>
 	);
 };
 
-export default Part1Page;
+export default Part3Page;
