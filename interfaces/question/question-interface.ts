@@ -1,15 +1,15 @@
 export interface IQuestion {
 	id: string;
-	createdAt: Date;
+	createdAt?: Date;
 	content: string;
 	optionA: string;
 	optionB: string;
 	optionC: string;
-	optionD: string;
-	topicId: string;
+	optionD?: string;
+	topicId?: string;
 	answer: "A" | "B" | "C" | "D";
-	topic: ITopic;
-	explain: string;
+	topic?: ITopic;
+	explain?: string;
 }
 
 export interface ITopic {

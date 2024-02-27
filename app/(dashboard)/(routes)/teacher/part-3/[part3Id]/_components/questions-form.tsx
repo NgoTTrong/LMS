@@ -62,7 +62,7 @@ const QuestionsForm = ({ initialData, part3Id }: Props) => {
 				updateData
 			);
 			if (_update) {
-				toast.success("Chapter reordered");
+				toast.success("Question reordered");
 				router.refresh();
 			} else {
 				toast.error("Something went wrong!");
@@ -111,7 +111,7 @@ const QuestionsForm = ({ initialData, part3Id }: Props) => {
 										<FormControl>
 											<Input
 												disabled={isSubmitting}
-												placeholder="e.g. 'Introduction to the course'"
+												placeholder="e.g. 'Introduction to the question'"
 												{...field}
 											/>
 										</FormControl>

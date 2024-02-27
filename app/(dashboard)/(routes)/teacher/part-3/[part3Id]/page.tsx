@@ -35,6 +35,7 @@ const Part3IdPage = async ({ params }: Props) => {
 	const completionText = `(${completedFields}/${totalFields})`;
 
 	const isComplete = requiredFields.every(Boolean);
+
 	return (
 		<main className="p-6">
 			<div className="flex items-center justify-between">

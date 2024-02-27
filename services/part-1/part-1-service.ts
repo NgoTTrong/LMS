@@ -7,6 +7,7 @@ const part1Routes = {
 	getOne: apiEndpoint + "/part1",
 	createQuestion: apiEndpoint + "/part1/create-question",
 	updateQuestion: apiEndpoint + "/part1/update-question",
+	deleteQuestion: apiEndpoint + "/part1/delete-question",
 };
 
 export default class Part1Service {
@@ -53,6 +54,20 @@ export default class Part1Service {
 						imageUrl,
 						audioUrl,
 					},
+				}
+			);
+			if (response?.data) {
+				return response?.data;
+			}
+		} catch (error) {}
+		return null;
+	};
+	static deleteQuestion = async (part1QuestionId: string) => {
+		try {
+			const response = await RequestAPI.call<string>(
+				part1Routes.deleteQuestion + "/" + part1QuestionId,
+				{
+					method: "Delete",
 				}
 			);
 			if (response?.data) {

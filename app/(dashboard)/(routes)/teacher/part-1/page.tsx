@@ -1,5 +1,3 @@
-"use client";
-
 import { DataTable } from "./_components/data-table";
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";

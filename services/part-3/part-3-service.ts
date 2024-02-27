@@ -7,6 +7,7 @@ const part3Routes = {
 	getOne: apiEndpoint + "/part3",
 	createQuestion: apiEndpoint + "/part3/create-question",
 	updateQuestion: apiEndpoint + "/part3/update-question",
+	deleteQuestion: apiEndpoint + "/part3/delete-question",
 };
 
 export default class Part3Service {
@@ -27,9 +28,23 @@ export default class Part3Service {
 		} catch (error) {}
 		return null;
 	};
+	static deleteQuestion = async (part3QuestionId: string) => {
+		try {
+			const response = await RequestAPI.call<string>(
+				part3Routes.deleteQuestion + "/" + part3QuestionId,
+				{
+					method: "Delete",
+				}
+			);
+			if (response?.data) {
+				return response?.data;
+			}
+		} catch (error) {}
+		return null;
+	};
 	static createQuestion = async (
 		part3Id: string,
-		question: {
+		questions: {
 			content: string;
 			optionA: string;
 			optionB: string;
@@ -38,7 +53,7 @@ export default class Part3Service {
 			answer: "A" | "B" | "C" | "D";
 			topicId: string;
 			explain: string;
-		},
+		}[],
 		audioUrl: string,
 		imageUrl?: string
 	) => {
@@ -49,7 +64,7 @@ export default class Part3Service {
 					method: "POST",
 					data: {
 						part3Id,
-						question,
+						questions,
 						audioUrl,
 						imageUrl,
 					},

@@ -7,10 +7,14 @@ import {
 	DropResult,
 } from "@hello-pangea/dnd";
 import { cn } from "@/lib/utils";
-import { Grip, Pencil } from "lucide-react";
+import { Grip, Pencil, Trash, Trash2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { IPart3Question } from "@/interfaces/part-3/part-3-interface";
 import { ModalEditQuestion } from "./modal-edit-question";
+import { Button } from "@/components/ui/button";
+import Part3Service from "@/services/part-3/part-3-service";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 type Props = {
 	items: IPart3Question[];
 	onReorder: (updateData: { id: string; position: number }[]) => void;
@@ -19,7 +23,7 @@ type Props = {
 const QuestionsList = ({ items, onReorder, onEdit }: Props) => {
 	const [isMounted, setIsMounted] = useState<boolean>(false);
 	const [questions, setQuestions] = useState<IPart3Question[]>(items);
-
+	const router = useRouter();
 	useEffect(() => {
 		setIsMounted(true);
 	}, []);
@@ -55,6 +59,21 @@ const QuestionsList = ({ items, onReorder, onEdit }: Props) => {
 
 		onReorder(bulkUpdateData);
 	};
+	const handleDeleteGroup = async (part3QuestionId: string) => {
+		try {
+			const _part3QuestionId = await Part3Service.deleteQuestion(
+				part3QuestionId
+			);
+			if (_part3QuestionId) {
+				toast.success("Deleted question");
+				router.refresh();
+			} else {
+				toast.error("Something went wrong");
+			}
+		} catch (error) {
+			toast.error("Something went wrong");
+		}
+	};
 	return (
 		<DragDropContext onDragEnd={onDragEnd}>
 			<Droppable droppableId="chapters">
@@ -82,13 +101,31 @@ const QuestionsList = ({ items, onReorder, onEdit }: Props) => {
 										>
 											<Grip />
 										</div>
-										{/* {question?.question?.content} */}
+										{
+											<p className="flex-1 truncate">
+												{
+													question
+														?.groupPart3Questions?.[0]
+														?.question?.content
+												}
+											</p>
+										}
 										<div className="ml-auto pr-2 flex items-center gap-x-2">
 											<ModalEditQuestion
 												question={question}
 											>
 												<Pencil className="w-4 h-4 cursor-pointer hover:opacity-75 transition" />
 											</ModalEditQuestion>
+											<Button
+												onClick={() =>
+													handleDeleteGroup(
+														question?.id
+													)
+												}
+												variant="outline"
+											>
+												<Trash2 className="w-4 h-4 cursor-pointer hover:opacity-75 transition text-red-700" />
+											</Button>
 										</div>
 									</div>
 								)}

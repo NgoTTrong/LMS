@@ -1,12 +1,5 @@
 "use client";
 import { Dispatch, useEffect, useState } from "react";
-import {
-	DragDropContext,
-	Draggable,
-	Droppable,
-	DropResult,
-} from "@hello-pangea/dnd";
-import { cn } from "@/lib/utils";
 import { Grip, Pencil, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Editor } from "@/components/editor";
@@ -14,37 +7,30 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { ComboBox } from "@/components/ui/combo-box";
 import { ITopic } from "@/interfaces/topic/topic-interface";
-type InnerQuestion = {
-	tempId: number;
-	content?: string;
-	optionA?: string;
-	optionB?: string;
-	optionC?: string;
-	optionD?: string;
-	explain?: string;
-	answer?: string;
-	topicId?: string;
-};
+import { IQuestion } from "@/interfaces/question/question-interface";
+
 type Props = {
-	items: InnerQuestion[];
-	setQuestions: Dispatch<InnerQuestion[]>;
+	items: IQuestion[];
+	setQuestions: Dispatch<IQuestion[]>;
 	topics: ITopic[];
 };
-const SubQuestionList = ({ items, setQuestions, topics }: Props) => {
+const SubQuestionListEdit = ({ items, setQuestions, topics }: Props) => {
 	const [onEdit, setOnEdit] = useState<boolean>(false);
-	const [form, setForm] = useState<InnerQuestion>();
-	const handleDeleteQuestion = (tempId: number) => {
-		const questions = [...items];
-		const idx = questions.findIndex((e) => e.tempId == tempId);
-		questions.splice(idx, 1);
-		setQuestions(questions);
-	};
+	const [form, setForm] = useState<IQuestion>();
+
 	const handleEditQuestion = () => {
 		const questions = [...items];
-		const idx = questions.findIndex((e) => e.tempId == form?.tempId);
+		const idx = questions.findIndex((e) => e.id == form?.id);
 		questions[idx] = {
-			tempId: form?.tempId!,
-			...form,
+			id: form?.id!,
+			content: form?.content!,
+			optionA: form?.optionA!,
+			optionB: form?.optionB!,
+			optionC: form?.optionC!,
+			optionD: form?.optionD!,
+			topicId: form?.topicId!,
+			explain: form?.explain!,
+			answer: form?.answer! as "A" | "B" | "C" | "D",
 		};
 		setQuestions(questions);
 		setOnEdit(false);
@@ -68,16 +54,10 @@ const SubQuestionList = ({ items, setQuestions, topics }: Props) => {
 									setOnEdit(true);
 								}}
 							/>
-							<X
-								className="w-4 h-4 text-red-700  cursor-pointer"
-								onClick={() => {
-									handleDeleteQuestion(question?.tempId);
-								}}
-							/>
 						</div>
 					</div>
 				))}
-			{onEdit && form?.tempId && (
+			{onEdit && form?.id && (
 				<section className="gap-4 py-4 w-full grid rounded-lg bg-white">
 					<div className="flex flex-col gap-4 justify-start items-start">
 						<Label htmlFor="content" className="text-right">
@@ -233,4 +213,4 @@ const SubQuestionList = ({ items, setQuestions, topics }: Props) => {
 	);
 };
 
-export default SubQuestionList;
+export default SubQuestionListEdit;

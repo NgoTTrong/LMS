@@ -15,8 +15,14 @@ export interface IPart3 {
 export interface IPart3Question {
 	id: string;
 	audioUrl: string;
-	questionId: string;
+	imageUrls: string[];
 	part3Id: string;
 	position: number;
-	groupPart3Questions: IQuestion[];
+	groupPart3Questions: IMappingPart3Question[];
+}
+export interface IMappingPart3Question {
+	part3QuestionId: string;
+	questionId: string;
+	position?: number;
+	question: IQuestion;
 }
