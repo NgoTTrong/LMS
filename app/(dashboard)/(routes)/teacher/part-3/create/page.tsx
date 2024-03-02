@@ -17,14 +17,14 @@ import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { redirect, useRouter } from "next/navigation";
 import { useAuth } from "@clerk/nextjs";
-import Part2Service from "@/services/part-2/part-2-service";
+import Part3Service from "@/services/part-3/part-3-service";
 
 const formSchema = z.object({
     title: z.string().min(1, {
         message: "Title is required",
     }),
 });
-const Part2CreatePage = () => {
+const Part3CreatePage = () => {
     const router = useRouter();
     const { userId } = useAuth();
     if (!userId) {
@@ -38,10 +38,10 @@ const Part2CreatePage = () => {
     });
     const { isSubmitting, isValid } = form.formState;
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        const _part2 = await Part2Service.createPart2(values.title, userId);
-        if (_part2) {
-            router.push(`/teacher/part-2/${_part2?.id}`);
-            toast.success("Part 2 Created");
+        const _part3 = await Part3Service.createPart3(values.title, userId);
+        if (_part3) {
+            router.push(`/teacher/part-3/${_part3?.id}`);
+            toast.success("Part 3 Created");
         } else {
             toast.error("Something went wrong!");
         }
@@ -49,9 +49,9 @@ const Part2CreatePage = () => {
     return (
         <main className="p-6">
             <div>
-                <h1 className="text-2xl">Name your part 2 </h1>
+                <h1 className="text-2xl">Name your part 3 </h1>
                 <p>
-                    What would you like to name your part 2? Don&apos;t worry,
+                    What would you like to name your part 3? Don&apos;t worry,
                     you can change this later.
                 </p>
                 <Form {...form}>
@@ -67,7 +67,7 @@ const Part2CreatePage = () => {
                                     <FormLabel>Course title</FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="e.g. ETS Part 2 2024"
+                                            placeholder="e.g. ETS Part 3 2024"
                                             disabled={isSubmitting}
                                             {...field}
                                         />
@@ -99,4 +99,4 @@ const Part2CreatePage = () => {
     );
 };
 
-export default Part2CreatePage;
+export default Part3CreatePage;

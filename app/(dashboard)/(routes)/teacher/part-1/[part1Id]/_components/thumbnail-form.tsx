@@ -40,7 +40,7 @@ const ThumbnailForm = ({ initialData, part1Id }: Props) => {
 	return (
 		<section className="mt-6 bg-slate-100 rounded-md p-4">
 			<div className="font-medium flex items-center justify-between">
-				Course image
+				Part 1 image
 				<Button
 					variant={"ghost"}
 					onClick={() => setEditting((state) => !state)}

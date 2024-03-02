@@ -17,13 +17,6 @@ export interface IPart2Question {
 	audioUrl: string;
 	questionId: string;
 	part2Id: string;
-	explainId: string;
-	topicId: string;
 	position: number;
-	explain: {
-		id: string;
-		explain: string;
-		answer: "A" | "B" | "C" | "D";
-	};
 	question: IQuestion;
 }

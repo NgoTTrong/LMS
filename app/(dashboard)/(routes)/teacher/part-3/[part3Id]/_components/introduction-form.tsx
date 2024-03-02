@@ -15,14 +15,14 @@ import { Pencil } from "lucide-react";
 import * as z from "zod";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { IPart2 } from "@/interfaces/part-2/part-2-interface";
-import Part2Service from "@/services/part-2/part-2-service";
+import { IPart3 } from "@/interfaces/part-3/part-3-interface";
+import Part3Service from "@/services/part-3/part-3-service";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 
 type Props = {
-    initialData: IPart2;
-    part2Id: string;
+    initialData: IPart3;
+    part3Id: string;
 };
 
 const formSchema = z.object({
@@ -30,7 +30,7 @@ const formSchema = z.object({
         message: "Title is required",
     }),
 });
-const IntroductionForm = ({ initialData, part2Id }: Props) => {
+const IntroductionForm = ({ initialData, part3Id }: Props) => {
     const [isEditting, setEditting] = useState<boolean>(false);
     const router = useRouter();
     const form = useForm<z.infer<typeof formSchema>>({
@@ -39,11 +39,11 @@ const IntroductionForm = ({ initialData, part2Id }: Props) => {
     });
     const { isSubmitting, isValid } = form.formState;
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        const _part2 = await Part2Service.updatePart2(part2Id, {
+        const _part3 = await Part3Service.updatePart3(part3Id, {
             introduction: values?.introduction,
         });
-        if (_part2) {
-            toast.success("Part 2 updated");
+        if (_part3) {
+            toast.success("Part 3 updated");
         } else {
             toast.error("Something went wrong!");
         }
@@ -53,7 +53,7 @@ const IntroductionForm = ({ initialData, part2Id }: Props) => {
     return (
         <section className="mt-6 bg-slate-100 rounded-md p-4">
             <div className="font-medium flex items-center justify-between">
-                Part 2 introduction
+                Part 3 introduction
                 <Button
                     variant={"ghost"}
                     onClick={() => setEditting((state) => !state)}

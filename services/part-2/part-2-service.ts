@@ -7,6 +7,7 @@ const part2Routes = {
 	getOne: apiEndpoint + "/part2",
 	createQuestion: apiEndpoint + "/part2/create-question",
 	updateQuestion: apiEndpoint + "/part2/update-question",
+	deleteQuestion: apiEndpoint + "/part2/delete-question",
 };
 
 export default class Part2Service {
@@ -35,10 +36,11 @@ export default class Part2Service {
 			optionB: string;
 			optionC: string;
 			optionD?: string;
+			answer: "A" | "B" | "C" | "D";
+			topicId: string;
+			explain: string;
 		},
-		correctAnswer: "A" | "B" | "C" | "D",
-		topicId: string,
-		explaination: string,
+
 		audioUrl: string
 	) => {
 		try {
@@ -49,11 +51,22 @@ export default class Part2Service {
 					data: {
 						part2Id,
 						question,
-						correctAnswer,
-						topicId,
-						explaination,
 						audioUrl,
 					},
+				}
+			);
+			if (response?.data) {
+				return response?.data;
+			}
+		} catch (error) {}
+		return null;
+	};
+	static deleteQuestion = async (part2QuestionId: string) => {
+		try {
+			const response = await RequestAPI.call<string>(
+				part2Routes.deleteQuestion + "/" + part2QuestionId,
+				{
+					method: "Delete",
 				}
 			);
 			if (response?.data) {
@@ -71,13 +84,11 @@ export default class Part2Service {
 			optionB?: string;
 			optionC?: string;
 			optionD?: string;
+			answer?: "A" | "B" | "C" | "D";
+			explain?: string;
+			topicId?: string;
 		},
-		explain?: {
-			id: string;
-			correctAnswer?: "A" | "B" | "C" | "D";
-			explaination?: string;
-		},
-		topicId?: string,
+
 		audioUrl?: string
 	) => {
 		try {
@@ -87,8 +98,6 @@ export default class Part2Service {
 					method: "PATCH",
 					data: {
 						question,
-						explain,
-						topicId,
 						audioUrl,
 					},
 				}

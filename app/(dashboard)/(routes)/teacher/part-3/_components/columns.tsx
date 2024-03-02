@@ -8,12 +8,12 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { IPart2 } from "@/interfaces/part-2/part-2-interface";
+import { IPart3 } from "@/interfaces/part-3/part-3-interface";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal, Pencil } from "lucide-react";
 import Link from "next/link";
 
-export const columns: ColumnDef<IPart2>[] = [
+export const columns: ColumnDef<IPart3>[] = [
     {
         accessorKey: "id",
         header: ({ column }) => {
@@ -59,7 +59,7 @@ export const columns: ColumnDef<IPart2>[] = [
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <Link href={`/teacher/part-2/${id}`}>
+                        <Link href={`/teacher/part-3/${id}`}>
                             <DropdownMenuItem>
                                 <Pencil className="w-4 h-4 mr-4" />
                                 Edit
