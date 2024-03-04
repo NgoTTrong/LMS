@@ -4,6 +4,8 @@ import SearchInput from "@/components/navbar/search-input";
 import CoursesList from "./_components/courses-list";
 import { auth, currentUser, useAuth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import CategoryItem from "./_components/category-item";
+import { ICategoryCourse } from "@/interfaces/course/course-interface";
 
 type Props = {
     searchParams: {
@@ -16,12 +18,24 @@ const SearchPage = async ({ searchParams }: Props) => {
     if (!user) {
         redirect("/");
     }
-    const categories = await CourseService.getAllCategoryCourse();
-    const courses = await CourseService.getAllCoursesByUser(
+    let categories = await CourseService.getAllCategoryCourse();
+    let courses = await CourseService.getAllCoursesByUser(
         user.id,
         searchParams?.title,
         searchParams?.categoryId
     );
+
+    // let categories: ICategoryCourse[] = [
+    //     {
+    //         id: "1",
+    //         name: "Full Test",
+    //     },
+    //     {
+    //         id: "2",
+    //         name: "Quick Test",
+    //     },
+    // ];
+
     return (
         <>
             <div className="px-6 pt-6 md:hidden md:mb-6 block">
