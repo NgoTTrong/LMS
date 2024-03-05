@@ -1,5 +1,12 @@
 "use client";
-import { BarChart, BookText, Compass, Layout, List } from "lucide-react";
+import {
+	BarChart,
+	BookMarked,
+	BookText,
+	Compass,
+	Layout,
+	List,
+} from "lucide-react";
 import SidebarItem from "./sidebar-item";
 import { usePathname } from "next/navigation";
 
@@ -25,6 +32,11 @@ const teacherRoutes = [
 		icon: BarChart,
 		label: "Analytics",
 		href: "/teacher/analytics",
+	},
+	{
+		icon: BookMarked,
+		label: "Exam",
+		href: "/teacher/exam",
 	},
 	{
 		icon: BookText,
