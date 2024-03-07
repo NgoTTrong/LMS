@@ -1,5 +1,12 @@
 "use client";
-import { BarChart, BookText, Compass, Layout, List } from "lucide-react";
+import {
+    BarChart,
+    BookText,
+    Compass,
+    Layout,
+    List,
+    WalletCards,
+} from "lucide-react";
 import SidebarItem from "./sidebar-item";
 import { usePathname } from "next/navigation";
 
@@ -13,6 +20,11 @@ const guestRoutes = [
         icon: Compass,
         label: "Browse",
         href: "/search",
+    },
+    {
+        icon: WalletCards,
+        label: "Flashcard",
+        href: "/flashcard",
     },
 ];
 const teacherRoutes = [
