@@ -6,6 +6,7 @@ import {
     Layout,
     List,
     WalletCards,
+    BookMarked,
 } from "lucide-react";
 import SidebarItem from "./sidebar-item";
 import { usePathname } from "next/navigation";
@@ -37,6 +38,11 @@ const teacherRoutes = [
         icon: BarChart,
         label: "Analytics",
         href: "/teacher/analytics",
+    },
+    {
+        icon: BookMarked,
+        label: "Exam",
+        href: "/teacher/exam",
     },
     {
         icon: BookText,
