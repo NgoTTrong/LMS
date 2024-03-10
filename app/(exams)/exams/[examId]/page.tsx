@@ -4,19 +4,18 @@ import { redirect } from "next/navigation";
 import ExamLayout from "./layout";
 
 const ExamIdPage = async ({
-    params,
+	params,
 }: {
-    params: {
-        examId: string;
-    };
+	params: {
+		examId: string;
+	};
 }) => {
-    const user = await currentUser();
+	const user = await currentUser();
 
-    console.log(params.examId);
-    if (!user) {
-        redirect("/");
-    }
-    return redirect(`/exams/${params.examId}/introduction`);
+	if (!user) {
+		redirect("/");
+	}
+	return redirect(`/exams/${params.examId}/take-test`);
 };
 
 export default ExamIdPage;
