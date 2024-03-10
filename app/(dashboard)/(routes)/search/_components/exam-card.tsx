@@ -23,7 +23,7 @@ type Props = {
 const ExamCard = ({ item }: Props) => {
     const [isDone, setDone] = useState<boolean>(true);
     return (
-        <Link href={`/exams/${item?.course?.id}`}>
+        <Link data-aos="zoom-in" href={`/exams/${item?.course?.id}`}>
             <div className="group hover:shadow-sm transition overflow-hidden border rounded-lg p-3 w-full">
                 <div className="relative w-full aspect-video rounded-md overflow-hidden">
                     <Image
