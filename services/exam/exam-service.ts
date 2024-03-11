@@ -8,6 +8,7 @@ import RequestAPI from "../api/request-api";
 
 const examRoutes = {
 	getAll: apiEndpoint + "/exam",
+	getAllByUser: apiEndpoint + "/exam/get-all-of-user",
 	getExamDetail: apiEndpoint + "/exam/detail",
 	getAllCategories: apiEndpoint + "/exam-category",
 };
@@ -43,6 +44,20 @@ export default class ExamService {
 					Authorization: userId,
 				},
 			});
+			if (response?.data) {
+				return response?.data;
+			}
+		} catch (error) {}
+		return [];
+	};
+	static getAllByUser = async (userId: string) => {
+		try {
+			const response = await RequestAPI.call<IExam[]>(
+				examRoutes.getAllByUser + `?userId=${userId}`,
+				{
+					method: "GET",
+				}
+			);
 			if (response?.data) {
 				return response?.data;
 			}

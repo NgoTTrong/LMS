@@ -24,7 +24,7 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 				onClick={() => setOpenSideBar(true)}
 			/>
 			<section
-				className={`w-[300px] h-full min-h-full absolute right-0 top-0 bg-white shadow-sm rounded-lg border-l-2 border-slate-200 transition duration-300 ${
+				className={`w-[250px] h-full min-h-full max-h-full absolute right-0 top-0 bg-white shadow-sm rounded-lg border-l-2 border-slate-200 transition duration-300 ${
 					openSideBar ? "translate-x-[0px]" : "translate-x-[300px]"
 				}`}
 			>
@@ -48,7 +48,10 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 								<div className="w-full grid grid-cols-5 gap-2">
 									{examDetail?.part1?.part1Questions?.map(
 										(part1Question, idx) => (
-											<p className="p-2 rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold">
+											<p
+												key={"part1-nav-" + idx}
+												className="p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold"
+											>
 												{idx + 1}
 											</p>
 										)
@@ -62,7 +65,10 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 								<div className="w-full grid grid-cols-5 gap-2">
 									{examDetail?.part2?.part2Questions?.map(
 										(part2Question, idx) => (
-											<p className="p-2 rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold">
+											<p
+												key={"part2-nav-" + idx}
+												className="p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold"
+											>
 												{getCurrentQuestion(
 													examDetail!,
 													1
@@ -91,7 +97,10 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 											[]
 										)
 										?.map((part3Question, idx) => (
-											<p className="p-2 rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold">
+											<p
+												key={"part3-nav-" + idx}
+												className="p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold"
+											>
 												{getCurrentQuestion(
 													examDetail!,
 													2
@@ -119,7 +128,10 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 											[]
 										)
 										?.map((part4Question, idx) => (
-											<p className="p-2 rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold">
+											<p
+												key={"part4-nav-" + idx}
+												className="p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold"
+											>
 												{getCurrentQuestion(
 													examDetail!,
 													3
@@ -137,7 +149,10 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 								<div className="w-full grid grid-cols-5 gap-2">
 									{examDetail?.part5?.part5Questions?.map(
 										(part5Question, idx) => (
-											<p className="p-2 rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold">
+											<p
+												key={"part5-nav-" + idx}
+												className="p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold"
+											>
 												{getCurrentQuestion(
 													examDetail!,
 													4
@@ -166,7 +181,10 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 											[]
 										)
 										?.map((part6Question, idx) => (
-											<p className="p-2 rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold">
+											<p
+												key={"part6-nav-" + idx}
+												className="p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold"
+											>
 												{getCurrentQuestion(
 													examDetail!,
 													5
@@ -194,7 +212,10 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 											[]
 										)
 										?.map((part7Question, idx) => (
-											<p className="p-2 rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold">
+											<p
+												key={"part7-nav-" + idx}
+												className="p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold"
+											>
 												{getCurrentQuestion(
 													examDetail!,
 													6

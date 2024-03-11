@@ -18,7 +18,7 @@ const ExamLayout = async ({ children, params }: Props) => {
 		redirect("/");
 	}
 	return (
-		<main className="w-full h-full min-h-screen flex flex-col items-center">
+		<main className="w-full h-screen min-h-screen max-h-screen flex flex-col items-center">
 			<HeaderBar />
 			{children}
 		</main>
