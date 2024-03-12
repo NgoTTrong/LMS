@@ -3,7 +3,7 @@ import { create } from "zustand";
 
 type State = {
 	exam: IExamDetail | null;
-	currentPart: 1 | 2 | 3 | 4 | 5 | 6 | 7 | null;
+	currentPart: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | null;
 	currentQuestion: string | null;
 	result: {
 		questionId: string;
@@ -13,8 +13,8 @@ type State = {
 
 type Action = {
 	setExam: (_exam: IExamDetail) => void;
-	setCurrentPart: (_part: 1 | 2 | 3 | 4 | 5 | 6 | 7) => void;
-	setCurrentQuestion: (_questionId: string) => void;
+	setCurrentPart: (_part: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7) => void;
+	setCurrentQuestion: (_questionId: string | null) => void;
 	pushResult: (_questionId: string, option: "A" | "B" | "C" | "D") => void;
 };
 

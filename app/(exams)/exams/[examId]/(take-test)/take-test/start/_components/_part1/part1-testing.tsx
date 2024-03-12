@@ -1,13 +1,23 @@
+import { Button } from "@/components/ui/button";
 import { useAudio } from "@/hooks/use-audio";
 import { Part1Question } from "@/interfaces/exam/exam-interface";
 import { formatTime } from "@/lib/functions";
 import useExam from "@/stores/exam/exam-store";
 import { PauseCircle, PlayCircle } from "lucide-react";
 import { useEffect, useState } from "react";
+import { getNextPart } from "../../_helper/get-next-part";
+import { getNextPartQuestion } from "../../_helper/get-next-part-question";
 
 const Part1Testing = () => {
-	const { exam, currentPart, currentQuestion, result, pushResult } =
-		useExam();
+	const {
+		exam,
+		currentPart,
+		currentQuestion,
+		result,
+		pushResult,
+		setCurrentPart,
+		setCurrentQuestion,
+	} = useExam();
 	const { playing, toggle, setAudio, duration } = useAudio();
 	const [question, setQuestion] = useState<Part1Question>();
 	useEffect(() => {
@@ -32,6 +42,34 @@ const Part1Testing = () => {
 			return null;
 		}
 		return result?.[idx]?.option;
+	};
+	const handleNext = () => {
+		const questionIdx =
+			exam?.part1?.part1Questions?.findIndex(
+				(question) => question?.questionId == currentQuestion
+			) ?? -1;
+		if (questionIdx == (exam?.part1?.part1Questions?.length ?? 0) - 1) {
+			const nextPart = getNextPart(exam!, 1);
+			const nextPartQuestion = getNextPartQuestion(exam!, 1);
+			setCurrentPart(nextPart);
+			setCurrentQuestion(nextPartQuestion);
+		} else {
+			setCurrentQuestion(
+				exam?.part1?.part1Questions?.[questionIdx + 1]?.questionId ??
+					null
+			);
+		}
+	};
+	const handlePrev = () => {
+		const questionIdx =
+			exam?.part1?.part1Questions?.findIndex(
+				(question) => question?.questionId == currentQuestion
+			) ?? -1;
+		if (questionIdx != -1)
+			setCurrentQuestion(
+				exam?.part1?.part1Questions?.[questionIdx - 1]?.questionId ??
+					null
+			);
 	};
 	return (
 		question && (
@@ -60,75 +98,97 @@ const Part1Testing = () => {
 						</h1>
 					)}
 				</div>
-				<div className="flex">
-					<form className="w-[300px] flex flex-col gap-4 p-4 rounded-lg shadow-lg h-fit">
-						<div
-							onClick={() => {
-								pushResult(question?.questionId, "A");
-							}}
-							className={`flex items-center gap-4 ${
-								check() == "A" && "bg-sky-200"
-							} rounded-lg p-2`}
-						>
-							<input
-								type="radio"
-								className="w-4 h-4"
-								id="optionA"
-								readOnly
-								checked={check() == "A"}
-							/>
-							<label htmlFor="optionA">A</label>
+				<div className="flex w-full">
+					<form className="w-[80%] flex flex-col gap-4 items-end">
+						<div className="flex flex-col gap-4 p-4 rounded-lg shadow-lg h-fit w-full">
+							<div
+								onClick={() => {
+									pushResult(question?.questionId, "A");
+								}}
+								className={`flex items-center gap-4 ${
+									check() == "A" && "bg-sky-200"
+								} rounded-lg p-2`}
+							>
+								<input
+									type="radio"
+									className="w-4 h-4"
+									id="optionA"
+									readOnly
+									checked={check() == "A"}
+								/>
+								<label htmlFor="optionA">A</label>
+							</div>
+							<div
+								onClick={() => {
+									pushResult(question?.questionId, "B");
+								}}
+								className={`flex items-center gap-4 ${
+									check() == "B" && "bg-sky-200"
+								} rounded-lg p-2`}
+							>
+								<input
+									type="radio"
+									className="w-4 h-4"
+									id="optionB"
+									readOnly
+									checked={check() == "B"}
+								/>
+								<label htmlFor="optionB">B</label>
+							</div>
+							<div
+								onClick={() => {
+									pushResult(question?.questionId, "C");
+								}}
+								className={`flex items-center gap-4 ${
+									check() == "C" && "bg-sky-200"
+								} rounded-lg p-2`}
+							>
+								<input
+									type="radio"
+									className="w-4 h-4"
+									id="optionC"
+									readOnly
+									checked={check() == "C"}
+								/>
+								<label htmlFor="optionC">C</label>
+							</div>
+							<div
+								onClick={() => {
+									pushResult(question?.questionId, "D");
+								}}
+								className={`flex items-center gap-4 ${
+									check() == "D" && "bg-sky-200"
+								} rounded-lg p-2`}
+							>
+								<input
+									type="radio"
+									className="w-4 h-4"
+									id="optionD"
+									readOnly
+									checked={check() == "D"}
+								/>
+								<label htmlFor="optionD">D</label>
+							</div>
 						</div>
-						<div
-							onClick={() => {
-								pushResult(question?.questionId, "B");
-							}}
-							className={`flex items-center gap-4 ${
-								check() == "B" && "bg-sky-200"
-							} rounded-lg p-2`}
-						>
-							<input
-								type="radio"
-								className="w-4 h-4"
-								id="optionB"
-								readOnly
-								checked={check() == "B"}
-							/>
-							<label htmlFor="optionB">B</label>
-						</div>
-						<div
-							onClick={() => {
-								pushResult(question?.questionId, "C");
-							}}
-							className={`flex items-center gap-4 ${
-								check() == "C" && "bg-sky-200"
-							} rounded-lg p-2`}
-						>
-							<input
-								type="radio"
-								className="w-4 h-4"
-								id="optionC"
-								readOnly
-								checked={check() == "C"}
-							/>
-							<label htmlFor="optionC">C</label>
-						</div>
-						<div
-							onClick={() => {
-								pushResult(question?.questionId, "D");
-							}}
-							className={`flex items-center gap-4 ${
-								check() == "D" && "bg-sky-200"
-							} rounded-lg p-2`}
-						>
-							<input
-								type="radio"
-								className="w-4 h-4"
-								id="optionD"
-								readOnly
-								checked={check() == "D"}
-							/>
-							<label htmlFor="optionD">D</label>
+						<div className="flex gap-4 items-center w-fit">
+							{exam?.part1?.part1Questions?.[0]?.questionId !=
+								currentQuestion && (
+								<Button
+									onClick={handlePrev}
+									className="w-fit"
+									type="button"
+								>
+									Previous
+								</Button>
+							)}
+
+							<Button
+								onClick={handleNext}
+								className="w-fit"
+								type="button"
+							>
+								Next
+							</Button>
 						</div>
 					</form>
 				</div>

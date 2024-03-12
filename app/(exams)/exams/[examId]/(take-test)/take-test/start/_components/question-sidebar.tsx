@@ -11,12 +11,14 @@ import {
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { getCurrentQuestion } from "../_helper/get-current-question";
+import useExam from "@/stores/exam/exam-store";
 
 type Props = {
 	examDetail: IExamDetail;
 };
 const QuestionSidebar = ({ examDetail }: Props) => {
 	const [openSideBar, setOpenSideBar] = useState<boolean>(false);
+	const { currentPart, currentQuestion, result } = useExam();
 	return (
 		<>
 			<ChevronLeft
@@ -40,17 +42,56 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 					<Button variant={"outline"}>End test</Button>
 				</div>
 				<section className="flex-1 overflow-auto flex flex-col gap-4">
-					<h1 className="font-medium ml-4">Question listing</h1>
+					<div className="w-full flex flex-col gap-2">
+						<h1 className="font-medium ml-4">Question listing</h1>
+						<div className="flex items-center gap-2 ml-4 flex-wrap">
+							<div className="flex items-center gap-2">
+								<div className="w-3 h-3 bg-slate-500 rounded-[2px]"></div>
+								<span className="text-sm text-slate-700">
+									Đã làm
+								</span>
+							</div>
+							<div className="flex items-center gap-2">
+								<div className="w-3 h-3 bg-yellow-500 rounded-[2px]"></div>
+								<span className="text-sm text-yellow-700">
+									Câu hiện tại
+								</span>
+							</div>
+							<div className="flex items-center gap-2">
+								<div className="w-3 h-3 border-slate-500 border border-solid rounded-[2px]"></div>
+								<span className="text-sm text-slate-700">
+									Chưa làm
+								</span>
+							</div>
+						</div>
+					</div>
 					<div className="flex flex-col gap-4 flex-1 px-4 py-2">
 						{examDetail?.part1 && (
 							<div className="flex flex-col w-full gap-2">
-								<h2 className="text-sm">Part 1</h2>
+								<h2
+									className={`text-sm ${
+										currentPart == 1 && "text-yellow-500"
+									}`}
+								>
+									Part 1
+								</h2>
 								<div className="w-full grid grid-cols-5 gap-2">
 									{examDetail?.part1?.part1Questions?.map(
 										(part1Question, idx) => (
 											<p
 												key={"part1-nav-" + idx}
-												className="p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold"
+												className={`p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold ${
+													result.some(
+														(e) =>
+															e?.questionId ==
+															part1Question?.questionId
+													) &&
+													"bg-slate-500 text-white font-semibold border-none"
+												} ${
+													currentQuestion ==
+														part1Question?.questionId &&
+													"bg-yellow-500 text-white font-semibold border-none"
+												}`}
 											>
 												{idx + 1}
 											</p>
@@ -61,13 +102,30 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 						)}
 						{examDetail?.part2 && (
 							<div className="flex flex-col w-full gap-2">
-								<h2 className="text-sm">Part 2</h2>
+								<h2
+									className={`text-sm ${
+										currentPart == 2 && "text-yellow-500"
+									}`}
+								>
+									Part 2
+								</h2>{" "}
 								<div className="w-full grid grid-cols-5 gap-2">
 									{examDetail?.part2?.part2Questions?.map(
 										(part2Question, idx) => (
 											<p
 												key={"part2-nav-" + idx}
-												className="p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold"
+												className={`p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold ${
+													result.some(
+														(e) =>
+															e?.questionId ==
+															part2Question?.questionId
+													) &&
+													"bg-slate-500 text-white font-semibold border-none"
+												} ${
+													currentQuestion ==
+														part2Question?.questionId &&
+													"bg-yellow-500 text-white font-semibold border-none"
+												}`}
 											>
 												{getCurrentQuestion(
 													examDetail!,
@@ -83,7 +141,13 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 						)}
 						{examDetail?.part3 && (
 							<div className="flex flex-col w-full gap-2">
-								<h2 className="text-sm">Part 3</h2>
+								<h2
+									className={`text-sm ${
+										currentPart == 3 && "text-yellow-500"
+									}`}
+								>
+									Part 3
+								</h2>{" "}
 								<div className="w-full grid grid-cols-5 gap-2">
 									{examDetail?.part3?.part3Questions
 										?.reduce(
@@ -99,7 +163,18 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 										?.map((part3Question, idx) => (
 											<p
 												key={"part3-nav-" + idx}
-												className="p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold"
+												className={`p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold ${
+													result.some(
+														(e) =>
+															e?.questionId ==
+															part3Question?.questionId
+													) &&
+													"bg-slate-500 text-white font-semibold border-none"
+												} ${
+													currentQuestion ==
+														part3Question?.questionId &&
+													"bg-yellow-500 text-white font-semibold border-none"
+												}`}
 											>
 												{getCurrentQuestion(
 													examDetail!,
@@ -114,7 +189,13 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 						)}
 						{examDetail?.part4 && (
 							<div className="flex flex-col w-full gap-2">
-								<h2 className="text-sm">Part 4</h2>
+								<h2
+									className={`text-sm ${
+										currentPart == 4 && "text-yellow-500"
+									}`}
+								>
+									Part 4
+								</h2>{" "}
 								<div className="w-full grid grid-cols-5 gap-2">
 									{examDetail?.part4?.part4Questions
 										?.reduce(
@@ -130,7 +211,18 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 										?.map((part4Question, idx) => (
 											<p
 												key={"part4-nav-" + idx}
-												className="p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold"
+												className={`p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold ${
+													result.some(
+														(e) =>
+															e?.questionId ==
+															part4Question?.questionId
+													) &&
+													"bg-slate-500 text-white font-semibold border-none"
+												} ${
+													currentQuestion ==
+														part4Question?.questionId &&
+													"bg-yellow-500 text-white font-semibold border-none"
+												}`}
 											>
 												{getCurrentQuestion(
 													examDetail!,
@@ -145,13 +237,30 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 						)}
 						{examDetail?.part5 && (
 							<div className="flex flex-col w-full gap-2">
-								<h2 className="text-sm">Part 5</h2>
+								<h2
+									className={`text-sm ${
+										currentPart == 5 && "text-yellow-500"
+									}`}
+								>
+									Part 5
+								</h2>{" "}
 								<div className="w-full grid grid-cols-5 gap-2">
 									{examDetail?.part5?.part5Questions?.map(
 										(part5Question, idx) => (
 											<p
 												key={"part5-nav-" + idx}
-												className="p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold"
+												className={`p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold ${
+													result.some(
+														(e) =>
+															e?.questionId ==
+															part5Question?.questionId
+													) &&
+													"bg-slate-500 text-white font-semibold border-none"
+												} ${
+													currentQuestion ==
+														part5Question?.questionId &&
+													"bg-yellow-500 text-white font-semibold border-none"
+												}`}
 											>
 												{getCurrentQuestion(
 													examDetail!,
@@ -167,7 +276,13 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 						)}
 						{examDetail?.part6 && (
 							<div className="flex flex-col w-full gap-2">
-								<h2 className="text-sm">Part 6</h2>
+								<h2
+									className={`text-sm ${
+										currentPart == 6 && "text-yellow-500"
+									}`}
+								>
+									Part 6
+								</h2>{" "}
 								<div className="w-full grid grid-cols-5 gap-2">
 									{examDetail?.part6?.part6Questions
 										?.reduce(
@@ -183,7 +298,18 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 										?.map((part6Question, idx) => (
 											<p
 												key={"part6-nav-" + idx}
-												className="p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold"
+												className={`p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold ${
+													result.some(
+														(e) =>
+															e?.questionId ==
+															part6Question?.questionId
+													) &&
+													"bg-slate-500 text-white font-semibold border-none"
+												} ${
+													currentQuestion ==
+														part6Question?.questionId &&
+													"bg-yellow-500 text-white font-semibold border-none"
+												}`}
 											>
 												{getCurrentQuestion(
 													examDetail!,
@@ -198,7 +324,13 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 						)}
 						{examDetail?.part7 && (
 							<div className="flex flex-col w-full gap-2">
-								<h2 className="text-sm">Part 7</h2>
+								<h2
+									className={`text-sm ${
+										currentPart == 7 && "text-yellow-500"
+									}`}
+								>
+									Part 7
+								</h2>{" "}
 								<div className="w-full grid grid-cols-5 gap-2">
 									{examDetail?.part7?.part7Questions
 										?.reduce(
@@ -214,7 +346,18 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 										?.map((part7Question, idx) => (
 											<p
 												key={"part7-nav-" + idx}
-												className="p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold"
+												className={`p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold ${
+													result.some(
+														(e) =>
+															e?.questionId ==
+															part7Question?.questionId
+													) &&
+													"bg-slate-500 text-white font-semibold border-none"
+												} ${
+													currentQuestion ==
+														part7Question?.questionId &&
+													"bg-yellow-500 text-white font-semibold border-none"
+												}`}
 											>
 												{getCurrentQuestion(
 													examDetail!,
