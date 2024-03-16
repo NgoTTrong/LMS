@@ -1,7 +1,6 @@
 "use client";
 
 import { Editor } from "@/components/editor";
-import { Button } from "@/components/ui/button";
 import {
     Dialog,
     DialogClose,
@@ -15,9 +14,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Loader2, Pencil } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import FlashCard from "../../page";
+import FlashcardService from "@/services/flash-card/flashcard-service";
+import { set } from "react-hook-form";
 
 type Props = {
     children: React.ReactNode;
@@ -26,20 +28,39 @@ type Props = {
 const ModalEditFlashcard = ({ children }: Props) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const router = useRouter();
+    const params = useParams();
 
     const [form, setForm] = useState<{
         title?: string;
         description?: string;
     }>({});
 
-    const handleAddQuestion = async () => {
+    useEffect(() => {
+        const fetchData = async () => {
+            const _flashcard = await FlashcardService.getOneFlashcard(
+                params?.flashcardId as string
+            );
+            setForm({
+                title: _flashcard?.title,
+                description: _flashcard?.description,
+            });
+        };
+        fetchData();
+    }, []);
+
+    const handleEditQuestion = async () => {
         try {
             setIsLoading(true);
 
-            if (true) {
+            const _response = await FlashcardService.updateFlashcard(
+                form?.title ?? "",
+                form?.description ?? "",
+                params?.flashcardId as string
+            );
+            if (_response) {
                 toast.success("Created flashcard");
                 setForm({});
-                router.push("/flashcard/1");
+                router.refresh();
             } else {
                 toast.error("Something went wrong");
             }
@@ -103,7 +124,7 @@ const ModalEditFlashcard = ({ children }: Props) => {
                     <DialogClose
                         type="button"
                         // disabled={!form.title || isLoading}
-                        onClick={handleAddQuestion}
+                        onClick={handleEditQuestion}
                         className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
                     >
                         {isLoading ? (

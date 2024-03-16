@@ -2,8 +2,20 @@
 
 import Slider from "react-slick";
 import CarouselWordItem from "./carousel-word-item";
+import { IWord } from "@/interfaces/flashcard/flashcard-interface";
 
-const CarouselWord = () => {
+type Props = {
+    words: IWord[];
+};
+
+const CarouselWord = ({ words }: Props) => {
+    const initialState: IWord[] = [
+        {
+            term: "This is the front of the flashcard",
+            define: "This is the behind of the flashcard",
+        },
+    ];
+
     var settings = {
         dots: true,
         arrows: true,
@@ -13,16 +25,15 @@ const CarouselWord = () => {
         pauseOnHover: false,
         pauseOnFocus: true,
         slidesToShow: 1,
-        slidesToScroll: 1,
     };
+
     return (
         <div className="w-full mt-10">
             <Slider {...settings} className=" rounded-xl custom-shadow">
-                <CarouselWordItem content="1" />
-                <CarouselWordItem content="2" />
-                <CarouselWordItem content="3" />
-                <CarouselWordItem content="4" />
-                <CarouselWordItem content="5" />
+                {words &&
+                    words.map((word: IWord, id: number) => {
+                        return <CarouselWordItem key={id} word={word} />;
+                    })}
             </Slider>
         </div>
     );

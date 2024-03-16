@@ -1,10 +1,11 @@
+import { IWord } from "@/interfaces/flashcard/flashcard-interface";
 import { useState } from "react";
 
 type Props = {
-    content: string;
+    word: IWord;
 };
 
-const CarouselWordItem = ({ content }: Props) => {
+const CarouselWordItem = ({ word }: Props) => {
     const [flipped, setFlipped] = useState(true);
 
     const handleClick = () => {
@@ -18,9 +19,9 @@ const CarouselWordItem = ({ content }: Props) => {
             onClick={handleClick}
         >
             {flipped ? (
-                <div className="text-2xl">Mat trc{content}</div>
+                <div className="text-2xl">{word?.term}</div>
             ) : (
-                <div className="text-2xl">Mat sau{content}</div>
+                <div className="text-2xl">{word?.define}</div>
             )}
         </div>
     );
