@@ -18,7 +18,13 @@ type Props = {
 };
 const QuestionSidebar = ({ examDetail }: Props) => {
 	const [openSideBar, setOpenSideBar] = useState<boolean>(false);
-	const { currentPart, currentQuestion, result } = useExam();
+	const {
+		currentPart,
+		currentQuestion,
+		result,
+		setCurrentPart,
+		setCurrentQuestion,
+	} = useExam();
 	return (
 		<>
 			<ChevronLeft
@@ -79,6 +85,12 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 									{examDetail?.part1?.part1Questions?.map(
 										(part1Question, idx) => (
 											<p
+												onClick={() => {
+													setCurrentPart(1);
+													setCurrentQuestion(
+														part1Question?.questionId
+													);
+												}}
 												key={"part1-nav-" + idx}
 												className={`p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold ${
 													result.some(
@@ -114,6 +126,12 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 										(part2Question, idx) => (
 											<p
 												key={"part2-nav-" + idx}
+												onClick={() => {
+													setCurrentPart(2);
+													setCurrentQuestion(
+														part2Question?.questionId
+													);
+												}}
 												className={`p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold ${
 													result.some(
 														(e) =>
@@ -163,6 +181,12 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 										?.map((part3Question, idx) => (
 											<p
 												key={"part3-nav-" + idx}
+												onClick={() => {
+													setCurrentPart(3);
+													setCurrentQuestion(
+														part3Question?.questionId
+													);
+												}}
 												className={`p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold ${
 													result.some(
 														(e) =>
@@ -211,6 +235,12 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 										?.map((part4Question, idx) => (
 											<p
 												key={"part4-nav-" + idx}
+												onClick={() => {
+													setCurrentPart(4);
+													setCurrentQuestion(
+														part4Question?.questionId
+													);
+												}}
 												className={`p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold ${
 													result.some(
 														(e) =>
@@ -249,6 +279,12 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 										(part5Question, idx) => (
 											<p
 												key={"part5-nav-" + idx}
+												onClick={() => {
+													setCurrentPart(5);
+													setCurrentQuestion(
+														part5Question?.questionId
+													);
+												}}
 												className={`p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold ${
 													result.some(
 														(e) =>
@@ -298,6 +334,12 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 										?.map((part6Question, idx) => (
 											<p
 												key={"part6-nav-" + idx}
+												onClick={() => {
+													setCurrentPart(6);
+													setCurrentQuestion(
+														part6Question?.questionId
+													);
+												}}
 												className={`p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold ${
 													result.some(
 														(e) =>
@@ -346,6 +388,12 @@ const QuestionSidebar = ({ examDetail }: Props) => {
 										?.map((part7Question, idx) => (
 											<p
 												key={"part7-nav-" + idx}
+												onClick={() => {
+													setCurrentPart(7);
+													setCurrentQuestion(
+														part7Question?.questionId
+													);
+												}}
 												className={`p-1 text-sm rounded-[4px] text-center border border-slate-500 text-slate-700 hover:cursor-pointer hover:bg-slate-700 hover:text-white hover:font-bold ${
 													result.some(
 														(e) =>
