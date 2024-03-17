@@ -5,6 +5,9 @@ export interface IExam {
 	thumbnail?: string;
 	introduction?: string;
 	categoryId: string;
+	category: {
+		name: string;
+	}
 	part1: {
 		id: string;
 		title: string;

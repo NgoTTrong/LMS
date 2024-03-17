@@ -54,7 +54,7 @@ export const columns: ColumnDef<IPart1>[] = [
         cell: ({ row }) => {
             const { id } = row.original;
             const router = useRouter();
-            const onDelete = async () => {
+            const onDelete = async (e: any) => {
                 const _response = await Part1Service.deletePart1(id);
                 if (_response) {
                     message.success("Delete successfully");
@@ -69,26 +69,22 @@ export const columns: ColumnDef<IPart1>[] = [
                             <MoreHorizontal className="h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
+                    <DropdownMenuContent
+                        align="end"
+                        onClick={(e) => e.preventDefault()}
+                    >
                         <Link href={`/teacher/part-1/${id}`}>
                             <DropdownMenuItem>
                                 <Pencil className="w-4 h-4 mr-4" />
                                 Edit
                             </DropdownMenuItem>
                         </Link>
-                        <DropdownMenuItem onClick={(e) => e.stopPropagation()}>
-                            <Popconfirm
-                                title="Delete part 1"
-                                description="Are you sure you want to delete and you may lose content related to this part?"
-                                okText="Yes"
-                                cancelText="No"
-                                onConfirm={onDelete}
-                                className="flex items-center"
-                                onPopupClick={() => console.log("hello1")}
-                            >
-                                <Trash2 className="w-4 h-4 mr-4" />
-                                Delete
-                            </Popconfirm>
+                        <DropdownMenuItem
+                            onClick={onDelete}
+                            className="flex items-center"
+                        >
+                            <Trash2 className="w-4 h-4 mr-4" />
+                            Delete
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

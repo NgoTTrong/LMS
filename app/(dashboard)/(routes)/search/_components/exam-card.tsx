@@ -2,6 +2,7 @@
 import CourseProgress from "@/components/course-progress";
 import { IconBadge } from "@/components/icon-badge";
 import { ICourse } from "@/interfaces/course/course-interface";
+import { IExam } from "@/interfaces/exam/exam-interface";
 import { formatNumberWithCommas } from "@/lib/functions";
 import {
     BookOpen,
@@ -15,20 +16,17 @@ import Link from "next/link";
 import { useState } from "react";
 
 type Props = {
-    item: {
-        course: ICourse;
-        progress: number | null;
-    };
+    exam: IExam;
 };
-const ExamCard = ({ item }: Props) => {
+const ExamCard = ({ exam }: Props) => {
     const [isDone, setDone] = useState<boolean>(true);
     return (
-        <Link data-aos="zoom-in" href={`/exams/${item?.course?.id}`}>
+        <Link data-aos="zoom-in" href={`/exams/${exam?.id}`}>
             <div className="group hover:shadow-sm transition overflow-hidden border rounded-lg p-3 w-full">
                 <div className="relative w-full aspect-video rounded-md overflow-hidden">
                     <Image
-                        src={item?.course?.imageUrl!}
-                        alt={item?.course?.title}
+                        src={exam?.thumbnail ?? ""}
+                        alt={exam?.title}
                         fill
                         className="object-cover"
                     />
@@ -43,11 +41,11 @@ const ExamCard = ({ item }: Props) => {
                             />
                         )}
                         <span className="text-lg md:text-base font-medium group-hover:text-sky-700 transition line-clamp-2">
-                            {item?.course?.title}
+                            {exam?.title}
                         </span>
                     </span>
                     <p className="text-xs text-muted-foreground mt-1">
-                        #{item?.course?.category?.name}
+                        #{exam?.category?.name}
                     </p>
                     <div className="my-3 flex items-start gap-x-2 text-sm md:text-xs  flex-col">
                         <ol className="flex items-center gap-x-1 text-slate-500">
