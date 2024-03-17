@@ -9,8 +9,10 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { IPart6 } from "@/interfaces/part-6/part-6-interface";
+import Part6Service from "@/services/part-6/part-6-service";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal, Pencil } from "lucide-react";
+import { message } from "antd";
+import { ArrowUpDown, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import Link from "next/link";
 
 export const columns: ColumnDef<IPart6>[] = [
@@ -50,6 +52,12 @@ export const columns: ColumnDef<IPart6>[] = [
         id: "actions",
         cell: ({ row }) => {
             const { id } = row.original;
+            const onDelete = async () => {
+                const _response = await Part6Service.deleteQuestion(id);
+                if (_response) {
+                    message.success("Delete successfully");
+                }
+            };
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -65,6 +73,12 @@ export const columns: ColumnDef<IPart6>[] = [
                                 Edit
                             </DropdownMenuItem>
                         </Link>
+                        <div onClick={onDelete}>
+                            <DropdownMenuItem>
+                                <Trash2 className="w-4 h-4 mr-4" />
+                                Delete
+                            </DropdownMenuItem>
+                        </div>
                     </DropdownMenuContent>
                 </DropdownMenu>
             );

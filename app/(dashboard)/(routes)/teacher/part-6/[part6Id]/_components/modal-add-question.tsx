@@ -45,6 +45,7 @@ export function ModalAddQuestion({ children, part6Id }: Props) {
         fetchTopics();
     }, []);
     const [form, setForm] = useState<FormValue>({});
+    console.log("form", form);
     const disabled = () => {
         return (
             !form?.content ||
@@ -77,6 +78,8 @@ export function ModalAddQuestion({ children, part6Id }: Props) {
             if (_questionPart6) {
                 toast.success("Added question");
                 setForm({});
+                setImageUrl("");
+                setQuestions([]);
                 router.refresh();
             } else {
                 toast.error("Something went wrong");

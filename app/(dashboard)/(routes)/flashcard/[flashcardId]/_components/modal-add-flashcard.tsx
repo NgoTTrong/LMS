@@ -1,7 +1,5 @@
 "use client";
 
-import { Editor } from "@/components/editor";
-import { Button } from "@/components/ui/button";
 import { useParams } from "next/navigation";
 import {
     Dialog,
