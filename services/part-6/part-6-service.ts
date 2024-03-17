@@ -8,6 +8,7 @@ const part6Routes = {
 	createQuestion: apiEndpoint + "/part6/create-question",
 	updateQuestion: apiEndpoint + "/part6/update-question",
 	deleteQuestion: apiEndpoint + "/part6/delete-question",
+	deletePart6: apiEndpoint + "/part6"
 };
 
 export default class Part6Service {
@@ -181,4 +182,15 @@ export default class Part6Service {
 		} catch (error) {}
 		return null;
 	};
+
+	static deletePart6 = async (part6Id: string)=>{
+		try{
+			const response = await RequestAPI.call(part6Routes.deletePart6 +"/"+part6Id,{
+				method: "DELETE",
+			})
+			if(response?.data) return response?.data;
+		}
+		catch(error){}
+		return null;
+	}
 }

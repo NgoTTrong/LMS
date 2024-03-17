@@ -52,7 +52,7 @@ const Part7IdPage = async ({ params }: Props) => {
                     </div>
                     <TitleForm initialData={part7} part7Id={part7.id} />
                     <IntroductionForm initialData={part7} part7Id={part7.id} />
-                    {/* <ThumbnailForm initialData={part7} part7Id={part7.id} /> */}
+                    <ThumbnailForm initialData={part7} part7Id={part7.id} />
                 </section>
                 <section className="space-y-6">
                     <div>

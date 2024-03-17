@@ -11,9 +11,10 @@ import {
 import { IPart6 } from "@/interfaces/part-6/part-6-interface";
 import Part6Service from "@/services/part-6/part-6-service";
 import { ColumnDef } from "@tanstack/react-table";
-import { message } from "antd";
+import { message, Popconfirm } from "antd";
 import { ArrowUpDown, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export const columns: ColumnDef<IPart6>[] = [
     {
@@ -52,12 +53,15 @@ export const columns: ColumnDef<IPart6>[] = [
         id: "actions",
         cell: ({ row }) => {
             const { id } = row.original;
+            const router = useRouter();
             const onDelete = async () => {
-                const _response = await Part6Service.deleteQuestion(id);
+                const _response = await Part6Service.deletePart6(id);
                 if (_response) {
                     message.success("Delete successfully");
+                    router.refresh();
                 }
             };
+
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -73,12 +77,17 @@ export const columns: ColumnDef<IPart6>[] = [
                                 Edit
                             </DropdownMenuItem>
                         </Link>
-                        <div onClick={onDelete}>
-                            <DropdownMenuItem>
-                                <Trash2 className="w-4 h-4 mr-4" />
-                                Delete
-                            </DropdownMenuItem>
-                        </div>
+                        <Popconfirm
+                            title="Delete part 6"
+                            description="Are you sure you want to delete and you may lose content related to this part?"
+                            okText="Yes"
+                            cancelText="No"
+                            onConfirm={onDelete}
+                            className=" flex items-center p-2"
+                        >
+                            <Trash2 className="w-4 h-4 mr-4" />
+                            Delete
+                        </Popconfirm>
                     </DropdownMenuContent>
                 </DropdownMenu>
             );

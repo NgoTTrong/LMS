@@ -7,6 +7,7 @@ import TitleForm from "./_components/title-form";
 import IntroductionForm from "./_components/introduction-form";
 import ThumbnailForm from "./_components/thumbnail-form";
 import QuestionsForm from "./_components/questions-form";
+import AudioForm from "./_components/audio-form";
 
 type Props = {
     params: {
@@ -52,6 +53,7 @@ const Part1IdPage = async ({ params }: Props) => {
                     <TitleForm initialData={part1} part1Id={part1.id} />
                     <IntroductionForm initialData={part1} part1Id={part1.id} />
                     <ThumbnailForm initialData={part1} part1Id={part1.id} />
+                    <AudioForm initialData={part1} part1Id={part1.id} />
                 </section>
                 <section className="space-y-6">
                     <div>
