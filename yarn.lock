@@ -56,6 +56,11 @@
     classnames "^2.2.6"
     rc-util "^5.31.1"
 
+"@ant-design/nextjs-registry@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@ant-design/nextjs-registry/-/nextjs-registry-1.0.0.tgz#d0c80ea57d145a3867cea4e19d9ec71f830e7e9d"
+  integrity sha512-kU1K1UOhwrF6DPv73MhuL5a6U4e6/TiFapeLUt/c/kch9h5qFwEaJPb4RSJKNw0PRBfqCAPS011wVm4wYcrqbQ==
+
 "@ant-design/react-slick@~1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@ant-design/react-slick/-/react-slick-1.0.2.tgz#241bb412aeacf7ff5d50c61fa5db66773fde6b56"
@@ -5151,6 +5156,11 @@ react-is@^18.0.0, react-is@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
+
+react-loading-skeleton@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/react-loading-skeleton/-/react-loading-skeleton-3.4.0.tgz#c71a3a17259d08e4064974aa0b07f150a09dfd57"
+  integrity sha512-1oJEBc9+wn7BbkQQk7YodlYEIjgeR+GrRjD+QXkVjwZN7LGIcAFHrx4NhT7UHGBxNY1+zax3c+Fo6XQM4R7CgA==
 
 react-player@^2.14.1:
   version "2.14.1"

@@ -9,6 +9,7 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
+		"@ant-design/nextjs-registry": "^1.0.0",
 		"@clerk/nextjs": "^4.29.5",
 		"@hello-pangea/dnd": "^16.5.0",
 		"@hookform/resolvers": "^3.3.4",
@@ -40,6 +41,7 @@
 		"react-dom": "^18",
 		"react-hook-form": "^7.49.3",
 		"react-hot-toast": "^2.4.1",
+		"react-loading-skeleton": "^3.4.0",
 		"react-player": "^2.14.1",
 		"react-quill": "^2.0.0",
 		"react-slick": "^0.30.2",
