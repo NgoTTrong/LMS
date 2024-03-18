@@ -1,0 +1,268 @@
+/*################# HEADER #######################*/
+.header {
+  box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  border-bottom: solid 2px #979797;
+}
+
+/*################# CONTENT #######################*/
+
+.content1,
+.content3 {
+  background-image: var(--primary-color);
+  height: 650px;
+}
+.content1__background {
+  top: 24px;
+  right: 24px;
+  display: flex;
+  position: absolute;
+}
+
+.content1__left {
+  padding-top: 150px;
+  padding-left: 100px;
+}
+
+.content1__left__title {
+  font-size: 45px;
+  font-weight: 600;
+  min-height: 192px;
+  text-align: left;
+  color: white;
+  line-height: 55px;
+}
+
+.content1__left__descrip {
+  font-size: 18px;
+  max-width: 386px;
+  align-self: auto;
+  text-align: left;
+  color: white;
+}
+
+.content1__left__btn {
+  border-radius: 15px;
+  padding: 5px 20px;
+  height: 40px;
+  color: #11a7b6;
+  font-weight: 600;
+}
+
+.content1__right {
+}
+
+.content1__right__iphone1 {
+  top: 40px;
+  left: 50%;
+  height: 630px;
+  display: flex;
+  position: absolute;
+  transform: translateX(-45%);
+  right: 180px;
+  opacity: 0;
+}
+
+.content1__right__iphone2 {
+  right: 180px;
+  opacity: 1;
+  top: 30px;
+  left: 52%;
+  height: 630px;
+  display: flex;
+  position: absolute;
+  transform: translateX(-45%);
+  transition: opacity 500ms ease;
+}
+
+.content2 {
+  background-image: white;
+  height: 900px;
+}
+
+.content2__background__topBage {
+  top: 0;
+  width: 100%;
+  position: absolute;
+  /* z-index: 1; */
+}
+
+.content2__background__botBage {
+  bottom: 0;
+  width: 100%;
+  position: absolute;
+}
+
+.content2__left {
+  font-size: 40px;
+  font-family: EFCircular, Arial, sans-serif;
+  font-weight: bold;
+  line-height: 1.2;
+  max-width: 250px;
+  align-self: center;
+  width: 100%;
+  margin-bottom: 108px;
+}
+
+.content2__right {
+}
+
+.content2__right__item {
+  margin-bottom: 60px;
+  max-width: 304px;
+}
+.content2__right__item:nth-child(even) {
+  justify-content: flex-end;
+}
+
+.content2__right__item__icon {
+  font-size: 30px;
+  background: -moz-linear-gradient(
+    top,
+    rgba(29, 205, 226, 1) 0%,
+    rgba(75, 229, 169, 1) 92%
+  );
+  background: -webkit-linear-gradient(
+    top,
+    rgba(29, 205, 226, 1) 0%,
+    rgba(75, 229, 169, 1) 92%
+  );
+  background: linear-gradient(
+    to bottom,
+    rgba(29, 205, 226, 1) 0%,
+    rgba(75, 229, 169, 1) 92%
+  );
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.content2__right__item__heading {
+  font-size: 24px;
+  font-family: EFCircular, Arial, sans-serif;
+  font-weight: bold;
+  line-height: 1.235;
+  color: #333;
+}
+
+.content2__right__item__body {
+  font-size: 16px;
+  font-family: EFCircular, Arial, sans-serif;
+  font-weight: normal;
+  line-height: 1.5;
+  color: #333;
+}
+
+.content3__background__rightBage {
+  top: 50%;
+  right: 0;
+  position: absolute;
+  transform: translateY(-45%);
+}
+
+.content3__background__leftBage {
+  top: 50%;
+  left: 0;
+  position: absolute;
+  transform: translateY(-45%);
+}
+
+.content3__background__topBage {
+  top: 0;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.content3__background__botBage {
+  bottom: 0;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.content4 {
+  background-image: white;
+  height: 650px;
+}
+
+.content4__background__topBage {
+  top: 0;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.content4__left {
+}
+
+.content4__left__heading {
+  font-size: 33px;
+  max-width: 490px;
+  text-align: left;
+  padding-right: 36px;
+  font-family: EFCircular, Arial, sans-serif;
+  font-weight: bold;
+  line-height: 1.235;
+
+  margin-bottom: 20px;
+}
+
+.content4__left__body {
+  font-size: 17px;
+  max-width: 490px;
+  align-self: auto;
+  text-align: left;
+  font-family: EFCircular, Arial, sans-serif;
+  font-weight: normal;
+  line-height: 1.5;
+}
+
+.content4__left__btn,
+.content5__left__btn {
+  border-radius: 20px;
+  padding: 10px 20px;
+  height: 47px;
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.content5__left__btn {
+  border: 1px solid white;
+}
+
+.content4__right {
+}
+
+.content5 {
+  background-image: linear-gradient(
+    90deg,
+    rgba(31, 17, 222, 1) 0%,
+    rgba(236, 27, 136, 1) 92%
+  );
+  height: 650px;
+}
+
+.content5__container {
+  padding-left: 120px;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  display: flex;
+  position: relative;
+  padding-top: 72px;
+  padding-right: 24px;
+  padding-bottom: 36px;
+}
+
+.content5__background__certificate {
+  width: 100%;
+  display: flex;
+  opacity: 0.5;
+  height: 100%;
+}
+
+/*################# FOOTER #######################*/

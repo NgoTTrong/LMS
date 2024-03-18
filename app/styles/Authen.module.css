@@ -1,0 +1,33 @@
+/*################# LAYOUT #######################*/
+.authen__left{
+    /* background-image: var(--primary-color); */
+    background-color: #916BBF;
+    border-top-right-radius: 70px;
+    box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+
+.authen__left__header__title{
+    font-size: 40px;
+    font-weight: 600;
+}
+
+
+.authen__right{
+
+}
+
+.phone__svg{
+    position: inherit;
+}
+
+.submit__btn{
+    background-color: #916BBF !important;
+}
+
+
+/*################# LOGIN #######################*/
+
+
+
+
+/*################# SIGN UP #######################*/

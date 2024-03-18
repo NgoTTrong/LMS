@@ -1,0 +1,39 @@
+.comments-wrapper .input-group {
+  display: flex;
+}
+
+.comments-wrapper textarea {
+  width: 95%;
+  border: 1px solid;
+  border-radius: 4px;
+  padding-left: 24px;
+  padding-right: 12px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+.input-group-append {
+  align-items: center;
+  display: flex;
+}
+.input-group-append button {
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+
+  border: 1px solid;
+  border-radius: 5px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.comment-item {
+  display: flex;
+  align-items: flex-start;
+}
+
+.comments-wrapper h4 {
+  margin-top: 0.6rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+}

@@ -1,0 +1,121 @@
+.overlay {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(1px);
+  z-index: 999;
+}
+
+.modal {
+  display: block;
+  position: fixed;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  z-index: 1000;
+  border-radius: 5px;
+}
+
+.hidden {
+  display: none;
+}
+
+.modal-form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-form-content {
+  position: absolute;
+  width: 500px;
+  background: white;
+  border: 0;
+  border-radius: 10px;
+  z-index: 1000;
+  top: revert; /* This is not supported in CSS, consider setting a specific value or using JavaScript to calculate the position */
+}
+.modal-form-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 2px solid #f5f5f5;
+}
+.form-row {
+  padding: 16px;
+  max-height: 80px;
+}
+.input-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 0 16px;
+}
+.input-data .error-message {
+  width: 100%;
+  font-size: 12px;
+  color: red;
+}
+
+.input-data label {
+  width: 100%;
+  padding: 7px;
+}
+.input-data input {
+  width: 100%;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.25rem;
+}
+.modal-form-footer {
+  display: flex;
+  justify-content: flex-end; /* Changed "right" to "flex-end" */
+  border-top: 2px solid #f5f5f5;
+  padding: 12px;
+}
+.btn-secondary {
+  margin: 4px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  background-color: #e2eaf7;
+  color: #294f8d;
+  box-shadow: 0 4px 9px -4px #e3ebf7;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active {
+  background-color: #d7deeb;
+  color: #294f8d;
+}
+.btn-primary {
+  margin: 4px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  background-color: #3b71ca;
+  color: #fff;
+  box-shadow: 0 4px 9px -4px #386bc0;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #386bc0;
+  color: #fff;
+}
+
+.btn-primary:active {
+  background-color: #3566b6;
+  color: #fff;
+}
+
+/* If you want to apply specific box shadow on some state */
+.btn-primary.shadowed {
+  box-shadow: 0 8px 9px -4px rgba(56, 107, 192, 0.3),
+    0 4px 18px 0 rgba(56, 107, 192, 0.2);
+}

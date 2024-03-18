@@ -1,0 +1,68 @@
+.studygroup-listitem {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  padding: 16px;
+  border-radius: 5px;
+  box-shadow: 0 4px 0 0 rgba(143, 156, 173, 0.2);
+
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 0.65rem;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 0 0 rgba(143, 156, 173);
+}
+
+.studygroup-listitem-details {
+  flex-grow: 1;
+}
+
+.studygroup-listitem-info {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  flex-grow: 1;
+}
+
+.studygroup-listitem-image {
+  margin-right: 1rem;
+}
+.studygroup-thumbnail {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+}
+.studygroup-listitem-title a {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #35509a;
+}
+.studygroup-listitem-btnwrap {
+  display: flex;
+  align-items: center;
+  width: 150px;
+}
+.btn {
+  font-weight: 500;
+  border-radius: 25px;
+  color: #1e2022;
+  background-color: #e7eaf3;
+  border-color: #bdc5d1;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  width: 100%;
+  text-align: center;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 999;
+}

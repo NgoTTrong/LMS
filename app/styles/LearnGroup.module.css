@@ -1,0 +1,36 @@
+.container {
+  width: 100%;
+}
+.post-container {
+  display: flex;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+.post-item {
+  flex: 3;
+  max-width: 75%;
+  padding: 0 0.75rem;
+}
+.member-container {
+  flex: 1;
+  max-width: 25%;
+  padding: 0 0.75rem;
+}
+.contentblock {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 0.65rem;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 0 0 rgba(143, 156, 173, 0.2);
+  margin-bottom: 0.75rem;
+}
+
+.list-member {
+  list-style: circle;
+  padding-left: 2rem;
+}
+
+.list-member li {
+  display: flex;
+  align-items: center;
+}

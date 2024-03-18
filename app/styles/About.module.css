@@ -1,0 +1,31 @@
+.title {
+  font-size: 30px;
+  margin-bottom: 20px;
+  text-align: left;
+  color: #87c52e;
+}
+
+.post-name {
+  color: #dc143c;
+  margin-top: 0;
+  margin-bottom: 2.2rem;
+  font-size: 36px;
+  text-align: center;
+}
+
+.blog-content {
+  padding: 0 80px 60px;
+}
+
+.blog-content p {
+  margin-bottom: 2.8rem;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: none;
+  font-weight: 400;
+  margin: 0 0 0.8rem;
+}

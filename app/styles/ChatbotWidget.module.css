@@ -1,0 +1,206 @@
+.widget-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 25rem;
+  height: 37.5rem;
+}
+
+.widget-container button {
+  background-color: black;
+  display: flex;
+  align-items: center;
+  height: 3.5rem;
+  width: 3.5rem;
+  position: fixed;
+  bottom: 10px;
+  right: 0;
+  background-color: #65c3cd;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+}
+
+.widget-container button svg {
+  height: 2rem;
+  width: 2rem;
+}
+
+.drift-widget-chat-wrapper {
+  position: fixed;
+  background-color: white;
+  width: 25rem;
+  height: 37.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1),
+    0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.08);
+  bottom: 6.25rem;
+  right: 2.5rem;
+}
+
+.drift-widget-header {
+  height: 3.5rem;
+  background-color: rgb(25, 25, 25);
+  color: rgb(255, 255, 255);
+  border-radius: 0.3125rem 0.3125rem 0 0;
+}
+
+.drift-widget-message-history {
+  max-height: 31.25rem;
+  overflow-y: auto;
+}
+
+.drift-widget-message-history .conversion-turn-user {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 0.5rem;
+}
+
+.drift-widget-message-history .conversion-turn-bot {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 0.5rem;
+}
+
+.drift-widget-message-history .user-profile,
+.chatbot-answer {
+  display: flex;
+  padding: 0.5rem;
+}
+
+.drift-widget-message-history .bot-profile {
+  display: flex;
+  padding: 0.5rem;
+  padding-top: 0.75rem;
+}
+
+.drift-widget-message-history .user-content,
+.bot-content {
+  text-align: justify;
+  padding-right: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.drift-widget-message-history .user-content pre {
+  font-family: "Open Sans", sans-serif;
+  text-align: justify;
+  padding-left: 0.5rem;
+  overflow: hidden;
+  white-space: normal;
+}
+
+.drift-widget-message-history .bot-content span {
+  padding-left: 0.5rem;
+}
+
+.drift-widget-message-history .bot-content ul {
+  list-style-type: circle;
+  list-style: none;
+  padding-left: 1.5rem;
+}
+
+.drift-widget-message-history .user-content p,
+.bot-content p {
+  font-family: "Open Sans", sans-serif;
+  border-radius: 0.625rem;
+  padding: 0.5rem;
+}
+
+.drift-widget-message-history .bot-content p {
+  background-color: rgb(245, 248, 250);
+}
+
+.drift-widget-prompt-message {
+  height: 2rem;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.drift-widget-prompt-message textarea {
+  height: 2rem;
+  width: 100%;
+  position: absolute;
+  border-radius: 0.25rem;
+  padding: 0 0.5rem;
+  border: 0.0625rem solid;
+  overflow: hidden;
+  bottom: 0;
+}
+
+.drift-widget-prompt-message button {
+  position: absolute;
+  top: 0.3125rem;
+  right: 0.5rem;
+  background-color: white;
+  width: 1.25rem;
+  height: 1.1875rem;
+}
+
+.drift-widget-header .drift-widget-header-container {
+  background-color: #65c3cd; /* Blue-500 */
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.drift-widget-header .drift-widget-header-container div {
+  display: flex;
+  align-items: center;
+}
+
+.drift-widget-header .drift-widget-header-container div:first-child {
+  padding: 0.5rem;
+}
+
+.drift-widget-header .drift-widget-header-container div:last-child {
+  padding: 0.1875rem;
+}
+
+.drift-widget-header .drift-widget-header-container svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+/* dot loading animation */
+
+.loading-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-dots span {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #000; /* Dot color */
+  margin: 0 5px; /* Adjust spacing between dots */
+  animation: loading 0.8s infinite ease-in-out; /* Animation settings */
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: 0.2s; /* Delay for the second dot */
+}
+
+.loading-dots span:nth-child(3) {
+  animation-delay: 0.4s; /* Delay for the third dot */
+}
+
+@keyframes loading {
+  0%,
+  100% {
+    transform: scale(1); /* Initial and final state */
+  }
+  50% {
+    transform: scale(1.5); /* Scaled state */
+  }
+}
