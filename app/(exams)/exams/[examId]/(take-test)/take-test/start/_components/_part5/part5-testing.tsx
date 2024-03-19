@@ -97,6 +97,7 @@ const Part5Testing = () => {
                                     )}
                                 </h1>
                             )}
+                            <h1>Q: {question?.question?.content}</h1>
                             <div
                                 onClick={() => {
                                     pushResult(question?.questionId, "A");

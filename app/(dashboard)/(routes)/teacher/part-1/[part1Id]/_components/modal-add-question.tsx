@@ -96,7 +96,6 @@ export function ModalAddQuestion({ children, part1Id }: Props) {
             setIsLoading(false);
         }
     };
-    console.log(form);
     return (
         <Dialog>
             <DialogTrigger asChild>

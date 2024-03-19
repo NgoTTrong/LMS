@@ -91,6 +91,7 @@ const GroupPart3Testing = ({ part3Question }: Props) => {
                                     )}
                                 </h1>
                             )}
+                            <h1>Q: {group?.question?.content}</h1>
                             <div
                                 onClick={() => {
                                     pushResult(group?.questionId, "A");

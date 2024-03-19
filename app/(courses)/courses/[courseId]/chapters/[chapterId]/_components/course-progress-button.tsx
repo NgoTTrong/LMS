@@ -35,7 +35,6 @@ const CourseProgressButton = ({
                 isCompleted: isCompleted ? false : true,
                 chapterId,
             });
-            console.log(_progress);
             if (_progress) {
                 toast.success("Completed chapter");
 

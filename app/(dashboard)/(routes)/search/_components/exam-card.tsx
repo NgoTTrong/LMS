@@ -20,6 +20,32 @@ type Props = {
 };
 const ExamCard = ({ exam }: Props) => {
     const [isDone, setDone] = useState<boolean>(true);
+    const getNumOfParts = (exam: IExam) => {
+        console.log(exam);
+        let length = 0;
+        if (exam?.part1Id) {
+            length += 1;
+        }
+        if (exam?.part2Id) {
+            length += 1;
+        }
+        if (exam?.part3Id) {
+            length += 1;
+        }
+        if (exam?.part4Id) {
+            length += 1;
+        }
+        if (exam?.part5Id) {
+            length += 1;
+        }
+        if (exam?.part6Id) {
+            length += 1;
+        }
+        if (exam?.part7Id) {
+            length += 1;
+        }
+        return length;
+    };
     return (
         <Link data-aos="zoom-in" href={`/exams/${exam?.id}`}>
             <div className="group hover:shadow-sm transition overflow-hidden border rounded-lg p-3 w-full">
@@ -53,21 +79,23 @@ const ExamCard = ({ exam }: Props) => {
                                 <IconBadge size="sm" icon={Clock2} />
                                 <span className="ml-1">120 minutes</span>
                             </li>
-                            <li className=" mx-1">|</li>
+                            {/* <li className=" mx-1">|</li>
                             <li className="flex items-center">
                                 <IconBadge size="sm" icon={SquarePen} />
-                                <span className="ml-1">10000</span>
-                            </li>
-                            <li className=" mx-1">|</li>
+                                <span className="ml-1">
+                                    {getNumOfParts(exam)} parts
+                                </span>
+                            </li> */}
+                            {/* <li className=" mx-1">|</li>
                             <li className="flex items-center">
                                 <IconBadge size="sm" icon={MessageCircle} />
                                 <span className="ml-1">9669</span>
-                            </li>
+                            </li> */}
                         </ol>
                         <ol className="flex items-center gap-x-1 text-slate-500 mt-2">
                             <li className="flex items-center">
                                 <span className="ml-1 font-semibold">
-                                    7 PARTS
+                                    {getNumOfParts(exam)} parts
                                 </span>
                             </li>
                             <li className=" mx-1">|</li>

@@ -28,7 +28,7 @@ const ExamIdPage = async ({ params }: Props) => {
     if (!user) {
         redirect("/");
     }
-    const exam = await ExamService.getById(examId);
+    const exam = await ExamService.getExamById(examId);
     if (!exam) {
         redirect("/");
     }

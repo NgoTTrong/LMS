@@ -12,17 +12,14 @@ const FlashCard = async () => {
     }
 
     const flashcards = await FlashcardService.getAllFlashcard(user?.id);
-    console.log("flashcards", flashcards);
     return (
-        <div className="w-full bg-[#F6F7FB]">
-            <header className="bg-gradient-to-r from-blue-500 to-green-500 w-ful h-[100px] p-6 flex text-4xl shadow-xl">
-                <BookText size={35} />
-                <h1 className=" ml-2 font-semibold">Flashcards</h1>
+        <div className="w-full p-6 flex flex-col gap-6">
+            <header className="flex items-center gap-4 text-2xl">
+                <BookText size={32} />
+                <h1 className="font-semibold">Flashcards</h1>
             </header>
 
-            <h1 className="text-3xl mt-10 p-6 font-semibold">
-                List of created words
-            </h1>
+            <h1 className="text-xl font-medium">List of created words</h1>
 
             <ListFlashCard flashcards={flashcards ?? []} userId={user.id} />
         </div>

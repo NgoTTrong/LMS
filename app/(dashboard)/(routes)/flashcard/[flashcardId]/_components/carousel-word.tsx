@@ -34,7 +34,7 @@ const CarouselWord = ({ words }: Props) => {
     };
 
     return (
-        <Carousel className="w-full mt-10 p-6 relative">
+        <Carousel className="w-full mt-4 p-6 relative">
             <CarouselContent>
                 {words &&
                     words.map((word: IWord, id: number) => {
@@ -45,8 +45,8 @@ const CarouselWord = ({ words }: Props) => {
                         );
                     })}
             </CarouselContent>
-            <CarouselPrevious className=" absolute left-5 " />
-            <CarouselNext className=" absolute right-5" />
+            <CarouselPrevious className="absolute left-12 " />
+            <CarouselNext className="absolute right-12 " />
         </Carousel>
     );
 };

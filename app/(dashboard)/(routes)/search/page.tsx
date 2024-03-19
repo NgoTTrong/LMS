@@ -9,6 +9,7 @@ import { ICategoryCourse } from "@/interfaces/course/course-interface";
 import ExamService from "@/services/exam/exam-service";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ExamsList from "./_components/exams-list";
+import { useState } from "react";
 
 type Props = {
     searchParams: {
@@ -31,7 +32,6 @@ const SearchPage = async ({ searchParams }: Props) => {
     let examCategories = await ExamService.getAllCategory();
     let exams = await ExamService.getAllByUser(user?.id);
 
-    console.log(exams);
     return (
         <>
             <div className="px-6 pt-6 md:hidden md:mb-6 block">
@@ -39,11 +39,11 @@ const SearchPage = async ({ searchParams }: Props) => {
             </div>
             <main className="p-6 space-y-4">
                 <Tabs defaultValue="course">
-                    <TabsList className="grid w-[500px] grid-cols-2 h-12 bg-blue-300">
+                    <TabsList className="px-0 mx-0">
                         <TabsTrigger
                             value="course"
                             defaultChecked={true}
-                            className="flex justify-center items-center "
+                            className="flex justify-center items-center"
                         >
                             <span className="text-lg"> Course</span>
                         </TabsTrigger>
@@ -54,6 +54,7 @@ const SearchPage = async ({ searchParams }: Props) => {
                             <span className="text-lg"> Exam</span>
                         </TabsTrigger>
                     </TabsList>
+                    <hr />
                     <TabsContent value="course" className="w-full">
                         <Categories items={courseCategories} />
                         <CoursesList items={courses} />

@@ -16,6 +16,7 @@ type Action = {
     setCurrentPart: (_part: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7) => void;
     setCurrentQuestion: (_questionId: string | null) => void;
     pushResult: (_questionId: string, option: "A" | "B" | "C" | "D") => void;
+    clear: () => void;
 };
 
 const examStore = create<State & Action>((set) => ({
@@ -45,5 +46,12 @@ const examStore = create<State & Action>((set) => ({
                 };
             }
         }),
+    clear: () =>
+        set(() => ({
+            exam: null,
+            currentPart: null,
+            currentQuestion: null,
+            result: [],
+        })),
 }));
 export default examStore;

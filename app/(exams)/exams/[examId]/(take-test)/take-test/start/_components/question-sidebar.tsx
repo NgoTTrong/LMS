@@ -12,27 +12,56 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { getCurrentQuestion } from "../_helper/get-current-question";
 import examStore from "@/stores/exam/exam-store";
+import ConfirmModal from "@/components/modal/confirm-modal";
+import ExamService from "@/services/exam/exam-service";
+import { useClientAuth } from "@/hooks/use-client-auth";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 type Props = {
     examDetail: IExamDetail;
 };
 const QuestionSidebar = ({ examDetail }: Props) => {
     const [openSideBar, setOpenSideBar] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const user = useClientAuth();
+    const router = useRouter();
     const {
         currentPart,
         currentQuestion,
         result,
         setCurrentPart,
         setCurrentQuestion,
+        clear,
     } = examStore();
+    const handleSubmitExam = async () => {
+        try {
+            setIsLoading(true);
+            const _history = await ExamService.submitExam(
+                user?.userId,
+                examDetail?.id,
+                result
+            );
+            if (_history) {
+                toast.success("Submitted");
+                clear();
+                router.push(`/exams/${examDetail?.id}/history/${_history?.id}`);
+            } else {
+                toast.error("Something went wrong");
+            }
+        } catch (error) {
+        } finally {
+            setIsLoading(false);
+        }
+    };
     return (
         <>
             <ChevronLeft
-                className="w-8 h-8 absolute top-4 right-0 hover:opacity-70 hover:cursor-pointer shadow-lg rounded-lg"
+                className="w-8 h-8 absolute top-8 right-0 hover:opacity-70 hover:cursor-pointer shadow-lg rounded-lg"
                 onClick={() => setOpenSideBar(true)}
             />
             <section
-                className={`w-[250px] h-full min-h-full max-h-full absolute right-0 top-0 bg-white shadow-sm rounded-lg border-l-2 border-slate-200 transition duration-300 ${
+                className={`w-[250px] h-full min-h-full max-h-full absolute right-0 top-4 bg-white shadow-sm rounded-lg border-l-2 border-slate-200 transition duration-300 ${
                     openSideBar ? "translate-x-[0px]" : "translate-x-[300px]"
                 }`}
             >
@@ -45,7 +74,11 @@ const QuestionSidebar = ({ examDetail }: Props) => {
                 </div>
                 <div className="flex flex-col gap-4 flex-1 px-4 py-2">
                     <h1 className="w-full text-center text-xl">10:00</h1>
-                    <Button variant={"outline"}>End test</Button>
+                    <ConfirmModal onConfirm={handleSubmitExam}>
+                        <Button variant={"outline"} disabled={isLoading}>
+                            End test
+                        </Button>
+                    </ConfirmModal>
                 </div>
                 <section className="flex-1 overflow-auto flex flex-col gap-4">
                     <div className="w-full flex flex-col gap-2">

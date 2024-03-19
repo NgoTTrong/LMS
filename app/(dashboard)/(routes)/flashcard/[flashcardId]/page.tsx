@@ -26,24 +26,29 @@ const FlashCardDetail = async ({ params }: Props) => {
 
     return (
         <div className="w-full p-6">
-            <section className="grid lg:gird-cols-4 xl:grid-cols-10  w-full gap-2">
-                <h1 className=" lg:col-span-1  text-4xl font-semibold ">
-                    {`Flashcard: `}
-                </h1>
-                <h1 className="lg:ml-7 lg:col-span-2  text-4xl font-semibold block">
-                    {_flashcard?.title}
-                </h1>
-                <ModalEditFlashcard>
-                    <Button className="lg:col-span-1  bg-[#2A3F7B]">
-                        Edit
-                    </Button>
-                </ModalEditFlashcard>
+            <section className="w-full gap-2 flex items-end justify-between">
+                <div className="flex flex-col gap-4">
+                    <h1 className="text-2xl font-medium ">{`Flashcard:  ${_flashcard?.title}`}</h1>
+                    <div
+                        className="text-base text-slate-600"
+                        dangerouslySetInnerHTML={{
+                            __html: _flashcard?.description ?? "",
+                        }}
+                    ></div>
+                </div>
+                <div className="flex items-center gap-4">
+                    <ModalEditFlashcard>
+                        <Button className="lg:col-span-1  bg-[#2A3F7B]">
+                            Edit
+                        </Button>
+                    </ModalEditFlashcard>
 
-                <ModalAddFlashcard>
-                    <Button className="lg:col-span-1  bg-[#2A3F7B]">
-                        Add new word
-                    </Button>
-                </ModalAddFlashcard>
+                    <ModalAddFlashcard>
+                        <Button className="lg:col-span-1  bg-[#2A3F7B]">
+                            Add new word
+                        </Button>
+                    </ModalAddFlashcard>
+                </div>
             </section>
             <CarouselWord words={_flashcard?.words as IWord[]} />
         </div>

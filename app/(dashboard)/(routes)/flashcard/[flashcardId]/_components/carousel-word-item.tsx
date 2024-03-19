@@ -14,8 +14,10 @@ const CarouselWordItem = ({ word }: Props) => {
 
     return (
         <div
-            data-aos={flipped ? "zoom-in" : "flip-up"}
-            className="h-[500px] rounded-xl flex justify-center items-center cursor-pointer shadow-2xl bg-slate-400 "
+            // data-aos={flipped ? "zoom-in" : "flip-up"}
+            className={`h-[500px] rounded-xl flex justify-center items-center cursor-pointer shadow-2xl transition-all duration-400 ${
+                flipped ? "bg-sky-400" : "bg-emerald-300"
+            }`}
             onClick={handleClick}
         >
             {flipped ? (
