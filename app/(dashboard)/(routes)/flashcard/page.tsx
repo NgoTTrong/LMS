@@ -1,7 +1,18 @@
 import { BookText } from "lucide-react";
 import ListFlashCard from "./_components/list-flashcard";
+import { currentUser } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
+import FlashcardService from "@/services/flash-card/flashcard-service";
 
-const FlashCard = () => {
+const FlashCard = async () => {
+    const user = await currentUser();
+
+    if (!user) {
+        redirect("/");
+    }
+
+    const flashcards = await FlashcardService.getAllFlashcard(user?.id);
+    console.log("flashcards", flashcards);
     return (
         <div className="w-full bg-[#F6F7FB]">
             <header className="bg-gradient-to-r from-blue-500 to-green-500 w-ful h-[100px] p-6 flex text-4xl shadow-xl">
@@ -13,7 +24,7 @@ const FlashCard = () => {
                 List of created words
             </h1>
 
-            <ListFlashCard />
+            <ListFlashCard flashcards={flashcards ?? []} userId={user.id} />
         </div>
     );
 };

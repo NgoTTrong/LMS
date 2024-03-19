@@ -1,9 +1,27 @@
 "use client";
 
-import Slider from "react-slick";
 import CarouselWordItem from "./carousel-word-item";
+import { IWord } from "@/interfaces/flashcard/flashcard-interface";
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "@/components/ui/carousel";
 
-const CarouselWord = () => {
+type Props = {
+    words: IWord[];
+};
+
+const CarouselWord = ({ words }: Props) => {
+    const initialState: IWord[] = [
+        {
+            term: "This is the front of the flashcard",
+            define: "This is the behind of the flashcard",
+        },
+    ];
+
     var settings = {
         dots: true,
         arrows: true,
@@ -13,18 +31,23 @@ const CarouselWord = () => {
         pauseOnHover: false,
         pauseOnFocus: true,
         slidesToShow: 1,
-        slidesToScroll: 1,
     };
+
     return (
-        <div className="w-full mt-10">
-            <Slider {...settings} className=" rounded-xl custom-shadow">
-                <CarouselWordItem content="1" />
-                <CarouselWordItem content="2" />
-                <CarouselWordItem content="3" />
-                <CarouselWordItem content="4" />
-                <CarouselWordItem content="5" />
-            </Slider>
-        </div>
+        <Carousel className="w-full mt-10 p-6 relative">
+            <CarouselContent>
+                {words &&
+                    words.map((word: IWord, id: number) => {
+                        return (
+                            <CarouselItem key={id}>
+                                <CarouselWordItem word={word} />
+                            </CarouselItem>
+                        );
+                    })}
+            </CarouselContent>
+            <CarouselPrevious className=" absolute left-5 " />
+            <CarouselNext className=" absolute right-5" />
+        </Carousel>
     );
 };
 

@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import FlashcardService from "@/services/flash-card/flashcard-service";
+import { User, currentUser } from "@clerk/nextjs/server";
 import { Loader2, Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -21,9 +23,10 @@ import toast from "react-hot-toast";
 
 type Props = {
     children: React.ReactNode;
+    userId: string;
 };
 
-const ModalCreateFlashcard = ({ children }: Props) => {
+const ModalCreateFlashcard = ({ children, userId }: Props) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const router = useRouter();
 
@@ -36,10 +39,15 @@ const ModalCreateFlashcard = ({ children }: Props) => {
         try {
             setIsLoading(true);
 
-            if (true) {
+            const _flashcard = await FlashcardService.createFlashcard(
+                form?.title ?? "",
+                form?.description ?? "",
+                userId
+            );
+            if (_flashcard) {
                 toast.success("Created flashcard");
                 setForm({});
-                router.push("/flashcard/1");
+                router.push(`/flashcard/${_flashcard.id}`);
             } else {
                 toast.error("Something went wrong");
             }
@@ -75,7 +83,7 @@ const ModalCreateFlashcard = ({ children }: Props) => {
                             onChange={(event) => {
                                 setForm((state) => ({
                                     ...state,
-                                    content: event?.target?.value ?? "",
+                                    title: event?.target?.value ?? "",
                                 }));
                             }}
                         />

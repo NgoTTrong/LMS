@@ -8,12 +8,12 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { FileUpload } from "@/components/file-upload";
-import { IPart4 } from "@/interfaces/part-4/part-4-interface";
-import Part4Service from "@/services/part-4/part-4-service";
+import { IPart7 } from "@/interfaces/part-7/part-7-interface";
+import Part7Service from "@/services/part-7/part-7-service";
 
 type Props = {
-    initialData: IPart4;
-    part4Id: string;
+    initialData: IPart7;
+    part7Id: string;
 };
 
 const formSchema = z.object({
@@ -21,16 +21,16 @@ const formSchema = z.object({
         message: "Image is required",
     }),
 });
-const ThumbnailForm = ({ initialData, part4Id }: Props) => {
+const ThumbnailForm = ({ initialData, part7Id }: Props) => {
     const [isEditting, setEditting] = useState<boolean>(false);
     const router = useRouter();
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        const _course = await Part4Service.updatePart4(part4Id, {
+        const _course = await Part7Service.updatePart7(part7Id, {
             thumbnail: values?.thumbnail,
         });
         if (_course) {
-            toast.success("Part 4 updated");
+            toast.success("Part 7 updated");
         } else {
             toast.error("Something went wrong!");
         }

@@ -77,6 +77,8 @@ export function ModalAddQuestion({ children, part7Id }: Props) {
             if (_questionPart7) {
                 toast.success("Added question");
                 setForm({});
+                setImageUrl("");
+                setQuestions([]);
                 router.refresh();
             } else {
                 toast.error("Something went wrong");

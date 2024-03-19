@@ -1,7 +1,6 @@
 "use client";
 
-import { Editor } from "@/components/editor";
-import { Button } from "@/components/ui/button";
+import { useParams } from "next/navigation";
 import {
     Dialog,
     DialogClose,
@@ -14,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import FlashcardService from "@/services/flash-card/flashcard-service";
 import { Loader2, Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -25,6 +25,7 @@ type Props = {
 
 const ModalAddFlashcard = ({ children }: Props) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const params = useParams();
     const router = useRouter();
 
     const [form, setForm] = useState<{
@@ -36,9 +37,16 @@ const ModalAddFlashcard = ({ children }: Props) => {
         try {
             setIsLoading(true);
 
-            if (true) {
+            const _word = await FlashcardService.createWord(
+                form?.term ?? "",
+                form?.define ?? "",
+                params?.flashcardId as string
+            );
+
+            if (_word) {
                 toast.success("Created new word");
                 setForm({});
+                router.refresh();
             } else {
                 toast.error("Something went wrong");
             }
@@ -49,10 +57,7 @@ const ModalAddFlashcard = ({ children }: Props) => {
     };
     return (
         <Dialog>
-            <DialogTrigger asChild>
-                {/* <Button variant="outline">alo</Button> */}
-                {children}
-            </DialogTrigger>
+            <DialogTrigger asChild>{children}</DialogTrigger>
             <DialogContent className="!max-w-[48rem] !max-h-[80vh] !overflow-auto">
                 <DialogHeader>
                     <DialogTitle className="text-3xl">New word</DialogTitle>

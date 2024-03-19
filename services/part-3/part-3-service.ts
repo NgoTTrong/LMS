@@ -8,6 +8,7 @@ const part3Routes = {
 	createQuestion: apiEndpoint + "/part3/create-question",
 	updateQuestion: apiEndpoint + "/part3/update-question",
 	deleteQuestion: apiEndpoint + "/part3/delete-question",
+	deletePart3: apiEndpoint + "/part3"
 };
 
 export default class Part3Service {
@@ -151,6 +152,7 @@ export default class Part3Service {
 			title?: string;
 			introduction?: string;
 			thumbnail?: string;
+			audioUrl?: string;
 		}
 	) => {
 		try {
@@ -185,4 +187,15 @@ export default class Part3Service {
 		} catch (error) {}
 		return null;
 	};
+
+	static deletePart3 = async (part3Id: string)=>{
+		try{
+			const response = await RequestAPI.call(part3Routes.deletePart3 +"/"+part3Id,{
+				method: "DELETE",
+			})
+			if(response?.data) return response?.data;
+		}
+		catch(error){}
+		return null;
+	}
 }

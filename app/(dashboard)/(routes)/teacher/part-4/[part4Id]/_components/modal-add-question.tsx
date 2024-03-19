@@ -80,6 +80,9 @@ export function ModalAddQuestion({ children, part4Id }: Props) {
             if (_questionPart4) {
                 toast.success("Added question");
                 setForm({});
+                setImageUrl("");
+                setAudioUrl("");
+                setQuestions([]);
                 router.refresh();
             } else {
                 toast.error("Something went wrong");

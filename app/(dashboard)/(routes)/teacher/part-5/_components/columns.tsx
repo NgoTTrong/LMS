@@ -9,9 +9,12 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { IPart5 } from "@/interfaces/part-5/part-5-interface";
+import Part5Service from "@/services/part-5/part-5-service";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal, Pencil } from "lucide-react";
+import { Popconfirm, message } from "antd";
+import { ArrowUpDown, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export const columns: ColumnDef<IPart5>[] = [
     {
@@ -50,6 +53,14 @@ export const columns: ColumnDef<IPart5>[] = [
         id: "actions",
         cell: ({ row }) => {
             const { id } = row.original;
+            const router = useRouter();
+            const onDelete = async () => {
+                const _response = await Part5Service.deletePart5(id);
+                if (_response) {
+                    message.success("Delete successfully");
+                    router.refresh();
+                }
+            };
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -65,6 +76,17 @@ export const columns: ColumnDef<IPart5>[] = [
                                 Edit
                             </DropdownMenuItem>
                         </Link>
+                        <Popconfirm
+                            title="Delete part 5"
+                            description="Are you sure you want to delete and you may lose content related to this part?"
+                            okText="Yes"
+                            cancelText="No"
+                            onConfirm={onDelete}
+                            className=" flex items-center p-2"
+                        >
+                            <Trash2 className="w-4 h-4 mr-4" />
+                            Delete
+                        </Popconfirm>
                     </DropdownMenuContent>
                 </DropdownMenu>
             );

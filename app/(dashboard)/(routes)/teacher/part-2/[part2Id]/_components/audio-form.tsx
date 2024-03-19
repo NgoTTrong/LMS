@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { IPart1 } from "@/interfaces/part-1/part-1-interface";
-import Part1Service from "@/services/part-1/part-1-service";
+import { IPart2 } from "@/interfaces/part-2/part-2-interface";
+import Part2Service from "@/services/part-2/part-2-service";
 import * as z from "zod";
 import toast from "react-hot-toast";
 import { AudioLinesIcon, Pencil, PlusCircle } from "lucide-react";
@@ -11,8 +11,8 @@ import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/file-upload";
 
 type Props = {
-    initialData: IPart1;
-    part1Id: string;
+    initialData: IPart2;
+    part2Id: string;
 };
 
 const formSchema = z.object({
@@ -21,16 +21,16 @@ const formSchema = z.object({
     }),
 });
 
-const AudioForm = ({ initialData, part1Id }: Props) => {
+const AudioForm = ({ initialData, part2Id }: Props) => {
     const [isEditting, setEditting] = useState<boolean>(false);
     const router = useRouter();
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        const _course = await Part1Service.updatePart1(part1Id, {
+        const _course = await Part2Service.updatePart2(part2Id, {
             audioUrl: values?.audioUrl,
         });
         if (_course) {
-            toast.success("Part 1 updated");
+            toast.success("Part 2 updated");
         } else {
             toast.error("Something went wrong!");
         }
@@ -40,7 +40,7 @@ const AudioForm = ({ initialData, part1Id }: Props) => {
     return (
         <section className="mt-6 bg-slate-100 rounded-md p-4">
             <div className="font-medium flex items-center justify-between">
-                Part 1 audio
+                Part 2 audio
                 <Button
                     variant={"ghost"}
                     onClick={() => setEditting((state) => !state)}

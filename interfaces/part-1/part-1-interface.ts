@@ -5,6 +5,7 @@ export interface IPart1 {
 	createdAt: Date;
 	title?: string;
 	thumbnail?: string;
+	audioUrl?: string;
 	introduction?: string;
 	creatorId?: string;
 	numOfQuestions?: number;
