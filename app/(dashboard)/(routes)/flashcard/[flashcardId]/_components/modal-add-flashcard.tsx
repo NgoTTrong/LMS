@@ -62,7 +62,7 @@ const ModalAddFlashcard = ({ children }: Props) => {
                 <DialogHeader>
                     <DialogTitle className="text-3xl">New word</DialogTitle>
                     <DialogDescription>
-                        Enter all fields. Click Create when you're done.
+                        Enter all fields. Click Create when you&apos;re done.
                     </DialogDescription>
                 </DialogHeader>
 

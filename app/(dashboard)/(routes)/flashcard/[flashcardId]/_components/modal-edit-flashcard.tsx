@@ -81,7 +81,7 @@ const ModalEditFlashcard = ({ children }: Props) => {
                         Flashcard Edit
                     </DialogTitle>
                     <DialogDescription>
-                        Enter all fields. Click Create when you're done.
+                        Enter all fields. Click Create when you&apos;re done.
                     </DialogDescription>
                 </DialogHeader>
 

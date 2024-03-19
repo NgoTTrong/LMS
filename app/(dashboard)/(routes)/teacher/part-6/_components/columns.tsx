@@ -16,7 +16,7 @@ import { ArrowUpDown, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-export const columns: ColumnDef<IPart6>[] = [
+export const Columns: ColumnDef<IPart6>[] = [
     {
         accessorKey: "id",
         header: ({ column }) => {

@@ -93,11 +93,17 @@ const ChatbotWidget: React.FC = () => {
                     >
                         {items.map((item, idx) =>
                             idx % 2 == 0 ? (
-                                <p className="max-w-[70%] text-start mr-auto bg-slate-700 text-white text-sm py-1 px-2 rounded-lg">
+                                <p
+                                    key={"chat-" + idx}
+                                    className="max-w-[70%] text-start mr-auto bg-slate-700 text-white text-sm py-1 px-2 rounded-lg"
+                                >
                                     {item}
                                 </p>
                             ) : (
-                                <p className="max-w-[70%] text-end ml-auto bg-sky-500 text-white text-sm py-1 px-2 rounded-lg">
+                                <p
+                                    key={"chat-" + idx}
+                                    className="max-w-[70%] text-end ml-auto bg-sky-500 text-white text-sm py-1 px-2 rounded-lg"
+                                >
                                     {item}
                                 </p>
                             )

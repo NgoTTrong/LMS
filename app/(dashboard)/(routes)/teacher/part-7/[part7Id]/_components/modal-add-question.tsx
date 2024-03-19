@@ -116,7 +116,7 @@ export function ModalAddQuestion({ children, part7Id }: Props) {
                 <DialogHeader>
                     <DialogTitle>Question content</DialogTitle>
                     <DialogDescription>
-                        Enter all fields. Click Add when you're done.
+                        Enter all fields. Click Add when you&apos;re done.
                     </DialogDescription>
                 </DialogHeader>
                 <div className="flex gap-8 w-full">

@@ -66,7 +66,7 @@ const ModalCreateFlashcard = ({ children, userId }: Props) => {
                 <DialogHeader>
                     <DialogTitle className="text-3xl">Flashcard</DialogTitle>
                     <DialogDescription>
-                        Enter all fields. Click Create when you're done.
+                        Enter all fields. Click Create when you&apos;re done.
                     </DialogDescription>
                 </DialogHeader>
 

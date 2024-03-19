@@ -2,7 +2,7 @@ import { DataTable } from "./_components/data-table";
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import Part6Service from "@/services/part-6/part-6-service";
-import { columns } from "./_components/columns";
+import { Columns } from "./_components/columns";
 
 const Part6Page = async () => {
     const user = await currentUser();
@@ -13,7 +13,7 @@ const Part6Page = async () => {
 
     return (
         <main className="p-6">
-            <DataTable data={part6s} columns={columns} />
+            <DataTable data={part6s} columns={Columns} />
         </main>
     );
 };
