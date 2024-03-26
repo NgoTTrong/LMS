@@ -51,20 +51,20 @@ const ModalDetailTopic = ({
             setIsToxic(true);
             return;
         }
-        // if (replyComment) {
-        //     await GroupService.replyComment(
-        //         user?.userId,
-        //         choosenPost?.id,
-        //         replyComment?.id,
-        //         message
-        //     );
-        // } else {
-        //     await GroupService.createComment(
-        //         user?.userId,
-        //         choosenPost?.id,
-        //         message
-        //     );
-        // }
+        if (replyComment) {
+            await GroupService.replyComment(
+                user?.userId,
+                choosenPost?.id,
+                replyComment?.id,
+                message
+            );
+        } else {
+            await GroupService.createComment(
+                user?.userId,
+                choosenPost?.id,
+                message
+            );
+        }
 
         setMessage("");
 
