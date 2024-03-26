@@ -8,6 +8,7 @@ import groupStore from "@/stores/group/group-store";
 import { useAuth } from "@clerk/nextjs";
 import { Modal } from "antd";
 import { Users, KeyRound, Lock } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -80,9 +81,9 @@ const GroupCard = ({ group }: Props) => {
                 "hover:cursor-pointer"
             }`}
         >
-            <img
+            <Image
                 src={group?.image}
-                alt=""
+                alt="Group thumbnail"
                 className="w-full aspect-video rounded-t-lg object-cover"
             />
             <div className="flex flex-col gap-2 p-4">

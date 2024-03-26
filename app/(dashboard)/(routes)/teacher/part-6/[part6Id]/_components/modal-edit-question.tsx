@@ -28,6 +28,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import SubQuestionListEdit from "./_subquestion/subquestions-list-edit";
 import { IQuestion } from "@/interfaces/question/question-interface";
+import Image from "next/image";
 
 type Props = {
     children: React.ReactNode;
@@ -132,9 +133,9 @@ export function ModalEditQuestion({ question, children }: Props) {
                             </section>
                             <div className="w-full">
                                 {imageUrl && !onEditImage ? (
-                                    <img
+                                    <Image
                                         src={imageUrl}
-                                        alt=""
+                                        alt="thumb"
                                         className="w-full aspect-video rounded-lg"
                                     />
                                 ) : (

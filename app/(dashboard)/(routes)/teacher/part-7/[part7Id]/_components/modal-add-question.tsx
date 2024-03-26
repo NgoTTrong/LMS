@@ -23,6 +23,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import SubQuestionList from "./_subquestion/subquestions-list";
+import Image from "next/image";
 
 type Props = {
     children: React.ReactNode;
@@ -366,9 +367,9 @@ export function ModalAddQuestion({ children, part7Id }: Props) {
                             </div>
                             <div className="w-full">
                                 {imageUrl && !onEditImage ? (
-                                    <img
+                                    <Image
                                         src={imageUrl}
-                                        alt=""
+                                        alt="thumb"
                                         className="w-full aspect-video rounded-lg"
                                     />
                                 ) : (

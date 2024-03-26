@@ -1,6 +1,4 @@
 "use client";
-
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
@@ -14,7 +12,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Popconfirm, message } from "antd";
 import { ArrowUpDown, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export const Columns: ColumnDef<IPart3>[] = [
     {
@@ -53,12 +50,11 @@ export const Columns: ColumnDef<IPart3>[] = [
         id: "actions",
         cell: ({ row }) => {
             const { id } = row.original;
-            const router = useRouter();
             const onDelete = async () => {
                 const _response = await Part3Service.deletePart3(id);
                 if (_response) {
                     message.success("Delete successfully");
-                    router.refresh();
+                    location.reload();
                 }
             };
             return (

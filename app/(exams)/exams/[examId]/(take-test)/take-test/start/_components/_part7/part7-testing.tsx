@@ -2,6 +2,7 @@ import { Part7Question } from "@/interfaces/exam/exam-interface";
 import examStore from "@/stores/exam/exam-store";
 import { useEffect, useState } from "react";
 import GroupPart7Testing from "./group-part7-testing";
+import Image from "next/image";
 
 const Part7Testing = () => {
     const { exam, currentQuestion } = examStore();
@@ -26,11 +27,11 @@ const Part7Testing = () => {
                 <div className="flex flex-col gap-6 items-start">
                     {question?.imageUrls &&
                         question?.imageUrls?.map((img, idx) => (
-                            <img
+                            <Image
                                 src={img}
-                                alt="Part 1 image"
+                                alt="Part 7 image"
                                 className="w-[250px] object-cover"
-                                key={"part-6-img-" + idx}
+                                key={"part-7-img-" + idx}
                             />
                         ))}
                 </div>

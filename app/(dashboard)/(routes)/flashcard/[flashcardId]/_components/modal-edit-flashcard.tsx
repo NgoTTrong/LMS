@@ -46,7 +46,7 @@ const ModalEditFlashcard = ({ children }: Props) => {
             });
         };
         fetchData();
-    }, []);
+    }, [params?.flashcardId]);
 
     const handleEditQuestion = async () => {
         try {

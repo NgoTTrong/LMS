@@ -22,6 +22,7 @@ import Part1Service from "@/services/part-1/part-1-service";
 import TopicService from "@/services/topic/topic-service";
 import groupStore from "@/stores/group/group-store";
 import { Loader2, Pencil } from "lucide-react";
+import Image from "next/image";
 import { Dispatch, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -103,9 +104,9 @@ export function ModalCreateGroup({ children }: Props) {
                             </div>
                             <div className="w-full">
                                 {form?.imageUrl && !onEditImage ? (
-                                    <img
+                                    <Image
                                         src={form?.imageUrl}
-                                        alt=""
+                                        alt="thumb"
                                         className="w-full aspect-video rounded-lg object-cover"
                                     />
                                 ) : (

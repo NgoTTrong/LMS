@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { getNextPart } from "../../_helper/get-next-part";
 import { getNextPartQuestion } from "../../_helper/get-next-part-question";
 import { getCurrentQuestionPosition } from "../../_helper/get-current-question-position";
+import Image from "next/image";
 
 const Part1Testing = () => {
     const {
@@ -84,7 +85,7 @@ const Part1Testing = () => {
         question && (
             <section className="grid grid-cols-2 gap-6 w-full h-full">
                 <div className="flex flex-col gap-6 items-start">
-                    <img
+                    <Image
                         src={question?.imageUrls?.[0]}
                         alt="Part 1 image"
                         className="w-[250px] object-cover"

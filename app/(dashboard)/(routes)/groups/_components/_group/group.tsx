@@ -6,6 +6,7 @@ import ReactDOM from "react-dom";
 import JoinPopup from "../_learn-group/join-popup";
 import { Button } from "@/components/ui/button";
 import { GroupForm } from "./group-form";
+import Image from "next/image";
 
 const Group: React.FC<{ group: any }> = ({ group }) => {
     const [showPopup, setShowPopup] = useState(false);
@@ -61,7 +62,7 @@ const Group: React.FC<{ group: any }> = ({ group }) => {
             )}
             <div className={"w-full flex items-center gap-4"}>
                 <div className={styles["studygroup-listitem-image"]}>
-                    <img
+                    <Image
                         className={styles["studygroup-thumbnail"]}
                         src={group?.image}
                         alt={group?.title}

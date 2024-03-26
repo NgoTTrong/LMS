@@ -7,10 +7,18 @@ import { IComment, IPost } from "@/interfaces/group/group-interface";
 import GroupService from "@/services/group/group-service";
 import { useAuth } from "@clerk/nextjs";
 import { Modal } from "antd";
-import { MessageCircleReply, Reply, SendHorizontal } from "lucide-react";
+import {
+    Loader2,
+    MessageCircleReply,
+    Reply,
+    SendHorizontal,
+    ShieldAlert,
+} from "lucide-react";
 import { Dispatch, LegacyRef, useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import CommentCard from "./comment-card";
+import ToxicService from "@/services/toxic/toxic-service";
+import Image from "next/image";
 type Props = {
     openModalPost: boolean;
     setOpenModalPost: Dispatch<boolean>;
@@ -25,44 +33,54 @@ const ModalDetailTopic = ({
 }: Props) => {
     const [comments, setCommemts] = useState<IComment[]>([]);
     const [message, setMessage] = useState<string>("");
+    const [isToxic, setIsToxic] = useState<boolean>(false);
     const [replyComment, setReplyComment] = useState<IComment | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const user = useClientAuth();
     useEffect(() => {
         if (choosenPost) setCommemts(choosenPost?.GroupPostComment);
     }, [choosenPost]);
     const handleComment = async () => {
+        setIsLoading(true);
         if (!message) {
             toast.error("Message is required");
             return;
         }
-        if (replyComment) {
-            await GroupService.replyComment(
-                user?.userId,
-                choosenPost?.id,
-                replyComment?.id,
-                message
-            );
-        } else {
-            await GroupService.createComment(
-                user?.userId,
-                choosenPost?.id,
-                message
-            );
+        const res = await ToxicService.detect(message);
+        if (res == "toxic") {
+            setIsToxic(true);
+            return;
         }
+        // if (replyComment) {
+        //     await GroupService.replyComment(
+        //         user?.userId,
+        //         choosenPost?.id,
+        //         replyComment?.id,
+        //         message
+        //     );
+        // } else {
+        //     await GroupService.createComment(
+        //         user?.userId,
+        //         choosenPost?.id,
+        //         message
+        //     );
+        // }
 
         setMessage("");
+
         await fetchGroupDetail();
         const _comments = await GroupService.getAllComment(choosenPost?.id);
         setCommemts(_comments);
+        setIsLoading(false);
     };
 
     return (
         <Modal open={openModalPost} onCancel={() => setOpenModalPost(false)}>
             <div className="flex flex-col gap-6">
                 <div className="flex items-start gap-4">
-                    <img
+                    <Image
                         src={choosenPost?.creator?.avatar}
-                        alt=""
+                        alt="avatar"
                         className="w-8 h-8 rounded-full object-cover"
                     />
                     <h1 className="text-sm font-medium">
@@ -94,7 +112,7 @@ const ModalDetailTopic = ({
 
                     <div className="flex items-center gap-4">
                         <Label htmlFor="comment">Add comment</Label>
-                        <div className="flex-1 flex flex-col">
+                        <div className="flex-1 flex flex-col gap-2">
                             {replyComment && (
                                 <div className="flex items-center gap-2">
                                     <Reply className="w-4 h-4" />
@@ -107,16 +125,31 @@ const ModalDetailTopic = ({
                                 required
                                 id="comment"
                                 value={message ?? undefined}
-                                onChange={(e) => setMessage(e?.target?.value)}
+                                onChange={(e) => {
+                                    setIsToxic(false);
+                                    setMessage(e?.target?.value);
+                                }}
                             />
+                            {isToxic && (
+                                <span className="text-sm text-red-500 flex items-center gap-2">
+                                    <ShieldAlert className="w-6 h-6" />
+                                    The message is toxic, please edit it
+                                </span>
+                            )}
                         </div>
 
                         <Button
                             type="button"
                             onClick={handleComment}
-                            disabled={!message}
+                            disabled={!message || isLoading}
                         >
-                            Send
+                            {isLoading ? (
+                                <div className="px-1">
+                                    <Loader2 className="w-6 h-6 animate-spin" />
+                                </div>
+                            ) : (
+                                "Send"
+                            )}
                         </Button>
                     </div>
                 </div>
