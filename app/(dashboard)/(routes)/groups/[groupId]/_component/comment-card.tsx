@@ -1,7 +1,7 @@
 import { IComment } from "@/interfaces/group/group-interface";
 import GroupService from "@/services/group/group-service";
 import { MessageCircleReply } from "lucide-react";
-import Image from "next/image";
+import img from "next/image";
 import { Dispatch, useEffect, useState } from "react";
 
 type Props = {
@@ -22,7 +22,7 @@ const CommentCard = ({ comment, setReply }: Props) => {
     return (
         <div className="border-b border-solid border-slate-300/50 flex flex-col gap-2 pb-4">
             <div className="flex items-start gap-2">
-                <Image
+                <img
                     src={comment?.member?.avatar}
                     alt="avatar"
                     className="w-6 h-6 object-cover rounded-full"
@@ -60,7 +60,7 @@ const CommentCard = ({ comment, setReply }: Props) => {
                                 className="w-full flex flex-col gap-2"
                             >
                                 <div className="flex items-start gap-2">
-                                    <Image
+                                    <img
                                         src={reply?.member?.avatar}
                                         alt="avatar"
                                         className="w-6 h-6 object-cover rounded-full"

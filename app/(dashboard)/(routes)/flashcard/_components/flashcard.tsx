@@ -2,7 +2,7 @@
 
 import { IFlashcard } from "@/interfaces/flashcard/flashcard-interface";
 import { Files } from "lucide-react";
-import Image from "next/image";
+import img from "next/image";
 import Link from "next/link";
 
 type Props = {
@@ -30,7 +30,7 @@ const FlashCard = ({ flashcard }: Props) => {
                 ></div>
             </div>
             <div className=" absolute bottom-4 left-4 flex items-center">
-                <Image
+                <img
                     src={flashcard?.creator?.avatar!}
                     alt="avatar"
                     className="w-7 h-7 rounded-full"

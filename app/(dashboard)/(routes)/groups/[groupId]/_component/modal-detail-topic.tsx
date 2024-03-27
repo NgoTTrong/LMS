@@ -18,7 +18,7 @@ import { Dispatch, LegacyRef, useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import CommentCard from "./comment-card";
 import ToxicService from "@/services/toxic/toxic-service";
-import Image from "next/image";
+import img from "next/image";
 type Props = {
     openModalPost: boolean;
     setOpenModalPost: Dispatch<boolean>;
@@ -78,7 +78,7 @@ const ModalDetailTopic = ({
         <Modal open={openModalPost} onCancel={() => setOpenModalPost(false)}>
             <div className="flex flex-col gap-6">
                 <div className="flex items-start gap-4">
-                    <Image
+                    <img
                         src={choosenPost?.creator?.avatar}
                         alt="avatar"
                         className="w-8 h-8 rounded-full object-cover"

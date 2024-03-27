@@ -3,7 +3,7 @@ import { IconBadge } from "@/components/icon-badge";
 import { ICourse } from "@/interfaces/course/course-interface";
 import { formatNumberWithCommas } from "@/lib/functions";
 import { BookOpen } from "lucide-react";
-import Image from "next/image";
+import img from "next/image";
 import Link from "next/link";
 
 type Props = {
@@ -17,10 +17,9 @@ const CourseCard = ({ item }: Props) => {
         <Link data-aos="zoom-in" href={`/courses/${item?.course?.id}`}>
             <div className="group hover:shadow-sm transition overflow-hidden border rounded-lg p-3 w-full">
                 <div className="relative w-full aspect-video rounded-md overflow-hidden">
-                    <Image
+                    <img
                         src={item?.course?.imageUrl!}
                         alt={item?.course?.title}
-                        fill
                         className="object-cover"
                     />
                 </div>

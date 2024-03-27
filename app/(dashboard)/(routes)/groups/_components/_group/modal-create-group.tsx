@@ -22,7 +22,7 @@ import Part1Service from "@/services/part-1/part-1-service";
 import TopicService from "@/services/topic/topic-service";
 import groupStore from "@/stores/group/group-store";
 import { Loader2, Pencil } from "lucide-react";
-import Image from "next/image";
+import img from "next/image";
 import { Dispatch, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -52,7 +52,7 @@ export function ModalCreateGroup({ children }: Props) {
                 return;
             }
             if (!form?.imageUrl) {
-                toast.error("Image is required");
+                toast.error("img is required");
                 return;
             }
             const _group = await GroupService.createGroup(user?.userId, {
@@ -87,7 +87,7 @@ export function ModalCreateGroup({ children }: Props) {
                     <section className="grid grid-cols-2 gap-6 py-4 w-full">
                         <div className="flex flex-col gap-4 justify-start items-start">
                             <div className="flex items-center justify-between w-full">
-                                <h1>Image</h1>
+                                <h1>img</h1>
                                 {onEditImage ? (
                                     <span
                                         onClick={() => setOnEditImage(false)}
@@ -104,7 +104,7 @@ export function ModalCreateGroup({ children }: Props) {
                             </div>
                             <div className="w-full">
                                 {form?.imageUrl && !onEditImage ? (
-                                    <Image
+                                    <img
                                         src={form?.imageUrl}
                                         alt="thumb"
                                         className="w-full aspect-video rounded-lg object-cover"

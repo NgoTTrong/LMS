@@ -5,7 +5,7 @@ import { ImageIcon, Pencil, PlusCircle } from "lucide-react";
 import * as z from "zod";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
+import img from "next/image";
 import { FileUpload } from "@/components/file-upload";
 import { IExam } from "@/interfaces/exam/exam-interface";
 import ExamService from "@/services/exam/exam-service";
@@ -49,13 +49,13 @@ const ThumbnailForm = ({ initialData, examId }: Props) => {
                     {!isEditting && !initialData?.thumbnail && (
                         <>
                             <PlusCircle className="w-4 h-4 mr-2" />
-                            Add an Image
+                            Add an img
                         </>
                     )}
                     {!isEditting && initialData?.thumbnail && (
                         <>
                             <Pencil className="w-4 h-4 mr-2" />
-                            Edit Image
+                            Edit img
                         </>
                     )}
                 </Button>
@@ -67,9 +67,8 @@ const ThumbnailForm = ({ initialData, examId }: Props) => {
                     </div>
                 ) : (
                     <div className="relative aspect-video mt-2">
-                        <Image
+                        <img
                             alt="Upload"
-                            fill
                             src={initialData?.thumbnail}
                             className="object-cover rounded-md"
                         />

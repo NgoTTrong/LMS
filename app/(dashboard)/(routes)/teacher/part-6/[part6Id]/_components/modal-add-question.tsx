@@ -23,7 +23,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import SubQuestionList from "./_subquestion/subquestions-list";
-import Image from "next/image";
+import img from "next/image";
 
 type Props = {
     children: React.ReactNode;
@@ -349,7 +349,7 @@ export function ModalAddQuestion({ children, part6Id }: Props) {
                         <div className="flex flex-col gap-4 justify-start items-start">
                             <div className="flex items-center justify-between w-full">
                                 <h1>
-                                    Image{" "}
+                                    img{" "}
                                     <span className="text-slate-500 text-sm"></span>
                                 </h1>
                                 {onEditImage ? (
@@ -368,7 +368,7 @@ export function ModalAddQuestion({ children, part6Id }: Props) {
                             </div>
                             <div className="w-full">
                                 {imageUrl && !onEditImage ? (
-                                    <Image
+                                    <img
                                         src={imageUrl}
                                         alt="thumb"
                                         className="w-full aspect-video rounded-lg"

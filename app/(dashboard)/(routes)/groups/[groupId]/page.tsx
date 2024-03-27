@@ -18,7 +18,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import ModalDetailTopic from "./_component/modal-detail-topic";
 import { toast } from "react-hot-toast";
-import Image from "next/image";
+import img from "next/image";
 
 type Props = {
     params: {
@@ -113,7 +113,7 @@ const GroupPage = ({ params }: Props) => {
                                         key={"member-" + idx}
                                         className="flex items-center gap-4"
                                     >
-                                        <Image
+                                        <img
                                             src={member?.member?.avatar}
                                             alt="avatar"
                                             className="w-[32px] h-[32px] rounded-full object-cover"

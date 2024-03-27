@@ -5,7 +5,7 @@ import examStore from "@/stores/exam/exam-store";
 import { PauseCircle, PlayCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import GroupPart3Testing from "./group-part3-testing";
-import Image from "next/image";
+import img from "next/image";
 
 const Part3Testing = () => {
     const { exam, currentQuestion } = examStore();
@@ -33,7 +33,7 @@ const Part3Testing = () => {
             <section className="grid grid-cols-2 gap-6 w-full h-full">
                 <div className="flex flex-col gap-6 items-start">
                     {question?.imageUrls?.[0] && (
-                        <Image
+                        <img
                             src={question?.imageUrls?.[0]}
                             alt="Part 3 image"
                             className="w-[250px] object-cover"

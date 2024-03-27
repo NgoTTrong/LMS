@@ -1,4 +1,4 @@
-import Image from "next/image";
+import img from "next/image";
 
 const LoadingModal = () => {
     return (
@@ -9,7 +9,7 @@ const LoadingModal = () => {
 					alt="logo"
 					className="w-[200px] bg-white"
 				/> */}
-                <Image src="/gif/loading.gif" alt="logo" className="w-[60px]" />
+                <img src="/gif/loading.gif" alt="logo" className="w-[60px]" />
             </div>
         </main>
     );

@@ -11,7 +11,7 @@ import {
     MessageCircle,
     SquarePen,
 } from "lucide-react";
-import Image from "next/image";
+import img from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -50,10 +50,9 @@ const ExamCard = ({ exam }: Props) => {
         <Link data-aos="zoom-in" href={`/exams/${exam?.id}`}>
             <div className="group hover:shadow-sm transition overflow-hidden border rounded-lg p-3 w-full">
                 <div className="relative w-full aspect-video rounded-md overflow-hidden">
-                    <Image
+                    <img
                         src={exam?.thumbnail ?? ""}
                         alt={exam?.title}
-                        fill
                         className="object-cover"
                     />
                 </div>

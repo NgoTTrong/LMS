@@ -28,7 +28,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import SubQuestionListEdit from "./_subquestion/subquestions-list-edit";
 import { IQuestion } from "@/interfaces/question/question-interface";
-import Image from "next/image";
+import img from "next/image";
 
 type Props = {
     children: React.ReactNode;
@@ -116,7 +116,7 @@ export function ModalEditQuestion({ question, children }: Props) {
                     <section className="flex flex-col gap-4 py-4 w-full">
                         <div className="flex flex-col gap-4 justify-start items-start">
                             <section className="flex items-center justify-between w-full">
-                                <h1>Image</h1>
+                                <h1>img</h1>
                                 {onEditImage ? (
                                     <span
                                         onClick={() => setOnEditImage(false)}
@@ -133,7 +133,7 @@ export function ModalEditQuestion({ question, children }: Props) {
                             </section>
                             <div className="w-full">
                                 {imageUrl && !onEditImage ? (
-                                    <Image
+                                    <img
                                         src={imageUrl}
                                         alt="thumb"
                                         className="w-full aspect-video rounded-lg"

@@ -6,7 +6,7 @@ import * as z from "zod";
 import CourseService from "@/services/course/courseService";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
+import img from "next/image";
 import { FileUpload } from "@/components/file-upload";
 import { IPart7 } from "@/interfaces/part-7/part-7-interface";
 import Part7Service from "@/services/part-7/part-7-service";
@@ -18,7 +18,7 @@ type Props = {
 
 const formSchema = z.object({
     thumbnail: z.string().min(1, {
-        message: "Image is required",
+        message: "img is required",
     }),
 });
 const ThumbnailForm = ({ initialData, part7Id }: Props) => {
@@ -50,13 +50,13 @@ const ThumbnailForm = ({ initialData, part7Id }: Props) => {
                     {!isEditting && !initialData?.thumbnail && (
                         <>
                             <PlusCircle className="w-4 h-4 mr-2" />
-                            Add an Image
+                            Add an img
                         </>
                     )}
                     {!isEditting && initialData?.thumbnail && (
                         <>
                             <Pencil className="w-4 h-4 mr-2" />
-                            Edit Image
+                            Edit img
                         </>
                     )}
                 </Button>
@@ -68,9 +68,8 @@ const ThumbnailForm = ({ initialData, part7Id }: Props) => {
                     </div>
                 ) : (
                     <div className="relative aspect-video mt-2">
-                        <Image
+                        <img
                             alt="Upload"
-                            fill
                             src={initialData?.thumbnail}
                             className="object-cover rounded-md"
                         />

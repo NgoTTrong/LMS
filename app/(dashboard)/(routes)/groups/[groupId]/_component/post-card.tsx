@@ -1,6 +1,6 @@
 import { IPost } from "@/interfaces/group/group-interface";
 import { MessageCircleMore } from "lucide-react";
-import Image from "next/image";
+import img from "next/image";
 import { useRouter } from "next/navigation";
 import { Dispatch } from "react";
 
@@ -21,7 +21,7 @@ const PostCard = ({ post, setChoosenPost, setOpenModalPost }: Props) => {
             <div className="flex items-start justify-between">
                 <h1 className="text-base font-medium">{post?.name}</h1>
                 <div className="flex items-start gap-4">
-                    <Image
+                    <img
                         src={post?.creator?.avatar}
                         alt="avatar"
                         className="w-8 h-8 rounded-full object-cover"

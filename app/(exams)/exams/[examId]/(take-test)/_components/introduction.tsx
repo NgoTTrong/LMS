@@ -1,5 +1,5 @@
 import { IExam } from "@/interfaces/exam/exam-interface";
-import Image from "next/image";
+import img from "next/image";
 
 type Props = {
     exam: IExam;
@@ -9,7 +9,7 @@ const ExamIntroduction = ({ exam }: Props) => {
         <section className="w-full flex flex-col gap-4 items-center">
             {exam && (
                 <>
-                    <Image
+                    <img
                         src={exam?.thumbnail!}
                         alt="thumb"
                         className="w-[300px] aspect-video object-cover rounded-lg"
