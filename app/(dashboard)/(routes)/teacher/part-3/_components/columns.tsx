@@ -72,18 +72,18 @@ export const Columns: ColumnDef<IPart3>[] = [
                                 Edit
                             </DropdownMenuItem>
                         </Link>
+                        <Popconfirm
+                            title="Delete part 3"
+                            description="Are you sure you want to delete and you may lose content related to this part?"
+                            okText="Yes"
+                            cancelText="No"
+                            onConfirm={onDelete}
+                            className=" flex items-center p-2"
+                        >
+                            <Trash2 className="w-4 h-4 mr-4" />
+                            Delete
+                        </Popconfirm>
                     </DropdownMenuContent>
-                    <Popconfirm
-                        title="Delete part 3"
-                        description="Are you sure you want to delete and you may lose content related to this part?"
-                        okText="Yes"
-                        cancelText="No"
-                        onConfirm={onDelete}
-                        className=" flex items-center p-2"
-                    >
-                        <Trash2 className="w-4 h-4 mr-4" />
-                        Delete
-                    </Popconfirm>
                 </DropdownMenu>
             );
         },
