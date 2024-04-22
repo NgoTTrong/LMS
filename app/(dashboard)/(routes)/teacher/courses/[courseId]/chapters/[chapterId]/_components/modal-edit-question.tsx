@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { IChapterQuestion } from "@/interfaces/course/course-interface";
 import { IPart1Question } from "@/interfaces/part-1/part-1-interface";
 import { ITopic } from "@/interfaces/topic/topic-interface";
 import Part1Service from "@/services/part-1/part-1-service";
@@ -27,7 +28,7 @@ import toast from "react-hot-toast";
 
 type Props = {
     children: React.ReactNode;
-    question: IPart1Question;
+    question: IChapterQuestion;
 };
 export function ModalEditQuestion({ question, children }: Props) {
     const [topics, setTopics] = useState<ITopic[]>([]);
@@ -78,8 +79,6 @@ export function ModalEditQuestion({ question, children }: Props) {
             answer: question?.question?.answer,
             topicId: question?.question?.topicId,
             explain: question?.question?.explain,
-            imageUrl: question?.imageUrls?.[0],
-            audioUrl: question?.audioUrl,
         });
     }, [question]);
     const handleEditQuestion = async () => {

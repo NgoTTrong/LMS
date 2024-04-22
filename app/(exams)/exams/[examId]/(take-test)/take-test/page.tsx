@@ -20,7 +20,7 @@ const TakeTestPage = async ({ params }: Props) => {
     return (
         <main className="max-w-[1440px] flex-1 flex w-full h-full mt-6 gap-6 px-6">
             <IntroductSections />
-            <TakeTestSection />
+            <TakeTestSection exam={exam} />
             {/* <ExamIntroduction exam={exam} />
 			<StartScreen examId={exam?.id} /> */}
         </main>

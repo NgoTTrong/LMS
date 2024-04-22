@@ -371,7 +371,7 @@ export function ModalAddQuestion({ children, part6Id }: Props) {
                                     <img
                                         src={imageUrl}
                                         alt="thumb"
-                                        className="w-full aspect-video rounded-lg"
+                                        className="w-full aspect-video rounded-lg object-cover"
                                     />
                                 ) : (
                                     <FileUpload

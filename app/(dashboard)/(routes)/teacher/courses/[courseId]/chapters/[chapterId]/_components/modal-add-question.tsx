@@ -15,8 +15,8 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { IPart1Question } from "@/interfaces/part-1/part-1-interface";
 import { ITopic } from "@/interfaces/topic/topic-interface";
+import ChapterService from "@/services/chapter/chapter-service";
 import Part1Service from "@/services/part-1/part-1-service";
 import TopicService from "@/services/topic/topic-service";
 import { Loader2, Pencil } from "lucide-react";
@@ -27,9 +27,9 @@ import toast from "react-hot-toast";
 
 type Props = {
     children: React.ReactNode;
-    question: IPart1Question;
+    chapterId: string;
 };
-export function ModalEditQuestion({ question, children }: Props) {
+export function ModalAddQuestion({ children, chapterId }: Props) {
     const [topics, setTopics] = useState<ITopic[]>([]);
     const [onEditImage, setOnEditImage] = useState<boolean>(false);
     const [onEditAudio, setOnEditAudio] = useState<boolean>(false);
@@ -56,11 +56,9 @@ export function ModalEditQuestion({ question, children }: Props) {
     }>({});
     const disabled = () => {
         return (
-            !form?.audioUrl ||
             !form?.content ||
             !form?.answer ||
             !form?.explain ||
-            !form?.imageUrl ||
             !form?.optionA ||
             !form?.optionB ||
             !form?.optionC ||
@@ -68,41 +66,26 @@ export function ModalEditQuestion({ question, children }: Props) {
             !form?.topicId
         );
     };
-    useEffect(() => {
-        setForm({
-            content: question?.question?.content,
-            optionA: question?.question?.optionA,
-            optionB: question?.question?.optionB,
-            optionC: question?.question?.optionC,
-            optionD: question?.question?.optionD,
-            answer: question?.question?.answer,
-            topicId: question?.question?.topicId,
-            explain: question?.question?.explain,
-            imageUrl: question?.imageUrls?.[0],
-            audioUrl: question?.audioUrl,
-        });
-    }, [question]);
-    const handleEditQuestion = async () => {
+    const handleAddQuestion = async () => {
         try {
             setIsLoading(true);
-            const _questionPart1 = await Part1Service.updateQuestion(
-                question?.id,
-                {
-                    id: question?.questionId,
-                    optionA: form?.optionA,
-                    optionC: form?.optionB,
-                    optionB: form?.optionC,
+            const _question = await ChapterService.addQuestion(chapterId, {
+                question: {
+                    content: form?.content!,
+                    optionA: form?.optionA!,
+                    optionB: form?.optionB!,
+                    optionC: form?.optionC!,
                     optionD: form?.optionD,
-                    content: form?.content,
-                    topicId: form?.topicId,
-                    explain: form?.explain,
-                    answer: form?.answer,
+                    explain: form?.explain!,
+                    answer: form?.answer!,
+                    topicId: form?.topicId!,
                 },
-                form?.imageUrl,
-                form?.audioUrl
-            );
-            if (_questionPart1) {
-                toast.success("Updated question");
+                imageUrl: form?.imageUrl,
+                audioUrl: form?.audioUrl,
+            });
+            if (_question) {
+                toast.success("Added question");
+                setForm({});
                 router.refresh();
             } else {
                 toast.error("Something went wrong");
@@ -151,8 +134,8 @@ export function ModalEditQuestion({ question, children }: Props) {
                             <Input
                                 id="optionA"
                                 placeholder="eg. A: 13"
-                                value={form?.optionA}
                                 className="w-full"
+                                value={form?.optionA}
                                 onChange={(event) => {
                                     setForm((state) => ({
                                         ...state,
@@ -207,8 +190,8 @@ export function ModalEditQuestion({ question, children }: Props) {
                             <Input
                                 id="optionD"
                                 placeholder="eg. D: 16"
-                                value={form?.optionD}
                                 className="w-full"
+                                value={form?.optionD}
                                 onChange={(event) => {
                                     setForm((state) => ({
                                         ...state,
@@ -363,13 +346,13 @@ export function ModalEditQuestion({ question, children }: Props) {
                     <DialogClose
                         type="button"
                         disabled={disabled() || isLoading}
-                        onClick={handleEditQuestion}
+                        onClick={handleAddQuestion}
                         className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
                     >
                         {isLoading ? (
                             <Loader2 className="w-6 h-6 animate-spin" />
                         ) : (
-                            "Save"
+                            "Add"
                         )}
                     </DialogClose>
                 </DialogFooter>

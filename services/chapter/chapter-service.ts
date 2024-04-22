@@ -1,6 +1,7 @@
 import {
     IAttachment,
     IChapter,
+    IChapterQuestion,
     ICourse,
 } from "@/interfaces/course/course-interface";
 import { apiEndpoint } from "../api/endpoint";
@@ -11,6 +12,7 @@ import { IUserProgress } from "@/interfaces/user-progress/user-progress-interfac
 const chapterRoutes = {
     getChapterById: apiEndpoint + "/chapter",
     getChapterDetailById: apiEndpoint + "/chapter/detail",
+    addQuestion: apiEndpoint + "/chapter/add-question",
 };
 export default class ChapterService {
     static getChapterDetailById = async (
@@ -90,6 +92,38 @@ export default class ChapterService {
                     courseId,
                 {
                     method: "DELETE",
+                }
+            );
+            if (response?.data) {
+                return response?.data;
+            }
+        } catch (error) {}
+        return null;
+    };
+
+    static addQuestion = async (
+        chapterId: string,
+        questionInfo: {
+            audioUrl?: string;
+            imageUrl?: string;
+            question: {
+                content: string;
+                optionA: string;
+                optionB: string;
+                optionC: string;
+                optionD?: string;
+                topicId?: string;
+                explain?: string;
+                answer?: string;
+            };
+        }
+    ) => {
+        try {
+            const response = await RequestAPI.call<IChapterQuestion>(
+                chapterRoutes.addQuestion + "/" + chapterId,
+                {
+                    method: "POST",
+                    data: questionInfo,
                 }
             );
             if (response?.data) {

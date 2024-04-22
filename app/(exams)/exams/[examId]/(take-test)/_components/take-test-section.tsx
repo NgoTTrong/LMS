@@ -1,16 +1,20 @@
+"use client";
 import { Button } from "@/components/ui/button";
-
-const TakeTestSection = () => {
+import { IExam } from "@/interfaces/exam/exam-interface";
+import { useRouter } from "next/navigation";
+type Props = {
+    exam: IExam;
+};
+const TakeTestSection = ({ exam }: Props) => {
+    const router = useRouter();
     return (
         <section className="w-[440px] min-w-[440px] flex flex-col gap-6">
             <div className="shadow-[0px_2px_6px_0px_rgba(0,0,0,0.15)] p-6 gap-3 rounded-lg flex flex-col border border-solid border-[#F0F0F0]">
                 <div className="flex flex-col">
-                    <h1 className="text-3xl font-semibold">
-                        ETS 23 TOEIC Test 1
-                    </h1>
-                    <h1 className="font-semibold">Bộ đề thi: ETS 23</h1>
+                    <h1 className="text-3xl font-semibold">{exam?.title}</h1>
+                    <h1 className="font-semibold">Bộ đề thi: ETS</h1>
                     <div className="flex items-center gap-2 font-normal">
-                        <span>120 phút</span>-<span>7 phần thi</span>-
+                        <span>{120} phút</span>-<span>7 phần thi</span>-
                         <span>200 câu hỏi</span>
                     </div>
                 </div>
@@ -35,10 +39,23 @@ const TakeTestSection = () => {
                 </div>
                 <hr />
                 <div className="flex items-center justify-between gap-6">
-                    <Button variant={"outline"} className="flex-1">
+                    <Button
+                        variant={"outline"}
+                        className="flex-1"
+                        onClick={() =>
+                            router.push(`/exams/${exam?.id}/take-test/start`)
+                        }
+                    >
                         Luyện tập
                     </Button>
-                    <Button className="flex-1">Làm full bài</Button>
+                    <Button
+                        className="flex-1"
+                        onClick={() =>
+                            router.push(`/exams/${exam?.id}/take-test/start`)
+                        }
+                    >
+                        Làm full bài
+                    </Button>
                 </div>
             </div>
             <div className="flex flex-col w-full rounded-lg shadow-[0px_2px_6px_0px_rgba(0,0,0,0.15)] overflow-hidden">
@@ -55,7 +72,14 @@ const TakeTestSection = () => {
                         Tham gia cộng đồng Mastery để cùng học hỏi và chia sẻ
                         kiến thức cũng như tài nguyên miễn phí ngay hôm nay.
                     </p>
-                    <Button className="w-fit">Tham gia ngay</Button>
+                    <Button
+                        className="w-fit"
+                        onClick={() =>
+                            router.push(`/exams/${exam?.id}/take-test/start`)
+                        }
+                    >
+                        Tham gia ngay
+                    </Button>
                 </div>
             </div>
         </section>
