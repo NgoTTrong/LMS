@@ -306,6 +306,7 @@ export function ModalEditQuestion({ question, children }: Props) {
                                                     ...state,
                                                     imageUrl: url,
                                                 }));
+                                                setOnEditImage(false);
                                             }
                                         }}
                                     />
@@ -350,6 +351,7 @@ export function ModalEditQuestion({ question, children }: Props) {
                                                     ...state,
                                                     audioUrl: url,
                                                 }));
+                                                setOnEditAudio(false);
                                             }
                                         }}
                                     />

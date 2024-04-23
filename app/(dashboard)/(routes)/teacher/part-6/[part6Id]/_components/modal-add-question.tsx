@@ -379,6 +379,7 @@ export function ModalAddQuestion({ children, part6Id }: Props) {
                                         onChange={(url) => {
                                             if (url) {
                                                 setImageUrl(url);
+                                                setOnEditImage(false);
                                             }
                                         }}
                                     />

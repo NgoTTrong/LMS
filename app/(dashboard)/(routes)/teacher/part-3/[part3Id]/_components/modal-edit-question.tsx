@@ -148,6 +148,7 @@ export function ModalEditQuestion({ question, children }: Props) {
                                         onChange={(url) => {
                                             if (url) {
                                                 setImageUrl(url);
+                                                setOnEditImage(false);
                                             }
                                         }}
                                     />
@@ -189,6 +190,7 @@ export function ModalEditQuestion({ question, children }: Props) {
                                         onChange={(url) => {
                                             if (url) {
                                                 setAudioUrl(audioUrl);
+                                                setOnEditAudio(false);
                                             }
                                         }}
                                     />

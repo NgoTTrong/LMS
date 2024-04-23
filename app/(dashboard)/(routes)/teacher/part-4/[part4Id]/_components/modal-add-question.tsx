@@ -384,6 +384,7 @@ export function ModalAddQuestion({ children, part4Id }: Props) {
                                         onChange={(url) => {
                                             if (url) {
                                                 setImageUrl(url);
+                                                setOnEditImage(false);
                                             }
                                         }}
                                     />
@@ -425,6 +426,7 @@ export function ModalAddQuestion({ children, part4Id }: Props) {
                                         onChange={(url) => {
                                             if (url) {
                                                 setAudioUrl(url);
+                                                setOnEditAudio(false);
                                             }
                                         }}
                                     />

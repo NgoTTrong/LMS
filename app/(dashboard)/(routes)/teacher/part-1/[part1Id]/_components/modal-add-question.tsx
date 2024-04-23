@@ -291,6 +291,7 @@ export function ModalAddQuestion({ children, part1Id }: Props) {
                                                     ...state,
                                                     imageUrl: url,
                                                 }));
+                                                setOnEditImage(false);
                                             }
                                         }}
                                     />
@@ -335,6 +336,7 @@ export function ModalAddQuestion({ children, part1Id }: Props) {
                                                     ...state,
                                                     audioUrl: url,
                                                 }));
+                                                setOnEditAudio(false);
                                             }
                                         }}
                                     />
