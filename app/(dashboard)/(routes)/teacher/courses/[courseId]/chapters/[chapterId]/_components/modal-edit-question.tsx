@@ -16,12 +16,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { IChapterQuestion } from "@/interfaces/course/course-interface";
-import { IPart1Question } from "@/interfaces/part-1/part-1-interface";
 import { ITopic } from "@/interfaces/topic/topic-interface";
-import Part1Service from "@/services/part-1/part-1-service";
+import ChapterService from "@/services/chapter/chapter-service";
 import TopicService from "@/services/topic/topic-service";
 import { Loader2, Pencil } from "lucide-react";
-import img from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -79,26 +77,30 @@ export function ModalEditQuestion({ question, children }: Props) {
             answer: question?.question?.answer,
             topicId: question?.question?.topicId,
             explain: question?.question?.explain,
+            imageUrl: question?.imageUrl,
+            audioUrl: question?.audioUrl,
         });
     }, [question]);
     const handleEditQuestion = async () => {
         try {
             setIsLoading(true);
-            const _questionPart1 = await Part1Service.updateQuestion(
+            const _questionPart1 = await ChapterService.updateQuestion(
                 question?.id,
                 {
-                    id: question?.questionId,
-                    optionA: form?.optionA,
-                    optionC: form?.optionB,
-                    optionB: form?.optionC,
-                    optionD: form?.optionD,
-                    content: form?.content,
-                    topicId: form?.topicId,
-                    explain: form?.explain,
-                    answer: form?.answer,
-                },
-                form?.imageUrl,
-                form?.audioUrl
+                    question: {
+                        id: question?.questionId,
+                        optionA: form?.optionA,
+                        optionC: form?.optionB,
+                        optionB: form?.optionC,
+                        optionD: form?.optionD,
+                        content: form?.content,
+                        topicId: form?.topicId,
+                        explain: form?.explain,
+                        answer: form?.answer,
+                    },
+                    imageUrl: form?.imageUrl,
+                    audioUrl: form?.audioUrl,
+                }
             );
             if (_questionPart1) {
                 toast.success("Updated question");
@@ -305,6 +307,7 @@ export function ModalEditQuestion({ question, children }: Props) {
                                                     ...state,
                                                     imageUrl: url,
                                                 }));
+                                                setOnEditImage(false);
                                             }
                                         }}
                                     />
@@ -349,6 +352,7 @@ export function ModalEditQuestion({ question, children }: Props) {
                                                     ...state,
                                                     audioUrl: url,
                                                 }));
+                                                setOnEditAudio(false);
                                             }
                                         }}
                                     />

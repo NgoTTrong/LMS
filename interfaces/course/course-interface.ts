@@ -48,4 +48,6 @@ export interface IChapterQuestion {
     chapterId: string;
     questionId: string;
     question: IQuestion;
+    imageUrl?: string;
+    audioUrl?: string;
 }
