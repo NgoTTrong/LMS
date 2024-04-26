@@ -51,7 +51,9 @@ const TakeTestSection = ({ exam }: Props) => {
                     <Button
                         className="flex-1"
                         onClick={() =>
-                            router.push(`/exams/${exam?.id}/take-test/start`)
+                            router.push(
+                                `/exams/${exam?.id}/take-test/introduction`
+                            )
                         }
                     >
                         Làm full bài

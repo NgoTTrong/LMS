@@ -71,6 +71,7 @@ export default class ChapterService {
             isFree?: boolean;
             videoUrl?: string;
             isPublished?: boolean;
+            topicId?: string;
         }
     ) => {
         try {

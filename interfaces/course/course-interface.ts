@@ -1,4 +1,4 @@
-import { IQuestion } from "../question/question-interface";
+import { IQuestion, ITopic } from "../question/question-interface";
 
 export interface ICourse {
     id: string;
@@ -35,6 +35,8 @@ export interface IChapter {
     isFree: boolean;
     description?: string;
     videoUrl?: string;
+    topicId?: string;
+    topic?: ITopic;
     userProgress: {
         id: string;
         isCompleted: boolean;

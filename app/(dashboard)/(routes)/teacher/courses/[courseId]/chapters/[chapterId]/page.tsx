@@ -2,6 +2,7 @@ import { IconBadge } from "@/components/icon-badge";
 import CourseService from "@/services/course/courseService";
 import {
     ArrowLeft,
+    BookOpenCheck,
     Eye,
     FileQuestion,
     LayoutDashboard,
@@ -20,6 +21,8 @@ import ChapterActions from "./_components/chapter-actions";
 import ChapterListQuestions from "./_components/chapter-list-question";
 import { Button } from "antd";
 import { ModalAddQuestion } from "./_components/modal-add-question";
+import { ComboBox } from "@/components/ui/combo-box";
+import TopicForm from "./_components/topic-form";
 
 const ChapterIdPage = async ({
     params,
@@ -30,7 +33,6 @@ const ChapterIdPage = async ({
     };
 }) => {
     const chapter = await ChapterService.getChapterById(params.chapterId);
-    console.log(chapter);
     if (!chapter) {
         redirect("/");
     }
@@ -110,6 +112,17 @@ const ChapterIdPage = async ({
                                 chapterId={chapter?.id}
                             />
                         </div>
+                        <div>
+                            <div className="flex items-center gap-x-2">
+                                <IconBadge icon={BookOpenCheck} />
+                                <h2 className="text-xl">Topic setting</h2>
+                            </div>
+                            <TopicForm
+                                chapterId={chapter?.id}
+                                initialData={chapter}
+                            />
+                        </div>
+
                         <div className="flex flex-col gap-6">
                             <div className="flex items-center justify-between w-full gap-x-2">
                                 <div className="w-fit flex items-center gap-2">

@@ -121,3 +121,20 @@ body,
     max-height: calc(2rem * 3);
     line-height: 1rem;
 }
+
+.animate-spin-one {
+    animation: spin-one 1s ease-in-out;
+}
+
+@keyframes spin-one {
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-30deg);
+    }
+    75% {
+        transform: rotate(30deg);
+    }
+}
