@@ -15,6 +15,7 @@ import {
 	BookImage,
 	Trophy,
 	User,
+	ArrowBigUpDash,
 } from "lucide-react";
 import SidebarItem from "./sidebar-item";
 import { usePathname } from "next/navigation";
@@ -44,6 +45,11 @@ const guestRoutes = [
 		icon: Trophy,
 		label: "Leaderboard",
 		href: "/leaderboard",
+	},
+	{
+		icon: ArrowBigUpDash,
+		label: "Ranking",
+		href: "/ranking",
 	},
 ];
 const teacherRoutes = [

@@ -1,4 +1,4 @@
-// chatbot-widget.tsx
+"use client";
 
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -62,7 +62,11 @@ const ChatbotWidget: React.FC = () => {
 	};
 
 	return (
-		<div className={"fixed bottom-6 right-6 flex flex-col gap-2 items-end"}>
+		<div
+			className={
+				"fixed bottom-6 right-6 flex flex-col gap-2 items-end bg-white"
+			}
+		>
 			<button onClick={() => setOpenChatbot(!openChatBot)}>
 				{openChatBot ? (
 					<MessageCircleX className="text-red-700" />
