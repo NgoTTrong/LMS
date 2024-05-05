@@ -8,6 +8,7 @@ import {
 	WalletCards,
 	BookMarked,
 	Users,
+	Gamepad2
 } from "lucide-react";
 import SidebarItem from "./sidebar-item";
 import { usePathname } from "next/navigation";
@@ -32,6 +33,11 @@ const guestRoutes = [
 		icon: Users,
 		label: "Groups",
 		href: "/groups",
+	},
+	{
+		icon: Gamepad2,
+		label: "Mini game",
+		href: "/mini-game",
 	},
 ];
 const teacherRoutes = [

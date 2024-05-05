@@ -12,10 +12,10 @@ const SidebarItem = ({ label, icon: Icon, href }: Props) => {
   const pathname = usePathname();
   const router = useRouter();
 
-  const isActive =
-    (pathname == "/" && href == "/") ||
-    pathname == href ||
-    pathname?.startsWith(`${href}/`);
+  const isActive = true;
+    // (pathname == "/" && href == "/") ||
+    // pathname == href ||
+    // pathname?.startsWith(`${href}/`);
 
   const onClick = () => {
     router.push(href);
