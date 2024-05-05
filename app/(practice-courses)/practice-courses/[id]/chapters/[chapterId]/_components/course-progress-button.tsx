@@ -32,7 +32,6 @@ const CourseProgressButton = ({
 	}
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const { setOpenModal, setMessage, setRank } = modalLevelUpStore();
-
 	const onClick = async () => {
 		try {
 			setIsLoading(true);
@@ -42,10 +41,10 @@ const CourseProgressButton = ({
 			});
 			if (_progress) {
 				toast.success("Completed chapter");
-
+				console.log(nextChapterId);
 				if (nextChapterId && isCompleted == false) {
 					router.push(
-						`/courses/${courseId}/chapters/${nextChapterId}`
+						`/practice-courses/${courseId}/chapters/${nextChapterId}`
 					);
 				} else {
 					if (isCompleted == false) {

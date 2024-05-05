@@ -2,6 +2,7 @@
 
 import { useClientAuth } from "@/hooks/use-client-auth";
 import { IChapterQuestion } from "@/interfaces/course/course-interface";
+import { cn } from "@/lib/utils";
 import ChapterService from "@/services/chapter/chapter-service";
 import { useEffect, useState } from "react";
 
@@ -53,9 +54,16 @@ const QuestionCard = ({ question, chapterId, index, answers }: Props) => {
 						setChoosenQuestion("A");
 						handleAnswer("A");
 					}}
-					className={`flex items-center gap-4 ${
-						choosen == "A" && "bg-sky-200"
-					} rounded-lg p-2`}
+					className={cn(
+						"flex items-center gap-4 rounded-lg p-2",
+						choosen == "A" && "bg-sky-200",
+						choosen == "A" &&
+							choosen == question?.question?.answer &&
+							"bg-emerald-200",
+						choosen == "A" &&
+							choosen != question?.question?.answer &&
+							"bg-red-200"
+					)}
 				>
 					<input
 						type="radio"
@@ -73,9 +81,16 @@ const QuestionCard = ({ question, chapterId, index, answers }: Props) => {
 						setChoosenQuestion("B");
 						handleAnswer("B");
 					}}
-					className={`flex items-center gap-4 ${
-						choosen == "B" && "bg-sky-200"
-					} rounded-lg p-2`}
+					className={cn(
+						"flex items-center gap-4 rounded-lg p-2",
+						choosen == "B" && "bg-sky-200",
+						choosen == "B" &&
+							choosen == question?.question?.answer &&
+							"bg-emerald-200",
+						choosen == "B" &&
+							choosen != question?.question?.answer &&
+							"bg-red-200"
+					)}
 				>
 					<input
 						type="radio"
@@ -94,9 +109,16 @@ const QuestionCard = ({ question, chapterId, index, answers }: Props) => {
 						setChoosenQuestion("C");
 						handleAnswer("C");
 					}}
-					className={`flex items-center gap-4 ${
-						choosen == "C" && "bg-sky-200"
-					} rounded-lg p-2`}
+					className={cn(
+						"flex items-center gap-4 rounded-lg p-2",
+						choosen == "C" && "bg-sky-200",
+						choosen == "C" &&
+							choosen == question?.question?.answer &&
+							"bg-emerald-200",
+						choosen == "C" &&
+							choosen != question?.question?.answer &&
+							"bg-red-200"
+					)}
 				>
 					<input
 						type="radio"
@@ -115,9 +137,16 @@ const QuestionCard = ({ question, chapterId, index, answers }: Props) => {
 						setChoosenQuestion("D");
 						handleAnswer("D");
 					}}
-					className={`flex items-center gap-4 ${
-						choosen == "D" && "bg-sky-200"
-					} rounded-lg p-2`}
+					className={cn(
+						"flex items-center gap-4 rounded-lg p-2",
+						choosen == "D" && "bg-sky-200",
+						choosen == "D" &&
+							choosen == question?.question?.answer &&
+							"bg-emerald-200",
+						choosen == "D" &&
+							choosen != question?.question?.answer &&
+							"bg-red-200"
+					)}
 				>
 					<input
 						type="radio"
@@ -132,6 +161,19 @@ const QuestionCard = ({ question, chapterId, index, answers }: Props) => {
 					</label>
 				</div>
 			</div>
+			{choosen && (
+				<div className="flex flex-col gap-4">
+					<h1 className="text-lg font-medium">Explain</h1>
+					<span>
+						Correct Answer: <b>{question?.question?.answer}</b>
+					</span>
+					<div
+						dangerouslySetInnerHTML={{
+							__html: "Explain: " + question?.question?.explain,
+						}}
+					></div>
+				</div>
+			)}
 		</div>
 	);
 };

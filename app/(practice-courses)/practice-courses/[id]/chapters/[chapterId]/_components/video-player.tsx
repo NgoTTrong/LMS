@@ -1,7 +1,7 @@
 "use client";
+
 import UserProgressService from "@/services/user-progress/user-progress-serivce";
 import { useAuth } from "@clerk/nextjs";
-import { Loader2, Lock } from "lucide-react";
 import { redirect, useRouter } from "next/navigation";
 import { LegacyRef, useRef, useState } from "react";
 import toast from "react-hot-toast";
@@ -12,7 +12,6 @@ type Props = {
 	title: string;
 	courseId: string;
 	nextChapterId?: string;
-	isLocked: boolean;
 	completeOnEnd: boolean;
 };
 const VideoPlayer = ({
@@ -21,12 +20,10 @@ const VideoPlayer = ({
 	title,
 	courseId,
 	nextChapterId,
-	isLocked,
 	completeOnEnd,
 }: Props) => {
 	const videoRef: LegacyRef<HTMLVideoElement> = useRef(null);
 	const { userId } = useAuth();
-
 	if (!userId) {
 		redirect("/");
 	}
@@ -51,29 +48,21 @@ const VideoPlayer = ({
 	};
 	return (
 		<div className="relative aspect-video">
-			{!isLocked && (
-				<div className="absolute inset-0 flex items-center justify-center bg-slate-800">
-					<video
-						src={videoUrl}
-						controls
-						ref={videoRef}
-						onLoadStart={() => {
-							if (videoRef?.current) {
-								videoRef.current.volume = 0.2;
-							}
-						}}
-						onEnded={onEnd}
-						preload="auto"
-						className="object-contain w-full h-full"
-					/>
-				</div>
-			)}
-			{isLocked && (
-				<div className="absolute inset-0 flex items-center justify-center bg-slate-800 flex-col gap-y-2 text-secondary">
-					<Lock className="w-8 h-8" />
-					<p className="text-sm">This chapter is locked</p>
-				</div>
-			)}
+			<div className="absolute inset-0 flex items-center justify-center bg-slate-800">
+				<video
+					src={videoUrl}
+					controls
+					ref={videoRef}
+					onLoadStart={() => {
+						if (videoRef?.current) {
+							videoRef.current.volume = 0.2;
+						}
+					}}
+					onEnded={onEnd}
+					preload="auto"
+					className="object-contain w-full h-full"
+				/>
+			</div>
 		</div>
 	);
 };

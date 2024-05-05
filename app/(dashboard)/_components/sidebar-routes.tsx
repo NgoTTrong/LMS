@@ -1,56 +1,56 @@
 "use client";
 import {
-  BarChart,
-  BookText,
-  Compass,
-  Layout,
-  List,
-  WalletCards,
-  BookMarked,
-  Users,
-  Gamepad2,
-  BookType,
-  BookAudio,
-  BookHeadphones,
-  BookHeart,
-  BookImage,
-  Trophy,
-  User,
+	BarChart,
+	BookText,
+	Compass,
+	Layout,
+	List,
+	WalletCards,
+	BookMarked,
+	Users,
+	BookType,
+	BookAudio,
+	BookHeadphones,
+	BookHeart,
+	BookImage,
+	Trophy,
+	User,
+	ArrowBigUpDash,
 } from "lucide-react";
 import SidebarItem from "./sidebar-item";
 import { usePathname } from "next/navigation";
 
 const guestRoutes = [
-  {
-    icon: Layout,
-    label: "Dashboard",
-    href: "/",
-  },
-  {
-    icon: Compass,
-    label: "Browse",
-    href: "/search",
-  },
-  {
-    icon: WalletCards,
-    label: "Flashcard",
-    href: "/flashcard",
-  },
-  {
-    icon: Users,
-    label: "Groups",
-    href: "/groups",
-  },
-  {
-    icon: Gamepad2,
-    label: "Mini game",
-    href: "/mini-game",
-  },
-  {
-    icon: Trophy,
-    label: "Leaderboard",
-    href: "/leaderboard",
-  },
+	{
+		icon: Layout,
+		label: "Dashboard",
+		href: "/",
+	},
+	{
+		icon: Compass,
+		label: "Browse",
+		href: "/search",
+	},
+	{
+		icon: WalletCards,
+		label: "Flashcard",
+		href: "/flashcard",
+	},
+	{
+		icon: Users,
+		label: "Groups",
+		href: "/groups",
+	},
+	{
+		icon: Trophy,
+		label: "Leaderboard",
+		href: "/leaderboard",
+	},
+	{
+		icon: ArrowBigUpDash,
+		label: "Ranking",
+		href: "/ranking",
+	},
 ];
 const teacherRoutes = [
   {

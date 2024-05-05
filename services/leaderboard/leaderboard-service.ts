@@ -1,4 +1,7 @@
-import { ILeaderBoard } from "@/interfaces/leaderboard/leaderboard-interface";
+import {
+	ILeaderBoard,
+	IRank,
+} from "@/interfaces/leaderboard/leaderboard-interface";
 import { apiEndpoint } from "../api/endpoint";
 import RequestAPI from "../api/request-api";
 
@@ -27,16 +30,16 @@ export default class LeaderBoardService {
 	};
 	static receicePoint = async (userId: string, point: number) => {
 		try {
-			const response = await RequestAPI.call(
-				leaderBoardRoutes.receivePoint,
-				{
-					method: "POST",
-					headers: {
-						Authorization: userId,
-					},
-					data: { point },
-				}
-			);
+			const response = await RequestAPI.call<{
+				rank: IRank;
+				isUpRank: boolean;
+			}>(leaderBoardRoutes.receivePoint, {
+				method: "POST",
+				headers: {
+					Authorization: userId,
+				},
+				data: { point },
+			});
 			if (response?.data) {
 				return response?.data;
 			}

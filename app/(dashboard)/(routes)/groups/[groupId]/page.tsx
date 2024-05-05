@@ -13,12 +13,8 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ModalCreateTopic } from "./_component/modal-create-topic";
 import PostCard from "./_component/post-card";
-import { Modal } from "antd";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import ModalDetailTopic from "./_component/modal-detail-topic";
 import { toast } from "react-hot-toast";
-import img from "next/image";
 
 type Props = {
     params: {
