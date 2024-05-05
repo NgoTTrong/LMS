@@ -266,6 +266,7 @@ export function ModalAddQuestion({ children, part2Id }: Props) {
                                                     ...state,
                                                     audioUrl: url,
                                                 }));
+                                                setOnEditAudio(false);
                                             }
                                         }}
                                     />

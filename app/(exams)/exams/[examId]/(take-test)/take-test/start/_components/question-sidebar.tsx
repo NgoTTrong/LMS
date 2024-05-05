@@ -9,7 +9,7 @@ import {
     IExamDetail,
 } from "@/interfaces/exam/exam-interface";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getCurrentQuestion } from "../_helper/get-current-question";
 import examStore from "@/stores/exam/exam-store";
 import ConfirmModal from "@/components/modal/confirm-modal";
@@ -18,11 +18,26 @@ import { useClientAuth } from "@/hooks/use-client-auth";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
+function secondsToMmSs(seconds: number) {
+    // Ensure seconds is a non-negative number
+    seconds = Math.max(0, seconds);
+
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+
+    // Pad minutes and seconds with leading zeros if necessary
+    const formattedMinutes = minutes.toString().padStart(2, "0");
+    const formattedSeconds = remainingSeconds.toString().padStart(2, "0");
+
+    return `${formattedMinutes}:${formattedSeconds}`;
+}
+
 type Props = {
     examDetail: IExamDetail;
 };
 const QuestionSidebar = ({ examDetail }: Props) => {
     const [openSideBar, setOpenSideBar] = useState<boolean>(false);
+    const [timmer, setTimmer] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const user = useClientAuth();
     const router = useRouter();
@@ -54,6 +69,13 @@ const QuestionSidebar = ({ examDetail }: Props) => {
             setIsLoading(false);
         }
     };
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTimmer((state) => state + 1);
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
     return (
         <>
             <ChevronLeft
@@ -73,7 +95,9 @@ const QuestionSidebar = ({ examDetail }: Props) => {
                     <h1 className="font-medium">Working time</h1>
                 </div>
                 <div className="flex flex-col gap-4 flex-1 px-4 py-2">
-                    <h1 className="w-full text-center text-xl">10:00</h1>
+                    <h1 className="w-full text-center text-xl">
+                        {secondsToMmSs(timmer)}
+                    </h1>
                     <ConfirmModal onConfirm={handleSubmitExam}>
                         <Button variant={"outline"} disabled={isLoading}>
                             End test

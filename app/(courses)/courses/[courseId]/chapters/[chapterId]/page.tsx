@@ -8,6 +8,7 @@ import { Preview } from "@/components/preview";
 import { File } from "lucide-react";
 import CourseProgressButton from "./_components/course-progress-button";
 import { currentUser } from "@clerk/nextjs";
+import QuestionCard from "./_components/question-card";
 
 const ChapterIdPage = async ({
     params,
@@ -81,7 +82,7 @@ const ChapterIdPage = async ({
                     {!!chapterData?.attachments?.length && (
                         <>
                             <Separator />
-                            <div className="p-4">
+                            <div className="p-4 flex flex-col gap-4 w-full">
                                 {chapterData?.attachments?.map(
                                     (attachment, idx) => {
                                         return (
@@ -96,6 +97,31 @@ const ChapterIdPage = async ({
                                                     {attachment?.name}
                                                 </p>
                                             </a>
+                                        );
+                                    }
+                                )}
+                            </div>
+                        </>
+                    )}
+                    {!!chapterData?.questions?.length && (
+                        <>
+                            <Separator />
+                            <div className="p-4 flex flex-col gap-4 w-full">
+                                {chapterData?.questions?.map(
+                                    (question, idx) => {
+                                        return (
+                                            <QuestionCard
+                                                chapterId={
+                                                    chapterData?.chapter?.id
+                                                }
+                                                question={question}
+                                                key={"question-" + idx}
+                                                index={idx + 1}
+                                                answers={
+                                                    chapterData?.userProgress
+                                                        ?.answers
+                                                }
+                                            />
                                         );
                                     }
                                 )}

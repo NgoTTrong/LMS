@@ -30,7 +30,6 @@ type Props = {
 };
 export function ModalEditQuestion({ question, children }: Props) {
     const [topics, setTopics] = useState<ITopic[]>([]);
-    const [onEditImage, setOnEditImage] = useState<boolean>(false);
     const [onEditAudio, setOnEditAudio] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const router = useRouter();
@@ -281,6 +280,7 @@ export function ModalEditQuestion({ question, children }: Props) {
                                                     ...state,
                                                     audioUrl: url,
                                                 }));
+                                                setOnEditAudio(false);
                                             }
                                         }}
                                     />

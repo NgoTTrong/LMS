@@ -280,7 +280,7 @@ export function ModalAddQuestion({ children, part1Id }: Props) {
                                     <img
                                         src={form?.imageUrl}
                                         alt="thumb"
-                                        className="w-full aspect-video rounded-lg"
+                                        className="w-full aspect-video rounded-lg object-cover"
                                     />
                                 ) : (
                                     <FileUpload
@@ -291,6 +291,7 @@ export function ModalAddQuestion({ children, part1Id }: Props) {
                                                     ...state,
                                                     imageUrl: url,
                                                 }));
+                                                setOnEditImage(false);
                                             }
                                         }}
                                     />
@@ -335,6 +336,7 @@ export function ModalAddQuestion({ children, part1Id }: Props) {
                                                     ...state,
                                                     audioUrl: url,
                                                 }));
+                                                setOnEditAudio(false);
                                             }
                                         }}
                                     />

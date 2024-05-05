@@ -370,7 +370,7 @@ export function ModalAddQuestion({ children, part7Id }: Props) {
                                     <img
                                         src={imageUrl}
                                         alt="thumb"
-                                        className="w-full aspect-video rounded-lg"
+                                        className="w-full aspect-video rounded-lg object-cover"
                                     />
                                 ) : (
                                     <FileUpload
@@ -378,6 +378,7 @@ export function ModalAddQuestion({ children, part7Id }: Props) {
                                         onChange={(url) => {
                                             if (url) {
                                                 setImageUrl(url);
+                                                setOnEditImage(false);
                                             }
                                         }}
                                     />

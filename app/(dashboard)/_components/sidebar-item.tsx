@@ -12,10 +12,10 @@ const SidebarItem = ({ label, icon: Icon, href }: Props) => {
   const pathname = usePathname();
   const router = useRouter();
 
-  const isActive = true;
-    // (pathname == "/" && href == "/") ||
-    // pathname == href ||
-    // pathname?.startsWith(`${href}/`);
+  const isActive =
+    (pathname == "/" && href == "/") ||
+    pathname == href ||
+    pathname?.startsWith(`${href}/`);
 
   const onClick = () => {
     router.push(href);
@@ -33,7 +33,10 @@ const SidebarItem = ({ label, icon: Icon, href }: Props) => {
       <div className="flex items-center gap-x-2 py-4">
         <Icon
           size={24}
-          className={cn("text-slate-500", isActive && "text-sky-700")}
+          className={cn(
+            "text-slate-500",
+            isActive && "text-sky-700 animate-spin-one"
+          )}
         />
         {label}
       </div>

@@ -95,15 +95,19 @@ const ChapterAccessForm = ({ initialData, chapterId }: Props) => {
 												onCheckedChange={
 													field?.onChange
 												}
+												id="check-box"
 											/>
 										</FormControl>
-										<div className="space-y-1 leading-none">
+										<label
+											htmlFor="check-box"
+											className="space-y-1 leading-none"
+										>
 											<FormDescription>
 												Check this box if you want to
 												make this chapter free for
 												preview
 											</FormDescription>
-										</div>
+										</label>
 										<FormMessage />
 									</FormItem>
 								);

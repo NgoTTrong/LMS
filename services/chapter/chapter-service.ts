@@ -1,6 +1,7 @@
 import {
     IAttachment,
     IChapter,
+    IChapterQuestion,
     ICourse,
 } from "@/interfaces/course/course-interface";
 import { apiEndpoint } from "../api/endpoint";
@@ -11,6 +12,11 @@ import { IUserProgress } from "@/interfaces/user-progress/user-progress-interfac
 const chapterRoutes = {
     getChapterById: apiEndpoint + "/chapter",
     getChapterDetailById: apiEndpoint + "/chapter/detail",
+    addQuestion: apiEndpoint + "/chapter/add-question",
+    deleteQuestion: apiEndpoint + "/chapter/delete-question",
+    updateQuestion: apiEndpoint + "/chapter/update-question",
+    reorderQuestions: apiEndpoint + "/chapter/reorder-questions",
+    answerQuestion: apiEndpoint + "/chapter/answer-question",
 };
 export default class ChapterService {
     static getChapterDetailById = async (
@@ -26,6 +32,7 @@ export default class ChapterService {
                 payment: IPayment;
                 course: ICourse;
                 userProgress: IUserProgress;
+                questions: IChapterQuestion[];
             }>(chapterRoutes.getChapterDetailById, {
                 method: "POST",
                 data: {
@@ -64,6 +71,7 @@ export default class ChapterService {
             isFree?: boolean;
             videoUrl?: string;
             isPublished?: boolean;
+            topicId?: string;
         }
     ) => {
         try {
@@ -90,6 +98,127 @@ export default class ChapterService {
                     courseId,
                 {
                     method: "DELETE",
+                }
+            );
+            if (response?.data) {
+                return response?.data;
+            }
+        } catch (error) {}
+        return null;
+    };
+
+    static addQuestion = async (
+        chapterId: string,
+        questionInfo: {
+            audioUrl?: string;
+            imageUrl?: string;
+            question: {
+                content: string;
+                optionA: string;
+                optionB: string;
+                optionC: string;
+                optionD?: string;
+                topicId?: string;
+                explain?: string;
+                answer?: string;
+            };
+        }
+    ) => {
+        try {
+            const response = await RequestAPI.call<IChapterQuestion>(
+                chapterRoutes.addQuestion + "/" + chapterId,
+                {
+                    method: "POST",
+                    data: questionInfo,
+                }
+            );
+            if (response?.data) {
+                return response?.data;
+            }
+        } catch (error) {}
+        return null;
+    };
+
+    static deleteQuestion = async (questionId: string) => {
+        try {
+            const response = await RequestAPI.call<IChapterQuestion>(
+                chapterRoutes.deleteQuestion + "/" + questionId,
+                {
+                    method: "DELETE",
+                }
+            );
+            if (response?.data) {
+                return response?.data;
+            }
+        } catch (error) {}
+        return null;
+    };
+
+    static updateQuestion = async (
+        questionId: string,
+        updateInfo: {
+            audioUrl?: string;
+            imageUrl?: string;
+            question?: {
+                id: string;
+                content?: string;
+                optionA?: string;
+                optionB?: string;
+                optionC?: string;
+                optionD?: string;
+                topicId?: string;
+                explain?: string;
+                answer?: string;
+            };
+        }
+    ) => {
+        try {
+            const response = await RequestAPI.call<IChapterQuestion>(
+                chapterRoutes.updateQuestion + "/" + questionId,
+                {
+                    method: "PATCH",
+                    data: updateInfo,
+                }
+            );
+            if (response?.data) {
+                return response?.data;
+            }
+        } catch (error) {}
+        return null;
+    };
+    static reorderQuestions = async (
+        chapterId: string,
+        updateData: { id: string; position: number }[]
+    ) => {
+        try {
+            const response = await RequestAPI.call<IChapterQuestion>(
+                chapterRoutes.reorderQuestions + "/" + chapterId,
+                {
+                    method: "POST",
+                    data: { reorderData: updateData },
+                }
+            );
+            if (response?.data) {
+                return response?.data;
+            }
+        } catch (error) {}
+        return null;
+    };
+    static answerQuestion = async (
+        userId: string,
+        chapterId: string,
+        questionId: string,
+        answer: string
+    ) => {
+        try {
+            const response = await RequestAPI.call<IChapterQuestion>(
+                chapterRoutes.answerQuestion + "/" + chapterId,
+                {
+                    method: "POST",
+                    data: { questionId, answer },
+                    headers: {
+                        Authorization: userId,
+                    },
                 }
             );
             if (response?.data) {
