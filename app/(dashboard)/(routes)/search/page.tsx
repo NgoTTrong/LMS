@@ -19,12 +19,10 @@ type Props = {
 };
 const SearchPage = async ({ searchParams }: Props) => {
     const user = await currentUser();
-    if (!user) {
-        redirect("/");
-    }
+
     let courseCategories = await CourseService.getAllCategoryCourse();
     let courses = await CourseService.getAllCoursesByUser(
-        user.id,
+        user?.id,
         searchParams?.title,
         searchParams?.categoryId
     );
