@@ -20,7 +20,7 @@ const CourseCard = ({ item }: Props) => {
                     <img
                         src={item?.course?.imageUrl!}
                         alt={item?.course?.title}
-                        className="object-cover"
+                        className="object-cover w-full"
                     />
                 </div>
                 <div className="flex flex-col pt-2">

@@ -53,7 +53,7 @@ const ExamCard = ({ exam }: Props) => {
                     <img
                         src={exam?.thumbnail ?? ""}
                         alt={exam?.title}
-                        className="object-cover"
+                        className="object-cover w-full"
                     />
                 </div>
                 <div className="flex flex-col pt-2">
