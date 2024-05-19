@@ -55,7 +55,7 @@ const GroupCard = ({ group }: Props) => {
 				if (group?.GroupMember?.[idx]?.status == "WAITING")
 					setText("Waiting");
 				else {
-					("Joined");
+					setText("Joined");
 				}
 			}
 		}
@@ -88,10 +88,10 @@ const GroupCard = ({ group }: Props) => {
 				className="w-full aspect-video rounded-t-lg object-cover"
 			/>
 			<div className="flex flex-col gap-2 p-4">
-				<h1 className="text-base font-medium two-lines-truncate">
+				<h1 className="text-base font-medium truncate">
 					{group?.title}
 				</h1>
-				<p className="text-sm text-slate-500 three-lines-truncate">
+				<p className="text-sm text-slate-500 truncate">
 					{group?.description}
 				</p>
 				<div className="flex items-center justify-between">
@@ -102,7 +102,7 @@ const GroupCard = ({ group }: Props) => {
 
 					<Button
 						onClick={async () => {
-							if (!group?.isPublic) {
+							if (!group?.isPublic && text != "Joined") {
 								setIsOpenInput(true);
 							} else {
 								const idx = group?.GroupMember?.findIndex(

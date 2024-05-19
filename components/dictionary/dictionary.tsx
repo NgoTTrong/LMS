@@ -10,7 +10,7 @@ const Dictionary: React.FC = () => {
 	return (
 		<div
 			className={
-				"fixed top-[200px] right-0 flex flex-col items-end transition-all duration-300"
+				"fixed top-[200px] right-0 flex flex-col items-end transition-all duration-300 bg-white rounded-lg"
 			}
 		>
 			<div className={"shadow-lg p-2 rounded-l-lg"}>
