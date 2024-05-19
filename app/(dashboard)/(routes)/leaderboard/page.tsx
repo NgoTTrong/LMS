@@ -62,19 +62,19 @@ const LeaderBoard = () => {
 								/>
 							</div>
 							<div className="flex flex-col gap-2">
-								<h1 className="text-sm">
+								<h1 className="md:text-sm text-xs">
 									{leaderBoard?.user?.user?.name}
 								</h1>
-								<p className="text-xs text-slate-500">
+								<p className="md:text-xs text-[10px] text-slate-500">
 									{leaderBoard?.user?.user?.rank?.name}
 								</p>
 							</div>
-							<div className="px-2 py-1 rounded-lg bg-emerald-300 text-emerald-700 text-xs">
+							<div className="md:px-2 md:py-1 px-1 py-[2px] rounded-lg bg-emerald-300 text-emerald-700 md:text-xs text-[10px]">
 								You
 							</div>
 						</div>
 						<div className="col-span-2">
-							<div className="w-fit px-2 py-1 rounded-lg bg-emerald-300 text-emerald-700 text-xs">
+							<div className="w-fit md:px-2 md:py-1 px-1 py-[2px] rounded-lg bg-emerald-300 text-emerald-700 md:text-xs text-[10px]">
 								{leaderBoard?.user?.point}
 							</div>
 						</div>
@@ -102,16 +102,16 @@ const LeaderBoard = () => {
 										/>
 									</div>
 									<div className="flex flex-col gap-2">
-										<h1 className="text-sm">
+										<h1 className="md:text-sm text-xs">
 											{member?.user?.name}
 										</h1>
-										<p className="text-xs text-slate-500">
+										<p className="md:text-xs text-[10px] text-slate-500">
 											{member?.user?.rank?.name}
 										</p>
 									</div>
 								</div>
 								<div className="col-span-2">
-									<div className="w-fit px-2 py-1 rounded-lg bg-emerald-300 text-emerald-700 text-xs">
+									<div className="w-fit md:px-2 md:py-1 px-1 py-[2px] rounded-lg bg-emerald-300 md:text-xs text-[10px]">
 										{member?.point}
 									</div>
 								</div>

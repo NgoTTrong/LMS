@@ -64,7 +64,7 @@ const ChatbotWidget: React.FC = () => {
 	return (
 		<div
 			className={
-				"fixed bottom-6 right-6 flex flex-col gap-2 items-end bg-white rounded-full"
+				"fixed bottom-6 right-6 flex flex-col gap-2 items-end rounded-full"
 			}
 		>
 			<button onClick={() => setOpenChatbot(!openChatBot)}>
@@ -79,7 +79,7 @@ const ChatbotWidget: React.FC = () => {
 			{openChatBot && (
 				<div
 					className={
-						"p-4 rounded-lg shadow-lg flex flex-col gap-4 w-[500px] max-h-[500px] !overflow-auto"
+						"p-4 rounded-lg shadow-lg flex flex-col gap-4 md:w-[500px] md:max-h-[500px] w-full !overflow-auto bg-white"
 					}
 				>
 					<header className={""}>

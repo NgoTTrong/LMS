@@ -1,7 +1,7 @@
 "use client";
 const Ranking = () => {
 	return (
-		<main className="p-6 h-full flex-1 overflow-auto flex gap-6 w-full">
+		<main className="p-6 h-full flex-1 overflow-auto flex md:flex-row flex-col md:gap-6 gap-4 w-full">
 			<div className="flex flex-col gap-6">
 				<h1 className="text-2xl font-medium">Ranking system</h1>
 				<img
