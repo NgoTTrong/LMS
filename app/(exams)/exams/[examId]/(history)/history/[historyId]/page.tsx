@@ -74,7 +74,7 @@ const HistoryPage = async ({ params }: Props) => {
 							<Check className={"text-green-500"} />
 						</span>
 						<span className="text-base flex flex-col">
-							Wrong topics{":"}
+							Some topics need improvement{":"}
 							<ul className="list-disc flex flex-col gap-2 ml-8 mt-2">
 								{history?.history?.wrongTopics?.map(
 									(topic, idx) => (
