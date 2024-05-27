@@ -29,6 +29,7 @@ const HistoryPage = async ({ params }: Props) => {
 	if (!history) {
 		redirect("/search");
 	}
+
 	return (
 		<main className="p-6 flex flex-col gap-6 w-full max-w-[1024px]">
 			<h1 className="text-2xl font-semibold flex items-center gap-4 text-sky-600 w-full justify-center">
@@ -62,13 +63,15 @@ const HistoryPage = async ({ params }: Props) => {
 						<span className="text-base flex items-center gap-2">
 							Total corrects{":"}
 							<span className=" text-green-500">
-								{history?.history?.numOfCorrects}
+								{history?.numOfCorrects}
 							</span>
 							/
 							<span>
 								{Math.floor(
-									(history?.history?.numOfCorrects * 1000) /
-										history?.history?.score
+									(history?.numOfCorrects * 1000) /
+										(history?.history?.score != 0
+											? history?.history?.score
+											: 1)
 								)}
 							</span>
 							<Check className={"text-green-500"} />
@@ -76,13 +79,9 @@ const HistoryPage = async ({ params }: Props) => {
 						<span className="text-base flex flex-col">
 							Some topics need improvement{":"}
 							<ul className="list-disc flex flex-col gap-2 ml-8 mt-2">
-								{history?.history?.wrongTopics?.map(
-									(topic, idx) => (
-										<li key={"topic-" + idx}>
-											{topic?.name}
-										</li>
-									)
-								)}
+								{history?.wrongTopics?.map((topic, idx) => (
+									<li key={"topic-" + idx}>{topic?.name}</li>
+								))}
 							</ul>
 						</span>
 					</div>
