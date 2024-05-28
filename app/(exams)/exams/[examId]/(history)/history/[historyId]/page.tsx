@@ -79,9 +79,13 @@ const HistoryPage = async ({ params }: Props) => {
 						<span className="text-base flex flex-col">
 							Some topics need improvement{":"}
 							<ul className="list-disc flex flex-col gap-2 ml-8 mt-2">
-								{history?.wrongTopics?.map((topic, idx) => (
-									<li key={"topic-" + idx}>{topic?.name}</li>
-								))}
+								{history?.history?.wrongTopics?.map(
+									(topic, idx) => (
+										<li key={"topic-" + idx}>
+											{topic?.name}
+										</li>
+									)
+								)}
 							</ul>
 						</span>
 					</div>
