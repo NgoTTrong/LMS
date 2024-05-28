@@ -63,12 +63,12 @@ const HistoryPage = async ({ params }: Props) => {
 						<span className="text-base flex items-center gap-2">
 							Total corrects{":"}
 							<span className=" text-green-500">
-								{history?.numOfCorrects}
+								{history?.history?.numOfCorrects}
 							</span>
 							/
 							<span>
 								{Math.floor(
-									(history?.numOfCorrects * 1000) /
+									(history?.history?.numOfCorrects * 1000) /
 										(history?.history?.score != 0
 											? history?.history?.score
 											: 1)
