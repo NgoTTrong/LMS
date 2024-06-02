@@ -2,7 +2,7 @@ export default class ToxicService {
     static detect = async (message: string) => {
         const response = await fetch(
             "https://api-inference.huggingface.co/models/naot97/vietnamese-toxicity-detection_1",
-            {
+            { 
                 headers: {
                     Authorization:
                         "Bearer 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",
